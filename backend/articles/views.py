@@ -51,5 +51,5 @@ def article_detail(request, id):
 # Search Functionality
 def article_search(request):
     query = request.GET.get('q', '')
-    articles = Content.objects.filter(title__icontains=query).values()
+    articles = Articles.objects.filter(title__icontains=query).values()
     return JsonResponse(list(articles), safe=False)

@@ -25,5 +25,5 @@ class Articles(models.Model):
     def save(self, *args, **kwargs):
         # Check if the category is not Editorial, then ensure an author is provided
         if self.category.name != 'Editorial' and not self.author:
-            raise ValueError("Author is required for non-editorial content.")
+            raise ValueError("Author is required for this section.")
         super().save(*args, **kwargs)
