@@ -5,6 +5,8 @@ The Valley Digital is an online school news platform designed to promote student
 **Node.js Version** - v20.11.1  
 **NPM Version** - 10.2.4
 
+- Refer to requirements.txt for packages versions.
+
 # Folder Structure
 
 - **backend Folder** - Django related files
