@@ -127,6 +127,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True  # or specify allowed origins
 
+BASE_DIR = Path(__file__).resolve().parent.parent  # Adjust if necessary
+
 # Media settings
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # This creates a 'media' directory at the project root
