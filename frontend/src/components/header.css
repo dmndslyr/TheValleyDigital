@@ -1,0 +1,133 @@
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+.Header{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Use space-between to spread items evenly */
+    background: #0b1e33;
+    background: linear-gradient(90deg, #002f6c, #0b1e33);
+    padding: 0;
+  
+ 
+}
+
+.logo{
+    width: 210px;
+    height:70px;
+    cursor: pointer;
+    padding-left: 2%;
+    
+}
+
+ul{
+    align-items: center;
+    flex: 1;
+    display: flex; /* Use flexbox to align items on one line */
+    justify-content: center; 
+    list-style: none;
+    padding: 10px; 
+    margin: 0px; 
+    
+}
+
+ul li{
+    margin: 0 18px; 
+    font-size: 21.5px;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+
+ul li a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search-box{
+    
+    width: 200px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 30px;
+    margin-right: 2%;
+}
+
+.search-box input{
+    align-items: center;
+    padding: 6px;
+    background: transparent;
+    outline: none;
+    border: none;
+    color: #FFBA42;
+    font-size: 16px;
+    max-width: 160px;
+    font-family: 'Montserrat', sans-serif;
+   
+}
+
+.search-box input::placeholder {
+    color: #FFBA42;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search-icon {
+   margin-left: 5px;
+    color:#f5a201;
+}
+
+
+@media screen and (max-width: 768px) {
+    .Navbar {
+        flex-direction: column; /* Stack items vertically */
+        height: auto; 
+        padding: 10px;
+    }
+
+    .logo {
+        width: 130px; 
+        height: 50px;
+        margin-bottom: 15px; 
+        margin-top: 10px;
+    }
+
+    ul {
+        display: flex; /* Use flexbox for ul */
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+        justify-content: center; /* Center items horizontally */
+        padding: 0; 
+        margin: 0; 
+        
+    }
+
+    ul li {
+        width: 30%; /* Set each item to take up about 30% of the width */
+        margin: 5px; 
+        font-size: 13px; 
+        text-align: center; 
+    }
+
+    .search-box {
+        width: 35%; 
+        height: 30px;
+        margin-top: 8px; 
+        align-self: center; 
+    }
+
+    .search-box input {
+        font-size: 13px; 
+        max-width: 125px;
+    }
+}
