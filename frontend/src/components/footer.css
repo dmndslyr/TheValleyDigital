@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background: #ffffff;
+}
+
+.footer {
+  background: linear-gradient(to right, #0B1E33, #013C58, #00537A);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Footer Logo Container */
+.footer-logo-container {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
+.footer-logo img {
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Footer Content Section */
+.footer-content-container {
+  display: flex;
+  justify-content: space-between;
+  flex: 2;
+}
+
+.footer-sections, .footer-contact {
+  text-align: left;
+}
+
+.footer-sections h4, .footer-contact h4 {
+  margin-bottom: 1.5rem;
+  font-size: 20px;
+}
+
+/* Section Links Styling */
+.footer-sections .section-links {
+  display: flex;               /* Use flexbox */
+  justify-content: space-between; /* Ensure spacing between columns */
+  gap: 2rem;                   /* Add space between columns */
+}
+
+.section-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;                     /* Make each UL take up equal space */
+}
+
+.section-links ul li {
+  margin-bottom: 10px;
+}
+
+.section-links ul li a {
+  color: #d6d6d6;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.section-links ul li a:hover {
+  color: #ffffff;
+}
+
+/* Footer contact section remains unchanged */
+.footer-contact p {
+  color: #d6d6d6;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1120px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-logo img {
+    margin: 0 auto;
+  }
+
+  .footer-sections h3 {
+    margin-top: 20px;
+  }
+
+  .footer-content-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-sections, .footer-contact {
+    margin-top: 20px;
+  }
+
+  /* Stack the section links vertically on smaller screens */
+  .footer-sections .section-links {
+    flex-direction: column;
+  }
+
+  .section-links ul {
+    flex: 1 1 100%;           /* Take full width on smaller screens */
+  }
+}
