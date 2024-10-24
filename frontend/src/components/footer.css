@@ -1,0 +1,120 @@
+* {
+  padding: 0;
+  margin: 0; 
+  box-sizing: border-box; 
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background: #ffffff;
+}
+
+.footer {
+  background: linear-gradient(to right, #0B1E33, #013C58, #00537A);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 20px;  
+}
+
+/* Footer Logo */
+.footer-logo {
+  width: 200px;
+  height: auto;
+  display: inline-block;
+  z-index: 1;
+  position: relative; 
+  vertical-align: middle; 
+}
+
+/* Footer Content Section */
+.footer-content-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 1;
+  align-items: center; 
+  flex-wrap: wrap; 
+}
+
+.footer-sections, .footer-contact {
+  text-align: start;
+  padding: 10px; 
+}
+
+.footer-sections h4, .footer-contact h4 {
+  font-size: 20px;
+}
+
+.footer-contact h4 {
+  padding-bottom: 10px;
+}
+
+/* Section Links Styling */
+.footer-sections .section-links {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.first-section-links,
+.second-section-links {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start;
+}
+
+.first-section-links li,
+.second-section-links li {
+  margin-bottom: 10px;
+}
+
+.first-section-links li a,
+.second-section-links li a {
+  color: #d6d6d6;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 15px;
+}
+
+.first-section-links li a:hover,
+.second-section-links li a:hover {
+  color: #ffffff;
+}
+
+/* Footer Contact Section */
+.footer-contact p {
+  color: #d6d6d6;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1120px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 10px;
+  }
+
+  .footer-logo {
+    margin: 0 auto;
+  }
+
+  .footer-sections h3 {
+    margin-top: 20px;
+  }
+
+  .footer-content-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-sections, .footer-contact {
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  .footer-sections .section-links {
+    grid-template-columns: 1fr; 
+  }
+}
