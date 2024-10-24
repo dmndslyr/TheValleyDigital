@@ -1,15 +1,12 @@
 import React from 'react';
 import './footer.css'; 
+import footerLogo from '../assets/footerlogo.png';
 
 const Footer = () => {
   return (
     <footer className="footer">
       {/* Footer Logo Section */}
-      <div className="footer-logo-container">
-        <div className="footer-logo">
-          <img src="/public/footerlogo.png" alt="The Valley Logo" />
-        </div>
-      </div>
+      <img src={footerLogo} alt="The Valley Logo" className='footer-logo' />
 
       {/* Footer Content Section */}
       <div className="footer-content-container">
