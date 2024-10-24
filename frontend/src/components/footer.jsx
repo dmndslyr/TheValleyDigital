@@ -1,17 +1,13 @@
 import React from 'react';
 import './footer.css'; 
-import footerLogo from '../assets/footerlogo.png';
+import footerLogo from '../assets/footerlogo.jpeg'
 
 const Footer = () => {
   return (
     <footer className="footer">
-      {/* Footer Logo Section */}
       <img src={footerLogo} alt="The Valley Logo" className='footer-logo' />
 
-      {/* Footer Content Section */}
-      <div className="footer-content-container">
-        {/* Footer Sections */}
-        <div className="footer-sections">
+      <div className="footer-sections">
           <h4>SECTIONS</h4>
           <div className="section-links">
             <ul className="first-section-links">
@@ -28,14 +24,12 @@ const Footer = () => {
           <h3>READ PRINT ISSUE ONLINE</h3>
         </div>
 
-        {/* Footer Contact Section */}
         <div className="footer-contact">
           <h4>CONTACT US</h4>
           <p>Facebook</p>
           <p>sample@email.com</p>
           <p>09123456789</p>
         </div>
-      </div>
     </footer>
   );
 };
