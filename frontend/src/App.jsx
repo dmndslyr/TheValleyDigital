@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from './components/header'; 
+import ArticlePage from './pages/ArticlePage';
 
-const App = () => {
+function App(){
   return (
-    <div classname='container'>
-      <Header />  {}
-    </div>
+    <>
+    <Header></Header>
+    <ArticlePage></ArticlePage>
+    </>
   );
 };
 
