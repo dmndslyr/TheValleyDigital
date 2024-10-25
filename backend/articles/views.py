@@ -2,6 +2,17 @@ from django.http import JsonResponse
 from .models import Articles
 from django.shortcuts import get_object_or_404
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import ArticleSerializer
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAdminUser
+
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+
 # Home Page (if needed for frontend)
 def home(request):
     return JsonResponse({"message": "Welcome to the School News Portal"})
@@ -53,3 +64,66 @@ def article_search(request):
     query = request.GET.get('q', '')
     articles = Articles.objects.filter(title__icontains=query).values()
     return JsonResponse(list(articles), safe=False)
+
+# ADMIN VIEWS
+
+# CREATE Article
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def article_create(request):
+    if request.method == 'POST':
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# READ Articles (Admin can view all articles)
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def article_list_admin(request):
+    if request.method == 'GET':
+        articles = Articles.objects.all()
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data)
+
+# UPDATE Article
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def article_update(request, id):
+    try:
+        article = Articles.objects.get(pk=id)
+    except Articles.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = ArticleSerializer(article, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# DELETE Article
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def article_delete(request, id):
+    try:
+        article = Articles.objects.get(pk=id)
+    except Articles.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'DELETE':
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def admin_login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        # Generate token if authentication is successful
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key}, status=status.HTTP_200_OK)
+    return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
