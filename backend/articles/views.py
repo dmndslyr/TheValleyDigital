@@ -13,6 +13,10 @@ from rest_framework.permissions import IsAdminUser
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+
 # Home Page (if needed for frontend)
 def home(request):
     return JsonResponse({"message": "Welcome to the School News Portal"})
@@ -48,6 +52,7 @@ def sports_articles(request):
     return JsonResponse(list(articles), safe=False)
 
 # Article Detail
+#@csrf_exempt
 def article_detail(request, id):
     article = get_object_or_404(Articles, id=id)
     return JsonResponse({
@@ -116,6 +121,7 @@ def article_delete(request, id):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@csrf_exempt
 @api_view(['POST'])
 def admin_login(request):
     username = request.data.get('username')
@@ -127,3 +133,7 @@ def admin_login(request):
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key}, status=status.HTTP_200_OK)
     return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+@csrf_exempt  # Ensure this is exempt
+def test_view(request):
+    return JsonResponse({"message": "CSRF test passed!"})

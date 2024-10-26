@@ -135,16 +135,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent  # Adjust if necessary
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # This creates a 'media' directory at the project root
 
+# Add REST framework configuration
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Adjust as needed
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',  # Add this line
-    ],
+        # Uncomment the line below to use JWT token authentication
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
