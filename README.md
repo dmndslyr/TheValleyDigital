@@ -5,12 +5,12 @@ The backend of this project is entirely made with Django Framework. The virtual 
 
 Project Structure
 /project_root
-    ├── backend/
-    │   ├── venv/               # Virtual environment folder
-    │   ├── manage.py
-    │   ├── [other backend files]
-    |   ├── requirements.txt        # Python dependencies for backend
-    ├── frontend/               # Frontend (if applicable)
+	├── backend/
+	│   ├── venv/               # Virtual environment folder
+	│   ├── manage.py
+	│   ├── [other backend files]
+  |   ├── requirements.txt        # Python dependencies for backend
+  ├── frontend/               # Frontend (if applicable)
    
 Setup Instructions
 1. Create and Activate the Virtual Environment
