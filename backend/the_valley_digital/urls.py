@@ -20,10 +20,10 @@ from articles import views  # Import views from the current app
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('admin1/login/', views.admin_login, name='admin-login'),
+    path('superadmin/', admin.site.urls),
+    path('admin/login/', views.admin_login, name='admin-login'),
     path('admin/articles/', views.article_list, name='admin_article_list'),
-    path('admin1/article/<int:id>/', views.article_detail, name='article_detail'),
+    path('admin/article/<int:id>/', views.article_detail, name='article_detail'),
     path('admin/search/', views.article_search, name='admin_article_search'),  
     path('admin/create/', views.article_create, name='admin_article_create'),
     path('admin/article/<int:id>/modify/', views.article_update, name='admin_article_modify'),
