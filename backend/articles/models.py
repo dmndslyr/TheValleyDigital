@@ -23,6 +23,7 @@ class Articles(models.Model):
     is_published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='content_images/', blank=True, null=True)  # Optional image
     caption = models.TextField(blank=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name="articles")
 
     # New tags field
     tags = models.ManyToManyField(Tag, blank=True, related_name="articles")
