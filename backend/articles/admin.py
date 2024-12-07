@@ -16,14 +16,3 @@ class ArticlesAdmin(admin.ModelAdmin):
 
 # Register the Category model
 admin.site.register(Category)
-<<<<<<< HEAD
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-
-@admin.register(Articles)
-class ArticlesAdmin(admin.ModelAdmin):
-    list_display = ('headline', 'category', 'author', 'is_published', 'publication_date')
-    filter_horizontal = ('tags',)  # Makes selecting tags easier in the admin interface
-=======
->>>>>>> ab4889c0516d480127ce1d4b1d3f0082934fc122

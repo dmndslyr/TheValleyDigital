@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import Articles
+from .models import Articles, Tag
 from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view
@@ -12,6 +12,8 @@ from rest_framework.permissions import IsAdminUser
 
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
+
+from django.db.models import Q
 
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
@@ -64,11 +66,25 @@ def article_detail(request, id):
     })
     print("KHIYICGFEWUDWRFURDDDDDDVYJGVDVGJ ScvjhvbhjfkKJHBVFVBKHVFEKBGVBKEFT ANO")
 
-# Search Functionality
 def article_search(request):
-    query = request.GET.get('q', '')
-    articles = Articles.objects.filter(title__icontains=query).values()
-    return JsonResponse(list(articles), safe=False)
+    query = request.GET.get('query', '')  # Get the search query from the GET request
+
+    # Start with all articles
+    articles = Articles.objects.all()
+
+    if query:
+        # Filter articles based on query matching headline, content, or tags
+        articles = articles.filter(
+            Q(headline__icontains=query) |  # Match headline
+            Q(content__icontains=query) |   # Match content
+            Q(tags__name__icontains=query)  # Match tags (ManyToMany relationship)
+        ).distinct()
+
+    # Prepare the data to be returned as JSON
+    articles_data = list(articles.values('id', 'headline', 'author', 'publication_date', 'content', 'tags__name'))
+
+    # Return the response in JSON format
+    return JsonResponse({'articles': articles_data})
 
 # ADMIN VIEWS
 
