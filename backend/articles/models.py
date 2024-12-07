@@ -6,9 +6,14 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
-# Create your models here.
+# Assuming a simple Tag model for demonstration
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Articles(models.Model):
-    
     # Use a ForeignKey to link to the Category model
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     headline = models.CharField(max_length=200)
@@ -18,6 +23,7 @@ class Articles(models.Model):
     is_published = models.BooleanField(default=True)
     image = models.ImageField(upload_to='content_images/', blank=True, null=True)  # Optional image
     caption = models.TextField(blank=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True, related_name="articles")
 
     def __str__(self):
         return self.headline
