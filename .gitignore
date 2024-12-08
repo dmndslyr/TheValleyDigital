@@ -10,3 +10,4 @@ staticfiles/
 # Ignore compiled files
 __pycache__/
 *.pyc
+backend\the_valley_digital\__pycache__
