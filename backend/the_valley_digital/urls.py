@@ -20,14 +20,14 @@ from articles import views  # Import views from the current app
 
 
 urlpatterns = [
-    path('superadmin/', admin.site.urls),
-    path('admin/login/', views.admin_login, name='admin-login'),
-    path('admin/articles/', views.article_list, name='admin_article_list'),
-    path('admin/article/<int:id>/', views.article_detail, name='article_detail'),
-    path('admin/search/', views.article_search, name='admin_article_search'),  
-    path('admin/create/', views.article_create, name='admin_article_create'),
-    path('admin/article/<int:id>/modify/', views.article_update, name='admin_article_modify'),
-    path('admin/article/<int:id>/delete/', views.article_delete, name='admin_article_delete'),
+    path('admin/', admin.site.urls),
+    path('editor/login/', views.editor_login, name='editor-login'),
+    path('editor/articles/', views.article_list, name='editor_article_list'),
+    path('editor/article/<int:id>/', views.article_detail, name='editor_detail'),
+    path('editor/search/', views.article_search, name='editor_article_search'),  
+    path('editor/create/', views.article_create, name='editor_article_create'),
+    path('editor/article/<int:id>/modify/', views.article_update, name='editor_article_modify'),
+    path('editor/article/<int:id>/delete/', views.article_delete, name='editor_article_delete'),
 
     path('test/', views.test_view, name='test_view'),
 
@@ -41,6 +41,8 @@ urlpatterns = [
     path('articles/sports/', views.sports_articles, name='sports_articles'),  # Sports articles
     path('article/<int:id>/', views.article_detail, name='article_detail'),  # Article detail by ID
     path('search/', views.article_search, name='article_search'),  # Search functionality
+    path('article/<slug:identifier>/', views.article_detail, name='article_detail_by_slug'),  # Search by slug
+    path('article/<int:identifier>/', views.article_detail, name='article_detail_by_id'),  # Search by ID
 ]
 
 

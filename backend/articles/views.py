@@ -55,16 +55,20 @@ def sports_articles(request):
 
 # Article Detail
 #@csrf_exempt
-def article_detail(request, id):
-    article = get_object_or_404(Articles, id=id)
+def article_detail(request, identifier):
+    # Check if the identifier is numeric (ID) or a slug
+    if identifier.isdigit():
+        article = get_object_or_404(Articles, id=identifier)  # Search by ID
+    else:
+        article = get_object_or_404(Articles, slug=identifier)  # Search by Slug
+
     return JsonResponse({
         'id': article.id,
         'headline': article.headline,
         'content': article.content,
-        # 'photo': article.photo.url,  # Assuming your model has a photo field
         'category': article.category.name,
+        'slug': article.slug,  # Include the slug in the response
     })
-    print("KHIYICGFEWUDWRFURDDDDDDVYJGVDVGJ ScvjhvbhjfkKJHBVFVBKHVFEKBGVBKEFT ANO")
 
 def article_search(request):
     query = request.GET.get('query', '')  # Get the search query from the GET request
@@ -73,15 +77,16 @@ def article_search(request):
     articles = Articles.objects.all()
 
     if query:
-        # Filter articles based on query matching headline, content, or tags
+        # Filter articles based on query matching headline, content, or tags or slug
         articles = articles.filter(
             Q(headline__icontains=query) |  # Match headline
             Q(content__icontains=query) |   # Match content
-            Q(tags__name__icontains=query)  # Match tags (ManyToMany relationship)
+            Q(tags__name__icontains=query)  |  # Match tags (ManyToMany relationship)
+            Q(slug__icontains=query)  # Match slugs
         ).distinct()
 
     # Prepare the data to be returned as JSON
-    articles_data = list(articles.values('id', 'headline', 'author', 'publication_date', 'content', 'tags__name'))
+    articles_data = list(articles.values('id', 'headline', 'author', 'publication_date', 'content', 'tags__name', 'slug'))
 
     # Return the response in JSON format
     return JsonResponse({'articles': articles_data})
@@ -139,7 +144,7 @@ def article_delete(request, id):
 
 @csrf_exempt
 @api_view(['POST'])
-def admin_login(request):
+def editor_login(request):
     username = request.data.get('username')
     password = request.data.get('password')
 

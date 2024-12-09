@@ -1,11 +1,12 @@
 from django.db import models
+from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
-    
+
 # Assuming a simple Tag model for demonstration
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -24,15 +25,18 @@ class Articles(models.Model):
     image = models.ImageField(upload_to='content_images/', blank=True, null=True)  # Optional image
     caption = models.TextField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="articles")
-
-    # New tags field
-    tags = models.ManyToManyField(Tag, blank=True, related_name="articles")
-
-    def __str__(self):
-        return self.headline
+    
+    # Slug field for URL-friendly version of the headline
+    slug = models.SlugField(unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.headline)
+        
         # Check if the category is not Editorial, then ensure an author is provided
         if self.category.name != 'Editorial' and not self.author:
             raise ValueError("Author is required for this section.")
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.headline
