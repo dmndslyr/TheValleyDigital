@@ -7,6 +7,9 @@
     background: #0b1e33;
     background: linear-gradient(90deg, #002f6c, #0b1e33);
     padding: 0;
+    /* position: fixed;
+    top: 0;
+    z-index: 1038; */
 }
 
 .logo{
