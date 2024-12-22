@@ -50,7 +50,7 @@ Setup Instructions
 
 	http://127.0.0.1:8000/
 
-Additional Notes
+## Additional Notes
 - Ensure Python 3.12 or later is installed on your system.
 - The requirements.txt file lists all dependencies for the backend.
 - The venv/ folder should not be included in version control. Add venv/ to your .gitignore file to exclude it.
@@ -58,7 +58,7 @@ Additional Notes
 
 	deactivate
 
-Troubleshooting
+## Troubleshooting
 If you encounter issues during setup or while running the project:
 - Ensure the correct Python version is installed.
 - Verify that all dependencies listed in requirements.txt are installed.
