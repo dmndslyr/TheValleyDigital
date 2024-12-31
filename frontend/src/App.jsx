@@ -4,6 +4,12 @@ import ArticlePage from './pages/ArticlePage';
 import AboutUs from './pages/AboutUs';
 import PrintIssue from './pages/PrintIssue';
 import Footer from './components/Footer';  // Adjust path if necessary
+import NewsPage from './pages/NewsPage';
+import EditorialsPage from './pages/EditorialsPage';
+import FeaturePage from './pages/FeaturePage';
+import SciTechPage from './pages/ScitechPage';
+import SportsPage from './pages/SportsPage';
+import OpinionPage from './pages/OpinionPage';
 
 const App = () => {
   return (
