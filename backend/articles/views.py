@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import Articles, Tag
+from .models import Articles, Tag, PrintedIssue
 from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view
@@ -90,6 +90,41 @@ def article_search(request):
 
     # Return the response in JSON format
     return JsonResponse({'articles': articles_data})
+
+
+def printed_issues_list(request):
+    issues = PrintedIssue.objects.all()
+    data = [
+        {
+            "volume": issue.volume,
+            "issue_no": issue.issue_no,
+            "month_range": issue.month_range,
+            "is_published": issue.is_published,
+            "pdf_file_url": issue.pdf_file.url if issue.pdf_file else None,
+            "slug": issue.slug,
+        }
+        for issue in issues
+    ]
+    return JsonResponse({"printed_issues": data})
+
+
+# Printed Issue Detail
+def printed_issue_detail(request, identifier):
+    # Check if the identifier is numeric (ID) or a slug
+    if identifier.isdigit():
+        issue = get_object_or_404(PrintedIssue, id=identifier)  # Search by ID
+    else:
+        issue = get_object_or_404(PrintedIssue, slug=identifier)  # Search by Slug
+
+    return JsonResponse({
+        'id': issue.id,
+        'volume': issue.volume,
+        'issue_no': issue.issue_no,
+        'month_range': issue.month_range,
+        'is_published': issue.is_published,
+        'pdf_file_url': issue.pdf_file.url if issue.pdf_file else None,
+        'slug': issue.slug,  # Include the slug in the response
+    })
 
 # ADMIN VIEWS
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Articles, Tag
+from .models import Category, Articles, Tag, PrintedIssue
 
 # Register the Tag model
 @admin.register(Tag)
@@ -16,3 +16,8 @@ class ArticlesAdmin(admin.ModelAdmin):
 
 # Register the Category model
 admin.site.register(Category)
+
+@admin.register(PrintedIssue)
+class PrintedIssueAdmin(admin.ModelAdmin):
+    list_display = ('volume', 'issue_no', 'month_range', 'is_published', 'slug')
+    prepopulated_fields = {"slug": ("volume", "issue_no")}
