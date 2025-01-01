@@ -1,0 +1,386 @@
+/* General page styling */
+.news-page {
+  padding: 20px;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto 30px; 
+}
+
+/* Title header styling */
+.news-title-header {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 1vh;
+}
+
+.header-slice {
+  background-color: #013c58;
+  clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%);
+  width: 3%;
+}
+
+.news-page h1 {
+  padding: 2.5vh;
+  margin: 0;
+  width: 35%;
+  text-align: center;
+  font-size: 4vh;
+  font-weight: 900;
+  font-style: italic;
+  color: white;
+  background: rgb(0,47,108);
+  background: linear-gradient(90deg, rgba(0,47,108,1) 0%, rgba(11,30,51,1) 100%); 
+  clip-path: polygon(2% 0, 100% 0, 98% 100%, 0 100%);
+}
+
+/* Articles container */
+.news-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* General article styling */
+.news-article {
+  display: flex;
+  padding: 15px;
+  border-radius: 5px;
+  transition: transform 0.2s;
+  cursor: pointer; 
+  margin-bottom: 1px;
+}
+
+.news-article:hover {
+  transform: translateY(5px); 
+}
+
+/* Latest article styling */
+.newest-article {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  width: 100%;
+}
+
+.newest-image {
+  width: 100%; 
+  max-height: 400px; 
+  border-radius: 5px;
+  margin-bottom: 0px;
+  object-fit: cover; 
+}
+
+.newest-content {
+  width: 100%;
+  text-align: left; 
+}
+
+.newest-content .news-headline {
+  font-size: 2vw; 
+  font-weight: bolder;
+  color: #0b1e33;
+  margin-bottom: 0px;
+  padding-left: 0; 
+}
+
+.newest-content .news-meta {
+  display: flex;
+  align-items: center;
+  font-size: 0.9vw; 
+  color: #0b1e33;
+}
+
+.newest-content .news-author{
+  margin-right: 1vw; 
+  font-size: 1.2vw;
+}
+
+.newest-content .news-time,
+.newest-content .news-date {
+  margin-right: .5vw; 
+  font-size: 1.2vw;
+}
+
+/* Articles container */
+.news-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* Two-column layout for recent articles */
+.recent-articles-container {
+  display: flex;
+  gap: 1px;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Distribute articles evenly across the container */
+}
+
+/* Style for each article container */
+.recent-article {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+}
+
+/* Style for the image */
+.recent-article .news-image {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Ensure that the second and third articles are aligned to the start and end */
+.recent-article:nth-child(2) {
+  margin-left: 0;
+}
+
+.recent-article:nth-child(3) {
+  margin-left: auto; /* Push this to the right */
+}
+
+/* Style for the content (headline and meta) */
+.recent-article .news-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  align-items: flex-start; /* Align the text to the left */
+}
+
+/* Style for headline */
+.recent-article .news-headline {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+/* Style for meta (author, date, and time) */
+.recent-article .news-author {
+  display: inline-block;
+  gap: 2px;
+  font-size: 0.9rem;
+}
+.recent-article .news-date,
+.recent-article .news-time {
+  display: inline-block;
+  margin-right: .5vw;
+  font-size: 0.9rem;
+  color: #0b1e33;
+}
+
+/* General news image styling */
+.news-image {
+  flex-shrink: 0; 
+  width: 200px;
+  height: 130px;
+  margin-right: 15px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/* General news content styling */
+.news-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+  flex-grow: 1; 
+  height: 130px; /* Match the height of the image */
+}
+
+.news-headline {
+  font-size: 1.4vw; 
+  font-weight: bolder;
+  margin: 0;
+  color: #0b1e33;
+}
+
+.news-author {
+  display: inline-block;
+  font-weight: bold;
+  color: #f5a201;
+  margin: 5px 0;
+  font-size: 1vw;
+  margin-right: 1vw; 
+  text-align: center; /* Center align the text */
+}
+
+.news-time,
+.news-date {
+  display: inline-block;
+  color: #0b1e33;
+  margin: 5px 0;
+  font-size: 1vw; 
+  margin-right: .5vw; 
+  text-align: center; /* Center align the text */
+}
+
+/* Modern pagination styles */
+.all-article-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0vw;
+  margin-bottom: 1vw;
+  gap: 2vw;
+}
+
+/* General button style for pagination */
+.all-article-pagination button,
+.all-article-pagination .all-article-arrow,
+.all-article-pagination .all-article-ellipsis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5vw;
+  font-weight: 600;
+  border: none; /* No borders around buttons */
+  background: none; /* No background */
+  cursor: pointer;
+  color: #0b1e33;
+  padding: 0.5vw 1vw; 
+  transition: all 0.3s ease;
+}
+
+.all-article-pagination button:hover,
+.all-article-pagination .all-article-arrow:hover {
+  color: #f5a201; 
+  transform: translateY(-3px);
+}
+
+/* Active button style */
+.all-article-pagination button.active {
+  color: #f5a201; 
+  font-weight: bold;
+}
+
+/* Previous/Next arrow styles */
+.all-article-pagination .all-article-arrow {
+  font-size: 2vw; /* Larger arrows for a more modern look */
+  color: #0b1e33;
+}
+
+.all-article-pagination .all-article-arrow.prev:before {
+  content: "<<"; /* Left arrow changed to <<< */
+  font-size: 2.5vw;
+  color: #0b1e33;
+}
+
+.all-article-pagination .all-article-arrow.next:before {
+  content: ">>"; /* Right arrow changed to >>> */
+  font-size: 2.5vw;
+  color: #0b1e33;
+}
+
+/* Ellipsis for pages in between (optional) */
+.all-article-pagination .all-article-ellipsis {
+  font-size: 1.5vw;
+  color: #0b1e33;
+}
+
+/* Disabled state for arrows */
+.all-article-pagination .all-article-arrow:disabled {
+  color: #f5a201;
+  cursor: not-allowed;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  /* Resize the title for smaller screens */
+  .news-page h1 {
+      font-size: 3vh; 
+      width: 50vw;
+      padding: 1vh; 
+      height: auto; 
+  }
+
+  /* Resize image for smaller screens */
+  .newest-image {
+      max-height: 25vw; 
+      margin-right: 3vw;
+      object-fit: cover; 
+  }
+
+  /* Resize text for smaller screens */
+  .newest-content .news-headline {
+      font-size: 5vw;
+      margin-top: 2vw;
+  }
+
+  .newest-article {
+      padding: 1vw; 
+      width: calc(100% - 4vw); 
+      margin-right: 3vw; 
+  }
+
+  .newest-content .news-author {
+      font-size: 3vw; 
+  }
+
+  .newest-content .news-time,
+  .newest-content .news-date {
+      font-size: 3vw; 
+  }
+
+  /* Make the article's padding smaller */
+  .newest-article {
+      padding: 1.5vw;
+  }
+
+  /* Resize recent articles images */
+  .recent-article .news-image {
+      height: 30vw; 
+      width: 100%; 
+  }
+
+  /* Adjust text sizes for recent articles */
+  .recent-article .feature-headline {
+      font-size: 3.2vw; 
+  }
+
+  .recent-article .feature-author,
+  .recent-article .feature-date,
+  .recent-article .feature-time {
+      font-size: 2.1vw; 
+  }
+
+  /* Pagination button adjustments */
+  .all-article-pagination button,
+  .all-article-pagination .all-article-arrow,
+  .all-article-pagination .all-article-ellipsis {
+      font-size: 4vw; 
+      padding: 1vw 2vw; 
+  }
+
+  .all-article-pagination .all-article-arrow.prev:before,
+  .all-article-pagination .all-article-arrow.next:before {
+      font-size: 5vw; 
+  }
+
+  /* Resize the news image */
+  .news-image {
+      width: 35vw; 
+      height: 25vw; 
+  }
+
+  /* Adjust content size */
+  .news-content {
+      height: auto; 
+  }
+
+  .news-headline {
+      font-size: 3vw; 
+  }
+
+  .news-author {
+      font-size: 2.4vw; 
+  }
+
+  .news-time,
+  .news-date {
+      font-size: 2.4vw; 
+  }
+}
