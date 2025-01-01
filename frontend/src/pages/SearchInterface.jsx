@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './SearchInterface.css';
 import placeholderImg from '../assets/placeholder.jpg';
-import FilterIcon from '../components/FilterIcon';
 
 const SearchInterface = () => {
   const [searchQuery, setSearchQuery] = useState('');
