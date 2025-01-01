@@ -49,7 +49,7 @@
 
 .search-box{
     width: 11vw;
-    height: 1.5vw;
+    height: 2vw;
     display: flex;
     align-items: center;
     background: white;
@@ -136,14 +136,9 @@
         margin: 5vw 0;
       }
   
-      .navMenu li:hover {
-        background-color: steelblue;
-        text-decoration: underline;
-        transition: all 0.4s ease-in-out;
-      }
-
       .navMenu li a{
-        font-size: 5vw;
+        font-size: 4vw;
+        margin: 5vw;
       }
       
       .search-box{

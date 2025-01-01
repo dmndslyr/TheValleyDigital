@@ -73,6 +73,11 @@
     margin-top: 2vh;
 }
 
+.issue-photo button:hover{
+    background-color: #0b1e33;
+    cursor: pointer;
+}
+
 .right-latest-issue{
     display: flex;
     flex-direction: column;
@@ -141,6 +146,12 @@
     font-size: 2vh;
     color: white;
     padding: 1vh;
+    margin-top: 1vw;
+}
+
+.past-issue button:hover{
+    background-color: #c08102;
+    cursor: pointer;
 }
 
 .right-past-issue{
