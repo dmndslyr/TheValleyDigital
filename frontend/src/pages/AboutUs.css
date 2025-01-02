@@ -1,0 +1,302 @@
+.about-us-header{
+    margin: 5vh 0 0 0;
+    display: flex;
+}
+
+.about-us-left{
+    display: flex;
+    background-color: #0b1e33;
+    color: white;
+    font-weight: 700;
+    font-style: italic;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    clip-path: polygon(0 0, 100% 0, 97% 100%, 0 100%);
+    padding: 1vw 0;
+}
+
+.about-us-dleft img,
+.about-us-left img{
+    object-fit: contain;
+    width: 40vh;
+    height: 100%;
+    padding: 2vh;
+}
+
+.about-us-dleft p,
+.about-us-left p{
+    font-size: 2.5vh;
+    text-align: end;
+    width: 40%;
+}
+
+.about-us-middle{
+    background-color: #013c58;
+    width: 5%;
+    margin: 0;
+    clip-path: polygon(35% 0, 100% 0, 65% 100%, 0 100%);
+    padding: 2vh 0;
+}
+
+.about-us-right{
+    clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+    background-color: #ffba42;
+    width: 30%;
+    text-align: end;
+    align-content: center;
+    padding: 2vh 0;
+}
+
+.about-us-dright h3,
+.about-us-right h3{
+    padding: 0 10vh;
+    font-size: 3vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 200;
+    letter-spacing: 0.5vh;
+    margin: 0;
+}
+
+.about-us-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #013c58;
+}
+
+.about-us-content table{
+    font-size: 2.5vh;
+    margin-bottom: 5vh;
+}
+
+.about-us-content td{
+    padding: 0.5vh 7vh;
+}
+
+.about-us-content p{
+    font-size: 2.5vh;
+    color: #013c58;
+    padding: 5vh 0 2vh 0;
+}
+
+.faculty{
+    text-align: center;
+    padding: 2vh;
+}
+
+.faculty p{
+    padding: 0;
+    font-weight: bold;
+}
+
+.about-us-development{
+    margin: 5vh 0 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+.about-us-dleft{
+    display: flex;
+    background-color: #0b1e33;
+    color: white;
+    font-weight: 700;
+    font-style: italic;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
+    padding: 1vw 0;
+}
+
+.about-us-dright{
+    clip-path: polygon(9% 0, 100% 0, 91% 100%, 0 100%);
+    background-color: #ffba42;
+    width: 20%;
+    text-align: end;
+    align-content: center;
+    padding: 2vh 0;
+}
+
+.about-us-content h4{
+    font-size: 2.5vh;
+    color: black;
+}
+
+.department-info p{
+    padding: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.copyright{
+    margin: 5vh;
+}
+
+.copyright p{
+    text-align: center;
+    padding: 0;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1024px){
+    .about-us-header{
+        margin: 2vh 0 2vh 0;
+        display: flex;
+    }
+    
+    .about-us-left{
+        display: flex;
+        background-color: #0b1e33;
+        color: white;
+        font-weight: 700;
+        font-style: italic;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+        clip-path: polygon(0 0, 100% 0, 97% 100%, 0 100%);
+        padding: 1vw 0;
+    }
+    
+    .about-us-dleft img,
+    .about-us-left img{
+        object-fit: contain;
+        width: 12vh;
+        height: 100%;
+        padding: 2vh 0;
+    }
+
+    .about-us-left p{
+        font-size: 1vh;
+        text-align: end;
+        width: 50%;
+    }
+    
+    .about-us-middle{
+        background-color: #013c58;
+        width: 5%;
+        margin: 0;
+        clip-path: polygon(35% 0, 100% 0, 65% 100%, 0 100%);
+        padding: 2vh 0;
+    }
+    
+    .about-us-right{
+        clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+        background-color: #ffba42;
+        width: 30%;
+        text-align: end;
+        align-content: center;
+        padding: 3vh 0;
+    }
+    
+    .about-us-dright h3,
+    .about-us-right h3{
+        padding: 0 2vh;
+        font-size: 1vh;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 200;
+        letter-spacing: 0.5vh;
+        margin: 0;
+    }
+    
+    .about-us-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #013c58;
+    }
+    
+    .about-us-content table{
+        font-size: 1.5vh;
+        margin-bottom: 5vh;
+    }
+    
+    .about-us-content td{
+        padding: 0.5vh 1.5vh;
+    }
+    
+    .about-us-content p{
+        font-size: 1.5vh;
+        color: #013c58;
+        padding: 2vh 0 5vh 0;
+    }
+    
+    .faculty{
+        text-align: center;
+        padding: 1vh;
+    }
+    
+    .faculty p{
+        padding: 0;
+        font-weight: bold;
+    }
+    
+    .about-us-development{
+        margin: 5vh 0 5vh 0;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .about-us-dleft{
+        display: flex;
+        background-color: #0b1e33;
+        color: white;
+        font-weight: 700;
+        font-style: italic;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
+        padding: 1vw 0;
+    }
+    
+    .about-us-dright{
+        clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+        background-color: #ffba42;
+        width: 30%;
+        text-align: end;
+        align-content: center;
+        padding: 2vh 0;
+    }
+    
+    .about-us-content h4{
+        font-size: 2vh;
+        color: black;
+    }
+
+    .department-info{
+        margin-bottom: 3vh;
+    }
+    
+    .department-info p{
+        padding: 0;
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    .copyright{
+        margin: 5vh;
+    }
+    
+    .copyright p{
+        text-align: center;
+        padding: 0;
+        font-weight: bold;
+    }
+
+    .about-us-dleft p{
+        font-size: 1vh;
+        text-align: end;
+        width: 30%;
+    }
+
+    .requirement-txt{
+        width: 90%;
+        text-align: center;
+    }
+
+    .developers td{
+        padding: 0.5vh 3vh;
+        text-align: center;
+    }
+}

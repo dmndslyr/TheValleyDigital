@@ -1,0 +1,131 @@
+.footer {
+  background: linear-gradient(to right, #0B1E33, #023249, #00415f);
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  padding: 0.5vw 0;
+}
+
+/* Footer Logo */
+.footer-logo {
+  width: 14vw;
+  height: 12vw;
+  object-fit: cover;
+  margin: 0;
+}
+
+.footer-sections, .footer-contact {
+  text-align: start;
+  padding: 1vw;
+}
+
+.footer-sections h4, .footer-contact h4 {
+  font-size: 1vw;
+}
+
+.footer-contact h4 {
+  padding-bottom: 1vw;
+}
+
+.footer-sections .section-links {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.first-section-links,
+.second-section-links {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start;
+}
+
+.footer ul{
+  padding: 0;
+  margin: 0;
+}
+
+.first-section-links li,
+.second-section-links li {
+  margin-bottom: 1vw;
+  list-style: none;
+}
+
+.second-section-links li{
+  margin-left: 3vw;
+}
+
+
+.first-section-links li a,
+.second-section-links li a {
+  color: #b4b4b4;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 1vw;
+}
+
+.first-section-links li a:hover,
+.second-section-links li a:hover {
+  color: #ffffff;
+}
+
+/* Footer Contact Section */
+.footer-contact p {
+  color: #d6d6d6;
+  margin-bottom: 1vw;
+  font-size: 1vw;
+}
+
+@media screen and (max-width: 750px) {
+  .footer {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: start;
+    padding: 5vw 0;
+  }
+
+  .footer-logo {
+    width: 18vw;
+    height: 16vw;
+    object-fit: cover;
+    margin: 0;
+  }
+
+  .footer h4{
+    font-size: 2vw;
+    text-align: start;
+  }
+
+  .footer-sections{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .section-links{
+    align-self: center;
+    text-align: start;
+  }
+
+  .footer-sections h3 {
+    display: none;
+  }
+
+  .first-section-links li a,
+  .second-section-links li a {
+    font-size: 2.2vw;
+  }
+
+  .footer-contact{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: start;
+  }
+
+  .footer-contact p{
+    font-size: 2.2vw;
+  }
+}

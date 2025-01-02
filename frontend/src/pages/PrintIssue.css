@@ -1,0 +1,310 @@
+.print-issue{
+    margin: 5vh 10vh;
+}
+
+.print-issue-header{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.header-slice{
+    background-color: #013c58;
+    clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%);
+    width: 3%;
+}
+
+.print-issue h2{
+    background-color: #013c58;
+    color: white;
+    font-size: 3vh;
+    font-weight: 700;
+    width: 15%;
+    padding: 0.5vh;
+    margin: 5vh 10vh 0 10vh;
+    text-align: center;
+}
+
+.print-issue h1{
+    padding: 2.5vh;
+    margin: 0;
+    width: 35%;
+    text-align: center;
+    font-size: 4vh;
+    font-weight: 900;
+    font-style: italic;
+    color: white;
+    background: rgb(0,47,108);
+    background: linear-gradient(90deg, rgba(0,47,108,1) 0%, rgba(11,30,51,1) 100%); 
+    clip-path: polygon(2% 0, 100% 0, 98% 100%, 0 100%);
+}
+
+.latest-issue{
+    display: flex;
+    flex-direction: row;
+    background-color: #f5a201;
+    padding: 5vh 15vh;
+    margin: 0 10vh;
+    border-top-right-radius: 2vh;
+    border-bottom-right-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.issue-photo{
+    display: flex;
+    flex-direction: column;
+}
+
+.issue-photo img{
+    width: 23vh;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 5px 5px 8px #333333;
+}
+
+.issue-photo button{
+    background-color: #013c58;
+    color: white;
+    font-size: 2vh;
+    padding: 1vh;
+    border: none;
+    margin-top: 2vh;
+}
+
+.issue-photo button:hover{
+    background-color: #0b1e33;
+    cursor: pointer;
+}
+
+.right-latest-issue{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-left: 5vh;
+}
+
+.right-latest-issue img{
+    width: 40vh;
+    height: auto;
+    object-fit: contain;
+}
+
+.right-latest-issue h3{
+    font-size: 6vh;
+    font-weight: 900;
+    color: #0b1e33;
+    margin: 0;
+}
+
+.right-latest-issue p{
+    font-size: 2.5vh;
+}
+
+.award-item{
+    background-color: white;
+    margin: 1vh 0;
+    border-radius: 2vh;
+    padding: 1vh;
+    font-size: 1.5vh;
+    font-weight: 900;
+}
+
+.past-issue{
+    display: flex;
+    flex-direction: row;
+    background-color: #0b1e33;
+    padding: 3vh 20vh;
+    margin: 5vh 10vh 0 10vh;
+    border-radius: 2vh;
+    justify-content: start;
+    align-items: center;
+}
+
+.past-issue h3{
+    color: #ffba42;
+    font-size: 3vh;
+    font-weight: 700;
+    margin: 0;
+}
+
+.past-issue-photo img{
+    width: 15vh;
+    height: auto;
+    object-fit: contain;
+}
+
+.past-issue p{
+    color: white;
+    font-size: 2.5vh;
+}
+
+.past-issue button{
+    background-color: #f5a201;
+    border: none;
+    font-size: 2vh;
+    color: white;
+    padding: 1vh;
+    margin-top: 1vw;
+}
+
+.past-issue button:hover{
+    background-color: #c08102;
+    cursor: pointer;
+}
+
+.right-past-issue{
+    margin-left: 10vh;
+}
+
+@media screen and (max-width: 1024px) {
+    .print-issue{
+        margin: 2vh;
+    }
+    
+    .print-issue-header{
+        display: flex;
+        margin: 5vh 0;
+        padding: 0;
+    }
+    
+    .header-slice{
+        background-color: #013c58;
+        clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%);
+        width: 4%;
+    }
+    
+    .print-issue h2{
+        background-color: #013c58;
+        color: white;
+        font-size: 2.5vh;
+        font-weight: 700;
+        width: 50%;
+        padding: 0.5vh;
+        margin: 5vh 0 0 0;
+        text-align: center;
+    }
+    
+    .print-issue h1{
+        padding: 2.5vh;
+        margin: 0;
+        width: 50%;
+        text-align: center;
+        font-size: 3vh;
+        font-weight: 900;
+        font-style: italic;
+        color: white;
+        background: rgb(0,47,108);
+        background: linear-gradient(90deg, rgba(0,47,108,1) 0%, rgba(11,30,51,1) 100%); 
+        clip-path: polygon(2% 0, 100% 0, 98% 100%, 0 100%);
+    }
+    
+    .latest-issue{
+        display: flex;
+        flex-direction: row;
+        background-color: #f5a201;
+        padding: 5vh 5vh;
+        margin: 0;
+        border-top-right-radius: 2vh;
+        border-bottom-right-radius: 2vh;
+        border-bottom-left-radius: 2vh;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .issue-photo{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .issue-photo img{
+        width: 10vh;
+        height: auto;
+        object-fit: contain;
+        box-shadow: 5px 5px 8px #333333;
+    }
+    
+    .issue-photo button{
+        background-color: #013c58;
+        color: white;
+        font-size: 1.5vh;
+        padding: 1vh;
+        border: none;
+        margin-top: 2vh;
+    }
+    
+    .right-latest-issue{
+        display: flex;
+        flex-direction: column;
+        text-align: start;
+        width: 60%;
+    }
+    
+    .right-latest-issue img{
+        width: 15vh;
+        height: auto;
+        object-fit: contain;
+    }
+    
+    .right-latest-issue h3{
+        font-size: 2.5vh;
+        font-weight: 900;
+        color: #0b1e33;
+        margin: 0;
+    }
+    
+    .right-latest-issue p{
+        font-size: 1.5vh;
+    }
+    
+    .award-item{
+        background-color: white;
+        margin: 1vh 0;
+        border-radius: 2vh;
+        padding: 1vh;
+        font-size: 1.3vh;
+        font-weight: 900;
+    }
+    
+    .past-issue{
+        display: flex;
+        flex-direction: row;
+        background-color: #0b1e33;
+        padding: 3vh 3vh;
+        margin: 5vh 0;
+        border-radius: 2vh;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .past-issue h3{
+        color: #ffba42;
+        font-size: 2vh;
+        font-weight: 700;
+        margin: 0;
+    }
+    
+    .past-issue-photo img{
+        width: 10vh;
+        height: auto;
+        object-fit: contain;
+    }
+    
+    .past-issue p{
+        color: white;
+        font-size: 1.3vh;
+    }
+    
+    .past-issue button{
+        background-color: #f5a201;
+        border: none;
+        font-size: 1.5vh;
+        color: white;
+        padding: 1vh;
+    }
+    
+    .right-past-issue{
+        margin-left: 0vh;
+    }
+}
