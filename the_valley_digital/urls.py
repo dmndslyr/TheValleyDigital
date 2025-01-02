@@ -30,6 +30,13 @@ urlpatterns = [
     path('articles/sports/', views.sports_articles, name='sports_articles'),  # Sports articles
     path('article/<int:id>/', views.article_detail, name='article_detail'),  # Article detail by ID
     path('search/', views.article_search, name='article_search'),  # Search functionality
+<<<<<<< Updated upstream:the_valley_digital/urls.py
+=======
+    path('article/<slug:identifier>/', views.article_detail, name='article_detail_by_slug'),  # Search by slug
+    path('article/<int:identifier>/', views.article_detail, name='article_detail_by_id'),  # Search by ID
+    path('print-issues/', views.printed_issues_list, name='printed_issues_list'),  # List all printed issues
+    path('print-issues/<str:identifier>/', views.printed_issue_detail, name='printed_issue_detail'),
+>>>>>>> Stashed changes:backend/the_valley_digital/urls.py
 ]
 
 
