@@ -1,0 +1,135 @@
+.login-page{
+    background-image: url('../assets/login-page.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center; 
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.login-page img{
+    width: 40vw;
+    height: auto;
+    object-fit: contain;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.329);
+    padding: 5vw 3vw;
+    border-radius: 5vh;
+    height: 30vw;
+    margin-right: 5vw;
+}
+
+.login-form h2{
+    font-size: 1.5vw;
+    padding-bottom: 2.5vw;
+    color: #f5a201;
+}
+
+.login-form input{
+    border: none;
+    background: none;
+    padding: 1.5vw 0;
+    font-size: 1vw;
+    font-weight: 900;
+    width: 17vw;
+    border-bottom: 2px solid rgb(177, 177, 177);
+    color: rgb(236, 236, 236);
+}
+
+.login-form input:focus{
+    outline: none;
+}
+
+.login-form button{
+    color: #ffba42;
+    background-color: rgb(0,47,108);
+    border: none;
+    padding: 0.5vw;
+    width: 10vw;
+    font-size: 1vw;
+    margin-top: 5vw;
+    border-radius: 1vw;
+    font-weight: 900;
+}
+
+
+@media screen and (max-width: 800px) {
+
+    .login-page{
+        background-image: url('../assets/login-page.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top center; 
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+
+    .login-page img{
+        display: flex;
+        object-fit: contain;
+        width: 50vw;
+        height: auto;
+        margin: 0;
+    }
+
+    .login-form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.329);
+        padding: 10vw 5vw;
+        border-radius: 10vw;
+        height: 80vw;
+        margin: 0;
+    }
+    
+    .login-form h2{
+        font-size: 4vw;
+        padding-bottom: 2.5vw;
+        color: #f5a201;
+    }
+    
+    .login-form input{
+        border: none;
+        background: none;
+        padding: 5vw 0;
+        font-size: 3vw;
+        font-weight: 600;
+        width: 60vw;
+        border-bottom: 2px solid rgb(177, 177, 177);
+        color: rgb(236, 236, 236);
+    }
+    
+    .login-form input:focus{
+        outline: none;
+    }
+    
+    .login-form button{
+        color: #f5a201;
+        background-color: #005479;
+        border: none;
+        padding: 2vw;
+        width: 15vw;
+        font-size: 3vw;
+        margin-top: 15vw;
+        border-radius: 1vw;
+    }
+
+}
