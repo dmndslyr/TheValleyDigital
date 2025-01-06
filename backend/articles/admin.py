@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Category, Articles, Tag, PrintedIssue
+from django.contrib.auth.admin import UserAdmin
+from .models import Category, Articles, Tag, PrintedIssue, User
+
+admin.site.register(User, UserAdmin)
 
 # Register the Tag model
 @admin.register(Tag)
