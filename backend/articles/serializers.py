@@ -1,7 +1,26 @@
 from rest_framework import serializers
 from .models import Articles
 
+
 class ArticleSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Articles
-        fields = ['category', 'headline', 'content', 'author', 'photo', 'publication_date', 'is_published', 'id', 'image', 'caption']
+        fields = [
+            "category",
+            "headline",
+            "content",
+            "author",
+            "publication_date",
+            "is_published",
+            "id",
+            "image_url",
+            "caption",
+        ]
+
+    def get_image_url(self, obj):
+        request = self.context.get("request")
+        if obj.image:
+            return request.build_absolute_uri(obj.image.url)
+        return None

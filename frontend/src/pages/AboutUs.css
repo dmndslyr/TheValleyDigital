@@ -1,3 +1,7 @@
+.about-us{
+    background: conic-gradient(white, lightblue, white, lightblue, white);
+}
+
 .about-us-header{
     margin: 5vh 0 0 0;
     display: flex;

@@ -44,6 +44,13 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
 ]
 
+CORS_ALLOW_ALL_ORIGINS = ["http://localhost:5173/"]
+
+REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permission.AllowAny"]}
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

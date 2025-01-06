@@ -4,7 +4,7 @@ import logo from '../assets/DIGITAL_light.png'
 
 function AboutUs(){
     return(
-        <>
+        <div className='about-us'>
         <div className='about-us-header'>
             <div className='about-us-left'>
                 <img src={logo} alt='logo'></img>
@@ -122,7 +122,7 @@ function AboutUs(){
                 <p>COPYRIGHT 2024</p>
             </div>
         </div>
-        </>
+        </div>
     );
 };
 

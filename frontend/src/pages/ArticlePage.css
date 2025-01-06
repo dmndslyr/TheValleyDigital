@@ -15,7 +15,7 @@
     font-weight: bold;
     font-size: 1.5vw;
     white-space: nowrap;
-    width: 10%;
+    display: inline-block;
     padding: 0.5vw;
     margin-bottom: 1vw;
     text-align: center;
@@ -44,6 +44,7 @@
     justify-content: flex-start;
     color: #777;
     font-size: 1.2vw;
+    gap: 1vw;
   }
   
   .author-name {

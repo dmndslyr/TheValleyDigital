@@ -13,10 +13,10 @@ function Header(){
 
   return (
     <header className='Header'>
-      <img src={logo} alt="Logo" className='logo' />
+      <a href="/"><img src={logo} alt="Logo" className='logo' /></a>
       <nav>
         <ul className={clicked ? 'navMenu active' : 'navMenu'}>
-          <li><a href="/">NEWS</a></li>
+          <li><a href="/news">NEWS</a></li>
           <li><a href="/editorial">EDITORIAL</a></li>
           <li><a href="/feature">FEATURE</a></li>
           <li><a href="/sci-tech">SCI-TECH</a></li>

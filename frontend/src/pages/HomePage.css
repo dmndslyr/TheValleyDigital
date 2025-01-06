@@ -1,0 +1,279 @@
+
+.home-page {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f4f4f4;
+  padding-bottom: 1vw;
+}
+
+.homepage-bottom{
+  display: flex;
+  flex-direction: row;
+  margin: 0 5vw;
+  gap: 1vw;
+}
+
+/* Slideshow */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 32vw;
+  overflow: hidden;
+  margin-bottom: 2vw;
+}
+
+.slideshow-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 1vw;
+  font-size: 1.5vw;
+  cursor: pointer;
+}
+
+.arrow.left {
+  left: 2vw;
+}
+
+.arrow.right {
+  right: 2vw;
+}
+
+.dots {
+  position: absolute;
+  bottom: 2vw;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  display: inline-block;
+  width: 0.5vw;
+  height: 0.5vw;
+  margin: 0 0.5vw;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.dot.active {
+  opacity: 1;
+}
+
+.left-story {
+  display:flex;
+  flex-direction: column;
+  margin-bottom: 2vw;
+}
+
+.top-story-left {
+  width: 95%;
+}
+
+.top-story-label {
+  margin-top: 2vw;
+  background-color: #013C58;
+  color: white;
+  font-size: 1.5vw;
+  font-weight: 900;
+  padding: 1vw;
+  display: inline-block;
+}
+
+.top-story-image {
+  width: 100%;
+  height: 35vw;
+  object-fit: cover;
+  border: 1px solid rgb(179, 179, 179);
+}
+
+.top-story-title {
+  font-size: 1.5vw;
+  color: #0B1E33;
+  margin-top: 2vw;
+}
+
+.top-story-writer-date {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 1vw;
+  margin-bottom: 3vw;
+}
+
+.top-story-writer {
+  color: #f5a201;
+  font-weight: bold;
+  font-size: 1.3vw;
+}
+
+.top-story-date {
+  font-size: 1vw;
+}
+
+.facebook-embed {
+  margin: 2vw 0;
+  border: 1px solid rgb(179, 179, 179);
+  width: 500;
+  height: 500px;
+}
+
+.right-story{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.featured-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  justify-content: baseline;
+}
+
+.featured-article {
+  width: 48%;
+}
+
+.featured-article h1{
+  color: #f5a201;
+  font-size: 1.7vw;
+}
+
+.featured-article span{
+  color: #013c58;
+  display: inline-block;
+  transform: scaleX(3);
+  
+}
+
+.featured-article-image {
+  width: 90%;
+  height: 15vw;
+  object-fit: cover;
+  border: 1px solid rgb(179, 179, 179);
+}
+
+.featured-article-title {
+  font-size: 1.2vw;
+  color: #013C58;
+  padding: 0;
+  margin: 1vw 0 0 0;
+}
+
+.feature-writer-date{
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  margin: 0.5vw 0 0 0;
+}
+.featured-article-writer,
+.featured-article-date {
+  font-size: 0.9vw;
+  color: #013C58;
+  margin: 0;
+}
+
+.featured-article-writer{
+  color: #F5A201;
+  font-weight: 900;
+}
+
+.recent-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F5A201;
+  border-radius: 9px;
+  padding: 2vw 1vw;
+  width: 80%;
+  height: 100%;
+  position: relative;
+}
+
+.recent-label {
+  text-align: center;
+  background-color: #0b1e33;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+  color: white;
+  font-weight: 900;
+  font-style: italic;
+  padding: 1vw;
+  width: 35%;
+  margin: 1vw;
+  font-size: 1.5vw;
+}
+
+.recent-article-image {
+  width: 100%;
+  height: 10vw;
+  object-fit: cover;
+  align-self: center;
+}
+
+.editorial-feature {
+  color: #013C58;
+  font-weight: bolder;
+  margin-top: 1vw;
+  font-size: 1.5vw;
+}
+
+.editorial-feature span{
+  display: inline-block;
+  transform: scaleX(3);
+}
+
+.recent-article-title {
+  font-size: 1vw;
+  color: #ffffff;
+  margin-top: 1px;
+}
+
+.recent-article {
+  padding: 1vw;
+}
+
+/* Editorial Section */
+.editorial{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin: 5vw 0 0 0;
+  gap: 2vw;
+}
+
+.editorial-left {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 3vw;
+}
+
+.bordered-image {
+  width: 45%;
+  height: auto;
+  object-fit: cover;
+  border: 3px solid #f5a201;
+}
+
+.editorial-title {
+  font-size: 1.8vw;
+  color: black;
+  width: 70%;
+  margin: 0.5vw 0;
+}
+
+.editorial-date-time {
+  font-size: 0.8vw;
+  font-weight: 900;
+  color: #013C58;
+}
