@@ -45,7 +45,7 @@ class Articles(models.Model):
     tags = models.ManyToManyField(Tag, blank=True, related_name="articles")
 
     # Slug field for URL-friendly version of the headline
-    slug = models.SlugField(unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=200,unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -72,7 +72,7 @@ class PrintedIssue(models.Model):
         validators=[FileExtensionValidator(["pdf"])],
     )  # Ensure only PDF upload
     slug = models.SlugField(
-        unique=True, blank=True, null=True
+       max_length=200, unique=True, blank=True, null=True
     )  # Slug field for URL-friendly identifier
 
     class Meta:
