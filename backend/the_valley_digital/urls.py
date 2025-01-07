@@ -46,6 +46,14 @@ urlpatterns = [
     # Editor Login
     path('editor-login/', views.editor_login, name='editor_login'),  # Login for editors
 
+<<<<<<< HEAD
+=======
+    # Admin and Editor Article Management
+    path('admin/articles/', views.article_list_admin, name='admin_article_list'),  # Admin and editor article listing
+    path('admin/articles/create/', views.article_create, name='article_create'),  # Admin and editor article creation
+    path('admin/articles/<int:id>/update/', views.article_update, name='article_update'),  # Admin and editor article update
+    path('admin/articles/<int:id>/delete/', views.article_delete, name='article_delete'),  # Admin-only article delete
+>>>>>>> acc15115d5d042bdea35fde3e39b52e356961969
 ]
 
 if settings.DEBUG:
