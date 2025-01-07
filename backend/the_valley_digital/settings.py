@@ -26,7 +26,11 @@ SECRET_KEY = "django-insecure-z9dkv=$z=vl80mm14s4j2193v(=feh!%xq!-f-yiig$#09^1ld
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['3.27.199.83', '127.0.0.1', 'localhost']  # Add your domain or IP address here
+ALLOWED_HOSTS = [
+    "3.27.199.83",
+    "127.0.0.1",
+    "localhost",
+]  # Add your domain or IP address here
 
 # Application definition
 
@@ -154,4 +158,4 @@ REST_FRAMEWORK = {
     ),
 }
 
-AUTH_USER_MODEL = 'articles.User'
+AUTH_USER_MODEL = "articles.User"

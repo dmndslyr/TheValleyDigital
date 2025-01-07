@@ -46,6 +46,7 @@ const App = () => {
           <Route path="/sci-tech" element={<Layout><SciTechPage /></Layout>} />
           <Route path="/sports" element={<Layout><SportsPage /></Layout>} />
           <Route path="/advance-search" element={<Layout><SearchInterface /></Layout>} />
+          <Route path="/article/:identifier" element={<Layout><ArticlePage /></Layout>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

@@ -47,9 +47,6 @@ urlpatterns = [
         "articles/sports/", views.sports_articles, name="sports_articles"
     ),  # Sports articles
     path(
-        "article/<int:id>/", views.article_detail, name="article_detail"
-    ),  # Article detail by ID
-    path(
         "search/", views.article_search, name="article_search"
     ),  # Search functionality
     path(

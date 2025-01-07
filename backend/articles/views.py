@@ -68,6 +68,24 @@ def sports_articles(request):
 # @csrf_exempt
 def article_detail(request, identifier):
     # Check if the identifier is numeric (ID) or a slug
+    if str(identifier).isdigit():
+        article = get_object_or_404(Articles, id=identifier)  # Search by ID
+    else:
+        article = get_object_or_404(Articles, slug=identifier)  # Search by Slug
+
+    return JsonResponse(
+        {
+            "id": article.id,
+            "headline": article.headline,
+            "content": article.content,
+            "category": article.category.name,
+            "slug": article.slug,
+        }
+    )
+
+
+def article_detail(request, identifier):
+    # Check if the identifier is numeric (ID) or a slug
     if identifier.isdigit():
         article = get_object_or_404(Articles, id=identifier)  # Search by ID
     else:

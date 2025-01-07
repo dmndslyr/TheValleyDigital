@@ -67,21 +67,21 @@
   width: 100%; 
   max-height: 400px; 
   border-radius: 5px;
-  margin-bottom: 0px;
   object-fit: cover; 
+  margin-top: 1vw;
 }
 
 .newest-content {
   width: 100%;
-  text-align: left; 
+  text-align: left;
+  height: auto;
 }
 
 .newest-content .news-headline {
   font-size: 2vw; 
   font-weight: bolder;
   color: #0b1e33;
-  margin-bottom: 0px;
-  padding-left: 0; 
+  overflow: scroll;
 }
 
 .newest-content .news-meta {
@@ -98,7 +98,6 @@
 
 .newest-content .news-time,
 .newest-content .news-date {
-  margin-right: .5vw; 
   font-size: 1.2vw;
 }
 

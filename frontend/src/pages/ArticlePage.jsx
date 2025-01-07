@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import './ArticlePage.css';
 import placeholderImg from '../assets/placeholder.jpg';
-import axios from 'axios';
-
-const categoryMap = {
-  1: 'NEWS',
-  2: 'Feature',
-  3: 'Editorial',
-  4: 'Opinion',
-  5: 'Science and Technology',
-  6: 'Sports',
-};
 
 function FacebookComments({ url }) {
   useEffect(() => {
@@ -37,60 +29,77 @@ function FacebookComments({ url }) {
 }
 
 function ArticlePage() {
-  const [articles, setArticles] = useState([]);
+  const { identifier } = useParams(); // Use `identifier` to match the URL pattern
+  const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchArticleData = async () => {
+    const fetchArticle = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/articles/');
-        setArticles(response.data);
+        const response = await axios.get(`http://127.0.0.1:8000/article/${identifier}/`);
+        setArticle(response.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching article data:', error);
+        console.error('Error fetching article:', error);
         setLoading(false);
       }
     };
 
-    fetchArticleData();
-  }, []);
+    fetchArticle();
+  }, [identifier]);
 
   if (loading) {
-    return <div>Loading articles...</div>;
+    return <div>Loading article...</div>;
   }
+
+  if (!article) {
+    return <div>Article not found</div>;
+  }
+
+  const {
+    image_url: img = placeholderImg,
+    caption,
+    headline,
+    content,
+    author,
+    publication_date: date,
+    is_published,
+    category,
+    slug
+  } = article;
 
   return (
     <div className="article-page">
-      {articles.length === 0 ? (
-        <div>No articles found.</div>
-      ) : (
-        articles.map((article, index) => (
-          <div key={index} className="article">
-            <div className="topicText">{categoryMap[article.category] || 'Unknown Category'}</div>
-            <div className="image-container">
-              <img src={article.image_url ? article.image_url : placeholderImg} alt={article.headline || 'Article placeholder'} className="article-image" />
-            </div>
-            {article.image_url && article.caption && (
-              <p className='image-caption'>{article.caption}</p>
-            )}
-            <h1 className="article-headline">{article.headline}</h1>
-            <div className="article-meta">
-              <span className="article-author"><span className="author-name">{article.author}</span></span>
-              <span className="article-date"> 
-                {article.publication_date ? new Date(article.publication_date).toLocaleDateString() : 'Loading date...'}
-              </span>
-            </div>
-            <div className="article-body">
-              <h4 className="headline-content">{article.headlineArticle}</h4>
-              <p className="article-content">{article.content}</p>
-            </div>
-            <div className="comments-section">
-              <h3>Comments</h3>
-              <FacebookComments url={window.location.href} />
-            </div>
-          </div>
-        ))
+      <div className="topicText">{category}</div>
+      <div className="image-container">
+        <img src={img} alt="Article" className="article-image" />
+      </div>
+
+      {img !== placeholderImg && (
+        <p className='image-caption'>{caption}</p>
       )}
+
+      <h1 className="article-headline">{headline}</h1>
+
+      <div className="article-meta">
+        <span className="article-author"><span className="author-name">{author}</span></span>
+        <span className="article-date">{date}</span>
+        {is_published && <span className="article-status">Published</span>}
+        <span className="article-slug">{slug}</span>
+      </div>
+
+      <div className="article-body">
+        {content.split('\n').map((paragraph, index) => (
+          <p key={index} className="article-content">{paragraph}</p>
+        ))}
+      </div>
+
+
+      {/* Facebook Comments Plugin */}
+      <div className="comments-section">
+        <h3>Comments</h3>
+        <FacebookComments url={window.location.href} />
+      </div>
     </div>
   );
 }

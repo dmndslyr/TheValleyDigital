@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './HomePage.css';
-import thevalley from '../assets/thevalley.png'
-import placeholderImg from "../assets/test.jpg"; // Sample image path
+import thevalley from '../assets/thevalley.png';
+import placeholderImg from "../assets/placeholder.jpg"; // Sample image path
+import axios from 'axios';
 
 function HomePage() {
+
+  const categoryMap = {
+    1: 'NEWS',
+    2: 'FEATURE',
+    3: 'EDITORIAL',
+    4: 'SCI-TECH',
+    5: 'SPORTS',
+    6: 'OPINION',
+  
+  };
+
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
   const images = [thevalley, placeholderImg, placeholderImg];
 
   const nextSlide = () => {
@@ -15,32 +30,31 @@ function HomePage() {
     setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  const homepageData = {
-    topStory: {
-      img: placeholderImg,
-      title: 'Classes suspended on April 8 due to extreme heat',
-      writer: 'John Doe',
-      date: '04/07/2024',
-      time: '10:00 AM',
-    },
-    featuredArticles: [
-      { img: placeholderImg, title: 'Feature Article 1', writer: 'By Jane Doe', date: 'January 1, 2025' },
-      { img: placeholderImg, title: 'Feature Article 2', writer: 'By Alex Smith', date: 'January 2, 2025' },
-      { img: placeholderImg, title: 'Feature Article 3', writer: 'By Sam Smith', date: 'January 3, 2025' },
-      { img: placeholderImg, title: 'Feature Article 4', writer: 'By Steve Doe', date: 'January 4, 2025' },
-    ],
-    editorial: [
-      { img: placeholderImg, title: '‘MATATAG’ Curriculum Unveiled – A Game-Changer for Filipino Education', writer: 'By Tech Expert', date: '06/01/25', time: '12:00 PM' },
-      { img: placeholderImg, title: '‘MATATAG’ Curriculum Unveiled – A Game-Changer for Filipino Education', writer: 'By Author Placeholder', date: '06/02/25', time: '1:00 PM' },
-    ],
-    recentArticles: [
-      { img: placeholderImg, title: 'Classes suspended on April 8 due to extreme heat' },
-      { img: placeholderImg, title: 'Futsaleras Grab First Place in District Meet' },
-      { img: placeholderImg, title: 'Mayor Danny Uy Leads the School Supplies Distribution' },
-      { img: placeholderImg, title: 'Anti-Illegal Drug Symposium, Isinagawa!' },
-      { img: placeholderImg, title: 'How do Drugs Impede Academic Progress?' },
-    ],
-  };
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/articles/');
+        setArticles(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  if (loading) {
+    return <div>Loading articles...</div>;
+  }
+
+  // Filter and sort articles
+  const sortedArticles = articles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date));
+  const topStory = sortedArticles[0];
+  const featuredArticles = sortedArticles.filter(article => article.category === 2).slice(0, 4);  // Assuming category ID 2 is for features
+  const editorials = sortedArticles.filter(article => article.category === 3).slice(0, 2);  // Assuming category ID 3 is for editorials
+  const recentArticles = sortedArticles.slice(0, 8);
 
   return (
     <div className="home-page">
@@ -63,34 +77,39 @@ function HomePage() {
         <div className='left-story'>
           <div className="top-story-left">
             <span className="top-story-label">TOP STORY</span>
-            <img className="top-story-image" src={homepageData.topStory.img} alt="Top Story" />
-            <h2 className="top-story-title">{homepageData.topStory.title}</h2>
-            <p className="top-story-writer-date">
-              <span className="top-story-writer">{homepageData.topStory.writer}</span>
-              <span className="top-story-date">{homepageData.topStory.date} {homepageData.topStory.time}</span>
-            </p>
+            {topStory && (
+              <>
+                <img className="top-story-image" src={topStory.image || placeholderImg} alt="Top Story" />
+                <h2 className="top-story-headline">{topStory.headline}</h2>
+                <p className="top-story-writer-date">
+                  <span className="top-story-writer">{topStory.author}</span>
+                  <span className="top-story-date">{topStory.publication_date}</span>
+                </p>
+              </>
+            )}
           </div>
           <div className="featured-left">
-            {homepageData.featuredArticles.map((article, index) => (
+            {featuredArticles.map((article, index) => (
               <div key={index} className="featured-article">
                 <h1><span>|</span> FEATURE</h1>
-                <img src={article.img} alt={article.title} className="featured-article-image" />
-                <h3 className="featured-article-title">{article.title}</h3>
+                <img src={article.image || placeholderImg} alt={article.headline} className="featured-article-image" />
+                <h3 className="featured-article-headline">{article.headline}</h3>
                 <div className='feature-writer-date'>
-                  <p className="featured-article-writer">{article.writer}</p>
-                  <p className="featured-article-date">{article.date}</p>
+                  <p className="featured-article-writer">{article.author}</p>
+                  <p className="featured-article-date">{article.publication_date}</p>
                 </div>
               </div>
             ))}
           </div>
-          {homepageData.editorial.map((editorial, index) => (
+          {editorials.map((editorial, index) => (
             <div className="editorial" key={index}>
               <div className="editorial-left">
-                <img src={editorial.img} alt={`Editorial ${index + 1}`} className="editorial-image bordered-image" />
+                <img src={editorial.image || placeholderImg} alt={`Editorial ${index + 1}`} className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> EDITORIAL</h2>
-                  <h3 className="editorial-title">{editorial.title}</h3>
-                  <p className="editorial-date-time">{editorial.date} {editorial.time}</p>
+                  <h3 className="editorial-headline">{editorial.headline}</h3>
+                  <p className="editorial-article-writer">{editorial.author}</p>
+                  <p className="editorial-date-time">{editorial.publication_date}</p>
                 </div>
               </div>
             </div>
@@ -104,17 +123,17 @@ function HomePage() {
               width="500" 
               height="500" 
               style={{border:'none', overflow:'hidden'}} 
-              allowfullscreen={true}>
+              allowFullScreen={true}>
             </iframe>
           </div>
           <div className="recent-right">
             <span className="recent-label">RECENT</span>
             <div className="recent-articles">
-              {homepageData.recentArticles.map((article, index) => (
+              {recentArticles.map((article, index) => (
                 <div key={index} className="recent-article">
-                  <img src={article.img} alt={article.title} className="recent-article-image" />
-                  <p className="editorial-feature"><span>|</span> EDITORIAL</p>
-                  <h4 className="recent-article-title">{article.title}</h4>
+                  <img src={article.image || placeholderImg} alt={article.headline} className="recent-article-image" />
+                  <h2 className="category-label"><span>|</span> {categoryMap[article.category]}</h2>
+                  <h4 className="recent-article-headline">{article.headline}</h4>
                 </div>
               ))}
             </div>

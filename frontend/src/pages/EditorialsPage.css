@@ -82,6 +82,7 @@
     color: #0b1e33;
     margin-bottom: 0px;
     padding-left: 0; 
+    overflow: scroll;
   }
   
   .newest-content .editorials-meta {
