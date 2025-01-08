@@ -26,42 +26,41 @@ def home(request):
     return JsonResponse({"message": "Welcome to the School News Portal"})
 
 
-# List all articles
 @api_view(["GET"])
 def article_list(request):
-    articles = Article.objects.all()
+    articles = Article.objects.all().order_by("-id")  # Sort by latest ID
     serializer = ArticleSerializer(articles, many=True, context={"request": request})
     return Response(serializer.data)
 
 
 # Filter articles by category
 def news_articles(request):
-    articles = Article.objects.filter(category__name="NEWS").values()
+    articles = Article.objects.filter(category__name="NEWS").order_by("-id").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def feature_articles(request):
-    articles = Article.objects.filter(category__name="Feature").values()
+    articles = Article.objects.filter(category__name="Feature").order_by("-id").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def editorial_articles(request):
-    articles = Article.objects.filter(category__name="Editorial").values()
+    articles = Article.objects.filter(category__name="Editorial").order_by("-id").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def opinion_articles(request):
-    articles = Article.objects.filter(category__name="Opinion").values()
+    articles = Article.objects.filter(category__name="Opinion").order_by("-id").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def science_and_technology_articles(request):
-    articles = Article.objects.filter(category__name="Science and Technology").values()
+    articles = Article.objects.filter(category__name="Science and Technology").order_by("-id").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def sports_articles(request):
-    articles = Article.objects.filter(category__name="Sports").values()
+    articles = Article.objects.filter(category__name="Sports").order_by("-id").values()
     return JsonResponse(list(articles), safe=False)
 
 
