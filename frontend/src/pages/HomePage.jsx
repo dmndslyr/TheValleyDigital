@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css';
-import thevalley from '../assets/thevalley.png';
+import thevalley1 from '../assets/thevalley1.png';
+import thevalley1a from '../assets/thevalley1a.jpg';
+import thevalley2 from '../assets/thevalley2.png';
 import placeholderImg from "../assets/placeholder.jpg"
 import axios from 'axios';
 
@@ -20,7 +22,7 @@ function HomePage() {
   const [recentArticles, setRecentArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const images = [thevalley, placeholderImg, placeholderImg];
+  const images = [thevalley1, thevalley1a, thevalley2];
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % images.length);
