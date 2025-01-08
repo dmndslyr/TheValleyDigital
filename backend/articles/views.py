@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from .models import Article, Tag, PrintedIssue,HomepageStorie
 from django.shortcuts import get_object_or_404
+from django.views.decorators.cache import never_cache
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -95,6 +96,7 @@ def article_detail(request, identifier):
         {
             "id": article.id,
             "headline": article.headline,
+            "author": article.author,
             "content": article.content,
             "category": article.category.name,
             "slug": article.slug,  # Include the slug in the response
@@ -151,6 +153,8 @@ def printed_issues_list(request):
 
 
 # Printed Issue Detail
+
+@never_cache
 def printed_issue_detail(request, identifier):
     # Check if the identifier is numeric (ID) or a slug
     if identifier.isdigit():
@@ -160,13 +164,7 @@ def printed_issue_detail(request, identifier):
 
     return JsonResponse(
         {
-            "id": issue.id,
-            "volume": issue.volume,
-            "issue_no": issue.issue_no,
-            "month_range": issue.month_range,
-            "is_published": issue.is_published,
             "pdf_file_url": issue.pdf_file.url if issue.pdf_file else None,
-            "slug": issue.slug,  # Include the slug in the response
         }
     )
 

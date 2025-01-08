@@ -55,6 +55,17 @@ REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permission.Allo
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+# Make sure your URLs serve media files in development
+if DEBUG:  # Only in development mode
+    from django.conf import settings
+    from django.conf.urls.static import static
+    from django.urls import path
+
+    urlpatterns = [
+        # Add your URL patterns here
+    ]
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

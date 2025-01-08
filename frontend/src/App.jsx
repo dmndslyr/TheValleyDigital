@@ -4,6 +4,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import NotFoundPage from './pages/404';
 import Layout from './components/Layout'; // Import the Layout component
 
+import PrintedIssuePage from "./components/PrintedIssuePage";
 import HomePage from './pages/HomePage';
 import ArticlePage from './pages/ArticlePage';
 import AboutUs from './pages/AboutUs';
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/news" element={<Layout><NewsPage /></Layout>} />
           <Route path="/opinion" element={<Layout><OpinionPage /></Layout>} />
           <Route path="/print-issue" element={<Layout><PrintIssue /></Layout>} />
+          <Route path="/printed-issue/:identifier" element={<PrintedIssuePage></PrintedIssuePage>} />
           <Route path="/sci-tech" element={<Layout><SciTechPage /></Layout>} />
           <Route path="/sports" element={<Layout><SportsPage /></Layout>} />
           <Route path="/advance-search" element={<Layout><SearchInterface /></Layout>} />
@@ -55,3 +57,4 @@ const App = () => {
 };
 
 export default App;
+
