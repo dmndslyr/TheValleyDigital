@@ -69,9 +69,9 @@ def sports_articles(request):
 def article_detail(request, identifier):
     # Check if the identifier is numeric (ID) or a slug
     if str(identifier).isdigit():
-        article = get_object_or_404(Articles, id=identifier)  # Search by ID
+        article = get_object_or_404(Article, id=identifier)  # Search by ID
     else:
-        article = get_object_or_404(Articles, slug=identifier)  # Search by Slug
+        article = get_object_or_404(Article, slug=identifier)  # Search by Slug
 
     return JsonResponse(
         {
@@ -87,9 +87,9 @@ def article_detail(request, identifier):
 def article_detail(request, identifier):
     # Check if the identifier is numeric (ID) or a slug
     if identifier.isdigit():
-        article = get_object_or_404(Articles, id=identifier)  # Search by ID
+        article = get_object_or_404(Article, id=identifier)  # Search by ID
     else:
-        article = get_object_or_404(Articles, slug=identifier)  # Search by Slug
+        article = get_object_or_404(Article, slug=identifier)  # Search by Slug
 
     return JsonResponse(
         {
@@ -106,7 +106,7 @@ def article_search(request):
     query = request.GET.get("query", "")  # Get the search query from the GET request
 
     # Start with all articles
-    articles = Articles.objects.all()
+    articles = Article.objects.all()
 
     if query:
         # Filter articles based on query matching headline, content, or tags or slug
@@ -202,7 +202,7 @@ def article_list_admin(request):
 def article_update(request, id):
     try:
         article = Article.objects.get(pk=id)
-    except Articles.DoesNotExist:
+    except Article.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "PUT":
@@ -219,7 +219,7 @@ def article_update(request, id):
 def article_delete(request, id):
     try:
         article = Article.objects.get(pk=id)
-    except Articles.DoesNotExist:
+    except Article.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "DELETE":

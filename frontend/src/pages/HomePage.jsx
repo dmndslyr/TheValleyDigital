@@ -19,7 +19,8 @@ function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+  const [homepageStory, setHomepageStory] = useState(null);
+
   const images = [thevalley, placeholderImg, placeholderImg];
 
   const nextSlide = () => {
@@ -33,11 +34,15 @@ function HomePage() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/articles/');
-        setArticles(response.data);
+        const [articlesResponse, homepageStoryResponse] = await Promise.all([
+          axios.get('http://127.0.0.1:8000/articles/'),
+          axios.get('http://127.0.0.1:8000/homepage_story/')
+        ]);
+        setArticles(articlesResponse.data);
+        setHomepageStory(homepageStoryResponse.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching articles:', error);
+        console.error('Error fetching data:', error);
         setLoading(false);
       }
     };
@@ -51,10 +56,10 @@ function HomePage() {
 
   // Filter and sort articles
   const sortedArticles = articles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date));
-  const topStory = sortedArticles[0];
-  const featuredArticles = sortedArticles.filter(article => article.category === 2).slice(0, 4);  // Assuming category ID 2 is for features
-  const editorials = sortedArticles.filter(article => article.category === 3).slice(0, 2);  // Assuming category ID 3 is for editorials
-  const recentArticles = sortedArticles.slice(0, 8);
+  const topStory = homepageStory ? homepageStory.top_story : sortedArticles[0];
+  const featuredArticles = homepageStory ? homepageStory.featured_articles : sortedArticles.filter(article => article.category === 2).slice(0, 4);  // Assuming category ID 2 is for features
+  const editorials = homepageStory ? homepageStory.featured_editorial : sortedArticles.filter(article => article.category === 3).slice(0, 2);  // Assuming category ID 3 is for editorials
+  const recentArticles = sortedArticles.slice(0, 6);
 
   return (
     <div className="home-page">
@@ -137,9 +142,9 @@ function HomePage() {
                 </div>
               ))}
             </div>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

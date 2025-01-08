@@ -23,50 +23,58 @@ function AboutUs(){
             <table>
                 <tr>
                     <td><b>EDITOR-IN-CHIEF</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>LOUISE EMMANNUELE M. TOLENTINO</td>
                 </tr>
                 <tr>
                     <td><b>ASSOCIATE EDITOR</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>ALLYSA D. JARICAL</td>
                 </tr>
                 <tr>
                     <td><b>MANAGING EDITOR</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>JLARA NICOLE B. ROSALDA</td>
                 </tr>
                 <tr>
                     <td><b>NEWS EDITOR</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>MARFIE G. MAPATAC</td>
                 </tr>
                 <tr>
                     <td><b>FEATURE EDITOR</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>MESSIAH MAE CABRILLOS</td>
                 </tr>
                 <tr>
                     <td><b>SCI-TECH EDITOR</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>MON ABRAM SIOJO</td>
                 </tr>
                 <tr>
                     <td><b>SPORTS EDITOR</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>RENZ C. ROLDAN</td>
                 </tr>
                 <tr>
                     <td><b>EDITORIAL CARTOONIST</b></td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>CLAIRE A. CENTENO</td>
+                </tr>
+                <tr>
+                    <td><b>PHOTOJOURNALIST</b></td>
+                    <td>JOHN DHEENBER B. GARCIA</td>
+                </tr>
+                <tr>
+                    <td><b>PHOTOJOURNALIST</b></td>
+                    <td>LYMAR B. BEDAÑA</td>
                 </tr>
             </table>
             <p><b>CONTRIBUTORS</b></p>
             <table>
                 <tr>
-                    <td>JUAN DELA CRUZ</td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>JANINE M. OCAMPO</td>
+                    <td>ROCHELLE BANDARLIPE</td>
                 </tr>
                 <tr>
-                    <td>JUAN DELA CRUZ</td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>MELVIN DULAY</td>
+                    <td>JUSTINE BASTO</td>
                 </tr>
                 <tr>
-                    <td>JUAN DELA CRUZ</td>
-                    <td>JUAN DELA CRUZ</td>
+                    <td>ALIYAH RAMOS</td>
+                    <td>AZHEA DOMINGO</td>
                 </tr>
             </table>
             <div className='faculty'>
@@ -75,11 +83,11 @@ function AboutUs(){
             </div>
             <div className='faculty'>
                 <h4>ALJON B. FERNANDEZ</h4>
-                <p>CO-ADVISER - SHS</p>
+                <p>ADVISER - SHS</p>
             </div>
             <div className='faculty'>
                 <h4>EDDUARDO C. OCAMPO</h4>
-                <p>PRINCIPAL III</p>
+                <p>CONSSULTANT</p>
             </div>
         </div>
         <div className='about-us-development'>
