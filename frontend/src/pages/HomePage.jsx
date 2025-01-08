@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './HomePage.css';
 import thevalley from '../assets/thevalley.png';
-import placeholderImg from "../assets/placeholder.jpg"; // Sample image path
+import placeholderImg from "../assets/placeholder.jpg"
 import axios from 'axios';
 
 function HomePage() {
@@ -13,13 +13,12 @@ function HomePage() {
     4: 'SCI-TECH',
     5: 'SPORTS',
     6: 'OPINION',
-  
   };
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [articles, setArticles] = useState([]);
+  const [recentArticles, setRecentArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [homepageStory, setHomepageStory] = useState(null);
 
   const images = [thevalley, placeholderImg, placeholderImg];
 
@@ -32,22 +31,30 @@ function HomePage() {
   };
 
   useEffect(() => {
-    const fetchArticles = async () => {
+    const fetchHomepageStories = async () => {
       try {
-        const [articlesResponse, homepageStoryResponse] = await Promise.all([
-          axios.get('http://127.0.0.1:8000/articles/'),
-          axios.get('http://127.0.0.1:8000/homepage_story/')
-        ]);
-        setArticles(articlesResponse.data);
-        setHomepageStory(homepageStoryResponse.data);
+        const response = await axios.get('http://127.0.0.1:8000/homepage-stories/');
+        setArticles(response.data.homepage_stories);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching homepage stories:', error);
         setLoading(false);
       }
     };
 
-    fetchArticles();
+    const fetchRecentArticles = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/articles/');
+        setRecentArticles(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching recent articles:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchHomepageStories();
+    fetchRecentArticles();
   }, []);
 
   if (loading) {
@@ -55,11 +62,12 @@ function HomePage() {
   }
 
   // Filter and sort articles
-  const sortedArticles = articles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date));
-  const topStory = homepageStory ? homepageStory.top_story : sortedArticles[0];
-  const featuredArticles = homepageStory ? homepageStory.featured_articles : sortedArticles.filter(article => article.category === 2).slice(0, 4);  // Assuming category ID 2 is for features
-  const editorials = homepageStory ? homepageStory.featured_editorial : sortedArticles.filter(article => article.category === 3).slice(0, 2);  // Assuming category ID 3 is for editorials
-  const recentArticles = sortedArticles.slice(0, 6);
+  const sortedArticles = articles.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+  const topStory = sortedArticles[0]?.top_story;
+  const featuredEditorial = sortedArticles[0]?.featured_editorial;
+  const featuredFeature = sortedArticles[0]?.featured_feature;
+  const featuredArticles = sortedArticles[0]?.featured_articles?.slice(0, 4) || [];
+  const sortedRecentArticles = recentArticles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date)).slice(0, 8);
 
   return (
     <div className="home-page">
@@ -84,41 +92,42 @@ function HomePage() {
             <span className="top-story-label">TOP STORY</span>
             {topStory && (
               <>
-                <img className="top-story-image" src={topStory.image || placeholderImg} alt="Top Story" />
-                <h2 className="top-story-headline">{topStory.headline}</h2>
-                <p className="top-story-writer-date">
-                  <span className="top-story-writer">{topStory.author}</span>
-                  <span className="top-story-date">{topStory.publication_date}</span>
-                </p>
+                <img className="top-story-image" src={placeholderImg} alt="Top Story" />
+                <h2 className="top-story-headline">{topStory}</h2>
               </>
             )}
           </div>
           <div className="featured-left">
-            {featuredArticles.map((article, index) => (
+            {featuredArticles.map((headline, index) => (
               <div key={index} className="featured-article">
                 <h1><span>|</span> FEATURE</h1>
-                <img src={article.image || placeholderImg} alt={article.headline} className="featured-article-image" />
-                <h3 className="featured-article-headline">{article.headline}</h3>
-                <div className='feature-writer-date'>
-                  <p className="featured-article-writer">{article.author}</p>
-                  <p className="featured-article-date">{article.publication_date}</p>
-                </div>
+                <img src={placeholderImg} alt={headline} className="featured-article-image" />
+                <h3 className="featured-article-headline">{headline}</h3>
               </div>
             ))}
           </div>
-          {editorials.map((editorial, index) => (
-            <div className="editorial" key={index}>
+          {featuredEditorial && (
+            <div className="editorial">
               <div className="editorial-left">
-                <img src={editorial.image || placeholderImg} alt={`Editorial ${index + 1}`} className="editorial-image bordered-image" />
+                <img src={placeholderImg} alt="Editorial" className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> EDITORIAL</h2>
-                  <h3 className="editorial-headline">{editorial.headline}</h3>
-                  <p className="editorial-article-writer">{editorial.author}</p>
-                  <p className="editorial-date-time">{editorial.publication_date}</p>
+                  <h3 className="editorial-headline">{featuredEditorial}</h3>
                 </div>
               </div>
             </div>
-          ))}
+          )}
+          {featuredFeature && (
+            <div className="editorial">
+              <div className="editorial-left">
+                <img src={placeholderImg} alt="Feature" className="editorial-image bordered-image" />
+                <div className='editorial-detail'>
+                  <h2 className="editorial-feature"><span>|</span> FEATURE</h2>
+                  <h3 className="editorial-headline">{featuredFeature}</h3>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="right-story">
@@ -134,7 +143,7 @@ function HomePage() {
           <div className="recent-right">
             <span className="recent-label">RECENT</span>
             <div className="recent-articles">
-              {recentArticles.map((article, index) => (
+              {sortedRecentArticles.map((article, index) => (
                 <div key={index} className="recent-article">
                   <img src={article.image || placeholderImg} alt={article.headline} className="recent-article-image" />
                   <h2 className="category-label"><span>|</span> {categoryMap[article.category]}</h2>
