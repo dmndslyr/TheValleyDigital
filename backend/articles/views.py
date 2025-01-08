@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import Article, Tag, PrintedIssue
+from .models import Article, Tag, PrintedIssue,HomepageStorie
 from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view
@@ -169,6 +169,25 @@ def printed_issue_detail(request, identifier):
             "slug": issue.slug,  # Include the slug in the response
         }
     )
+
+from django.http import JsonResponse
+from .models import HomepageStorie
+
+def homepage_storie_list(request):
+    # Get all the homepage stories
+    stories = HomepageStorie.objects.all()
+
+    # Serialize the data (with proper checks for related fields)
+    data = [{
+        'id': story.id,
+        'top_story': story.top_story.headline if story.top_story else "No top story",  # Handle None value
+        'featured_editorial': story.featured_editorial.headline if story.featured_editorial else "No editorial",  # Handle None value
+        'featured_feature': story.featured_feature.headline if story.featured_feature else "No feature",  # Handle None value
+        'featured_articles': [article.headline for article in story.featured_articles.all()],  # Serialize many-to-many field
+        'updated_at': story.updated_at.strftime('%Y-%m-%d %H:%M:%S') if story.updated_at else "Not yet updated"
+    } for story in stories]
+
+    return JsonResponse({'homepage_stories': data})
 
 
 # ADMIN VIEWS
