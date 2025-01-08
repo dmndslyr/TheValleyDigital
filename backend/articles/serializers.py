@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Articles
+from .models import Article
 
 
 class ArticleSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
 
     class Meta:
-        model = Articles
+        model = Article
         fields = [
             "category",
             "headline",

@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import Articles, Tag, PrintedIssue
+from .models import Article, Tag, PrintedIssue
 from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view
@@ -28,39 +28,39 @@ def home(request):
 # List all articles
 @api_view(["GET"])
 def article_list(request):
-    articles = Articles.objects.all()
+    articles = Article.objects.all()
     serializer = ArticleSerializer(articles, many=True, context={"request": request})
     return Response(serializer.data)
 
 
 # Filter articles by category
 def news_articles(request):
-    articles = Articles.objects.filter(category__name="NEWS").values()
+    articles = Article.objects.filter(category__name="NEWS").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def feature_articles(request):
-    articles = Articles.objects.filter(category__name="Feature").values()
+    articles = Article.objects.filter(category__name="Feature").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def editorial_articles(request):
-    articles = Articles.objects.filter(category__name="Editorial").values()
+    articles = Article.objects.filter(category__name="Editorial").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def opinion_articles(request):
-    articles = Articles.objects.filter(category__name="Opinion").values()
+    articles = Article.objects.filter(category__name="Opinion").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def science_and_technology_articles(request):
-    articles = Articles.objects.filter(category__name="Science and Technology").values()
+    articles = Article.objects.filter(category__name="Science and Technology").values()
     return JsonResponse(list(articles), safe=False)
 
 
 def sports_articles(request):
-    articles = Articles.objects.filter(category__name="Sports").values()
+    articles = Article.objects.filter(category__name="Sports").values()
     return JsonResponse(list(articles), safe=False)
 
 
@@ -191,7 +191,7 @@ def article_create(request):
 @permission_classes([IsAdminUser])
 def article_list_admin(request):
     if request.method == "GET":
-        articles = Articles.objects.all()
+        articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
 
@@ -201,7 +201,7 @@ def article_list_admin(request):
 @permission_classes([IsAdminUser])
 def article_update(request, id):
     try:
-        article = Articles.objects.get(pk=id)
+        article = Article.objects.get(pk=id)
     except Articles.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -218,7 +218,7 @@ def article_update(request, id):
 @permission_classes([IsAdminUser])
 def article_delete(request, id):
     try:
-        article = Articles.objects.get(pk=id)
+        article = Article.objects.get(pk=id)
     except Articles.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
