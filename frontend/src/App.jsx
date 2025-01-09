@@ -4,7 +4,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import NotFoundPage from './pages/404';
 import Layout from './components/Layout'; // Import the Layout component
 
-import PrintedIssuePage from "./components/PrintedIssuePage";
+import PrintedIssuePage from "./components/PdfViewer";
 import HomePage from './pages/HomePage';
 import ArticlePage from './pages/ArticlePage';
 import AboutUs from './pages/AboutUs';
@@ -16,6 +16,8 @@ import FeaturePage from './pages/FeaturePage';
 import SciTechPage from './pages/SciTechPage';
 import SportsPage from './pages/SportsPage';
 import OpinionPage from './pages/OpinionPage';
+
+import PdfViewer from './components/PdfViewer';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -43,12 +45,12 @@ const App = () => {
           <Route path="/feature" element={<Layout><FeaturePage /></Layout>} />
           <Route path="/news" element={<Layout><NewsPage /></Layout>} />
           <Route path="/opinion" element={<Layout><OpinionPage /></Layout>} />
-          <Route path="/print-issue" element={<Layout><PrintIssue /></Layout>} />
-          <Route path="/printed-issue/:identifier" element={<PrintedIssuePage></PrintedIssuePage>} />
           <Route path="/sci-tech" element={<Layout><SciTechPage /></Layout>} />
           <Route path="/sports" element={<Layout><SportsPage /></Layout>} />
           <Route path="/advance-search" element={<Layout><SearchInterface /></Layout>} />
           <Route path="/article/:identifier" element={<Layout><ArticlePage /></Layout>} />
+          <Route path="/print-issue" element={<Layout><PrintIssue /></Layout>} />
+          <Route path="/print-issues/:identifier" element={<Layout><PdfViewer /></Layout>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

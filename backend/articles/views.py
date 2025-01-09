@@ -129,6 +129,7 @@ def printed_issues_list(request):
     issues = PrintedIssue.objects.all()
     data = [
         {
+            "id": issue.id,
             "volume": issue.volume,
             "issue_no": issue.issue_no,
             "month_range": issue.month_range,

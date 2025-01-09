@@ -123,7 +123,7 @@ function AboutUs(){
             <div className='department-info'>            
                 <p>INSTRUCTOR</p>
                 <p>COMPUTER ENGINEERING DEPARTMENT</p>
-                <p>PANGASINAN STTATE UNIVERSITY URDANETA CAMPUS</p>
+                <p>PANGASINAN STATE UNIVERSITY URDANETA CAMPUS</p>
             </div>
             <div className='copyright'>
                 <p>TO GOD BE THE GLORY</p>
