@@ -26,8 +26,8 @@ const Footer = () => {
 
         <div className="footer-contact">
           <h4>CONTACT US</h4>
-          <p>Facebook</p>
-          <p>sample@email.com</p>
+          <p><a href='https://www.facebook.com/TheValleyDAPSNHS'>Facebook</a></p>
+          <a href="mailto:sample@email.com"><p>sample@email.com</p></a>
           <p>09123456789</p>
         </div>
     </footer>

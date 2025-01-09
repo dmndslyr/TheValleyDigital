@@ -83,6 +83,11 @@
   color: #b4b4b4;
 }
 
+.footer-contact a{
+  text-decoration: none;
+  color: #b4b4b4;
+}
+
 @media screen and (max-width: 750px) {
   .footer {
     display: flex;
