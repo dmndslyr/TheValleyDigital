@@ -1,0 +1,17 @@
+# Ignore virtual environment
+venv/
+
+# Ignore node modules for React
+node_modules/
+
+# Ignore static files collected by Django
+staticfiles/
+
+# Ignore compiled files
+__pycache__/
+*.pyc
+<<<<<<< HEAD
+backend\the_valley_digital\__pycache__
+=======
+backend\the_valley_digital\__pycache__
+>>>>>>> f5aa22c0d1e45a058818cd2eafb96fa9c6ff99b3
