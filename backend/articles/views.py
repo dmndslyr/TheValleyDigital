@@ -181,10 +181,6 @@ def homepage_storie_list(request):
     return JsonResponse({'homepage_stories': data})
 
 
-
-
-
-
 # ADMIN VIEWS
 
 
