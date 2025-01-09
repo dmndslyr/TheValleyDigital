@@ -11,8 +11,8 @@ function HomePage() {
   
   const categoryMap = {
     1: 'NEWS',
-    2: 'FEATURE',
-    3: 'EDITORIAL',
+    2: 'EDITORIAL',
+    3: 'FEATURE',
     4: 'SCI-TECH',
     5: 'SPORTS',
     6: 'OPINION',
@@ -40,13 +40,17 @@ function HomePage() {
     navigate(`/article/${id}`); 
   };
 
-  const handleFeatureClick = () => { 
-    navigate(`/feature`); 
+  const handleFeatureClick = (id) => { 
+    navigate(`/article/${id}`); 
   };
 
-  const handleEditorialClick = () => { 
-    navigate(`/editorial`); 
+  const handleEditorialClick = (id) => { 
+    navigate(`/article/${id}`); 
   };
+
+  const handleTopStoryClick = (id) => {
+    navigate(`/article/${id}`);
+  }
   
   useEffect(() => {
     const fetchHomepageStories = async () => {
@@ -106,42 +110,42 @@ function HomePage() {
   
       <div className='homepage-bottom'>
         <div className='left-story'>
-          <div className="top-story-left">
+          <div className="top-story-left" onClick={() => handleTopStoryClick(topStory?.id)}>
             <span className="top-story-label">TOP STORY</span>
             {topStory && (
               <>
                 <img className="top-story-image" src={placeholderImg} alt="Top Story" />
-                <h2 className="top-story-headline">{topStory}</h2>
+                <h2 className="top-story-headline">{topStory?.headline}</h2>
               </>
             )}
           </div>
           <div className="featured-left">
             {featuredArticles.map((headline, index) => (
-              <div key={index} className="featured-article" onClick={handleFeatureClick}>
-                <h1><span>|</span> FEATURE</h1>
+              <div key={index} className="featured-article" onClick={() => handleFeatureClick(headline.id)}>
+                <h1><span>|</span> FEATURED</h1>
                 <img src={placeholderImg} alt={headline} className="featured-article-image" />
-                <h3 className="featured-article-headline">{headline}</h3>
+                <h3 className="featured-article-headline">{headline.headline}</h3>
               </div>
             ))}
           </div>
           {featuredEditorial && (
-            <div className="editorial" onClick={handleEditorialClick}>
+            <div className="editorial" onClick={() => handleEditorialClick(featuredEditorial?.id)}>
               <div className="editorial-left">
                 <img src={placeholderImg} alt="Editorial" className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> EDITORIAL</h2>
-                  <h3 className="editorial-headline">{featuredEditorial}</h3>
+                  <h3 className="editorial-headline">{featuredEditorial?.headline}</h3>
                 </div>
               </div>
             </div>
           )}
           {featuredFeature && (
-            <div className="editorial" onClick={handleFeatureClick}>
+            <div className="editorial" onClick={() => handleFeatureClick(featuredFeature?.id)}>
               <div className="editorial-left">
                 <img src={placeholderImg} alt="Feature" className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> FEATURE</h2>
-                  <h3 className="editorial-headline">{featuredFeature}</h3>
+                  <h3 className="editorial-headline">{featuredFeature?.headline}</h3>
                 </div>
               </div>
             </div>
@@ -163,7 +167,7 @@ function HomePage() {
             <div className="recent-articles">
               {sortedRecentArticles.map((article, index) => (
                 <div key={index} className="recent-article" onClick={() => handleArticleClick(article.id)}>
-                  <img src={article.image || placeholderImg} alt={article.headline} className="recent-article-image" />
+                  <img src={article.image_url || placeholderImg} alt={article.headline} className="recent-article-image" />
                   <h2 className="category-label"><span>|</span> {categoryMap[article.category]}</h2>
                   <h4 className="recent-article-headline">{article.headline}</h4>
                 </div>

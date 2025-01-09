@@ -96,7 +96,7 @@ function EditorialsPage() {
             <div className="newest-article-container">
               {currentArticles.slice(0, 1).map((article) => (
                 <div key={article.id} className="editorials-article newest-article" onClick={() => handleArticleClick(article.id)}>
-                  <img src={article.img || placeholderImg} alt="Article" className="newest-image" />
+                  <img src={article.image_url || placeholderImg} alt="Article" className="newest-image" />
                   <div className="editorials-content newest-content">
                     <h2 className="editorials-headline newest-headline">{article.headline}</h2>
                     <div className="editorials-meta">
@@ -113,7 +113,7 @@ function EditorialsPage() {
             <div className="recent-articles-container">
               {currentArticles.slice(1, 3).map((article) => (
                 <div key={article.id} className="editorials-article recent-article" onClick={() => handleArticleClick(article.id)}>
-                  <img src={article.img || placeholderImg} alt="Article" className="editorials-image" />
+                  <img src={article.image_url || placeholderImg} alt="Article" className="editorials-image" />
                   <div className="editorials-content">
                     <h2 className="editorials-headline">{article.headline}</h2>
                     <div className="editorials-meta">
@@ -131,7 +131,7 @@ function EditorialsPage() {
 
         {currentArticles.slice(currentPage === 1 ? 3 : 0).map((article) => (
           <div key={article.id} className="editorials-article" onClick={() => handleArticleClick(article.id)}>
-            <img src={article.img || placeholderImg} alt="Article" className="editorials-image" />
+            <img src={article.image_url || placeholderImg} alt="Article" className="editorials-image" />
             <div className="editorials-content">
               <h2 className="editorials-headline">{article.headline}</h2>
               <div className="editorials-meta">

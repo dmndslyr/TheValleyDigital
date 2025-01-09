@@ -41,10 +41,12 @@
 
 .arrow.left {
   left: 2vw;
+  cursor: pointer;
 }
 
 .arrow.right {
   right: 2vw;
+  cursor: pointer;
 }
 
 .dots {
@@ -77,6 +79,7 @@
 
 .top-story-left {
   width: 95%;
+  cursor: pointer;
 }
 
 .top-story-label {
@@ -142,6 +145,7 @@
 
 .featured-article {
   width: 48%;
+  cursor: pointer;
 }
 
 .featured-article h1{
@@ -198,6 +202,7 @@
   width: 80%;
   height: 100%;
   position: relative;
+  cursor: pointer;
 }
 
 .recent-label {
@@ -256,6 +261,7 @@
   display: flex;
   flex-direction: row;
   gap: 3vw;
+  cursor: pointer;
 }
 
 .bordered-image {
