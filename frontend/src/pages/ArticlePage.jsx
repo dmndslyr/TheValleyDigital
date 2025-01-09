@@ -57,7 +57,7 @@ function ArticlePage() {
   }
 
   const {
-    image_url: img = placeholderImg,
+    image_url = '',
     caption,
     headline,
     content,
@@ -67,6 +67,8 @@ function ArticlePage() {
     category,
     slug
   } = article;
+
+  const img = image_url ? `http://127.0.0.1:8000${image_url}` : placeholderImg;
 
   return (
     <div className="article-page">
@@ -85,7 +87,6 @@ function ArticlePage() {
         <span className="article-author"><span className="author-name">{author}</span></span>
         <span className="article-date">{date}</span>
         {is_published && <span className="article-status">Published</span>}
-        <span className="article-slug">{slug}</span>
       </div>
 
       <div className="article-body">
@@ -93,7 +94,6 @@ function ArticlePage() {
           <p key={index} className="article-content">{paragraph}</p>
         ))}
       </div>
-
 
       {/* Facebook Comments Plugin */}
       <div className="comments-section">

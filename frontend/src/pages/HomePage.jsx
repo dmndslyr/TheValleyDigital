@@ -122,9 +122,9 @@ function HomePage() {
           <div className="featured-left">
             {featuredArticles.map((headline, index) => (
               <div key={index} className="featured-article" onClick={() => handleFeatureClick(headline.id)}>
-                <h1><span>|</span> FEATURE</h1>
+                <h1><span>|</span> FEATURED</h1>
                 <img src={placeholderImg} alt={headline} className="featured-article-image" />
-                <h3 className="featured-article-headline">{headline.title}</h3>
+                <h3 className="featured-article-headline">{headline.headline}</h3>
               </div>
             ))}
           </div>
@@ -133,7 +133,7 @@ function HomePage() {
               <div className="editorial-left">
                 <img src={placeholderImg} alt="Editorial" className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
-                  <h2 className="editorial-feature"><span>|</span> EDITORIALL</h2>
+                  <h2 className="editorial-feature"><span>|</span> EDITORIAL</h2>
                   <h3 className="editorial-headline">{featuredEditorial?.headline}</h3>
                 </div>
               </div>
@@ -144,7 +144,7 @@ function HomePage() {
               <div className="editorial-left">
                 <img src={placeholderImg} alt="Feature" className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
-                  <h2 className="editorial-feature"><span>|</span> FEATURED</h2>
+                  <h2 className="editorial-feature"><span>|</span> FEATURE</h2>
                   <h3 className="editorial-headline">{featuredFeature?.headline}</h3>
                 </div>
               </div>
@@ -167,7 +167,7 @@ function HomePage() {
             <div className="recent-articles">
               {sortedRecentArticles.map((article, index) => (
                 <div key={index} className="recent-article" onClick={() => handleArticleClick(article.id)}>
-                  <img src={article.image || placeholderImg} alt={article.headline} className="recent-article-image" />
+                  <img src={article.image_url || placeholderImg} alt={article.headline} className="recent-article-image" />
                   <h2 className="category-label"><span>|</span> {categoryMap[article.category]}</h2>
                   <h4 className="recent-article-headline">{article.headline}</h4>
                 </div>
