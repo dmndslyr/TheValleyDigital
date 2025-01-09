@@ -13,7 +13,7 @@ function FeaturePage() {
   useEffect(() => { const fetchArticles = async () => { 
     try { 
       const response = await axios.get('http://127.0.0.1:8000/articles/'); 
-      setArticles(response.data.filter(article => article.category === 2));
+      setArticles(response.data.filter(article => article.category === 3));
       setLoading(false); 
     } 
     catch (error) { 

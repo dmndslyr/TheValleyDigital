@@ -14,7 +14,7 @@ function EditorialsPage() {
     const fetchArticles = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/articles/');
-        setArticles(response.data.filter(article => article.category === 3));  // Filter for Editorial category
+        setArticles(response.data.filter(article => article.category === 2));  // Filter for Editorial category
         setLoading(false);
       } catch (error) {
         console.error('Error fetching articles:', error);

@@ -89,7 +89,7 @@ function HomePage() {
   const featuredEditorial = sortedArticles[0]?.featured_editorial;
   const featuredFeature = sortedArticles[0]?.featured_feature;
   const featuredArticles = sortedArticles[0]?.featured_articles?.slice(0, 4) || [];
-  const sortedRecentArticles = recentArticles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date)).slice(0, 8);
+  const sortedRecentArticles = recentArticles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date)).slice(0, 6);
   
   return (
     <div className="home-page">
@@ -114,7 +114,7 @@ function HomePage() {
             <span className="top-story-label">TOP STORY</span>
             {topStory && (
               <>
-                <img className="top-story-image" src={placeholderImg} alt="Top Story" />
+                <img className="top-story-image" src={topStory.image_url || placeholderImg} alt="Top Story" />
                 <h2 className="top-story-headline">{topStory?.headline}</h2>
               </>
             )}
@@ -123,7 +123,7 @@ function HomePage() {
             {featuredArticles.map((headline, index) => (
               <div key={index} className="featured-article" onClick={() => handleFeatureClick(headline.id)}>
                 <h1><span>|</span> FEATURED</h1>
-                <img src={placeholderImg} alt={headline} className="featured-article-image" />
+                <img src={headline.image_url || placeholderImg} alt={headline} className="featured-article-image" />
                 <h3 className="featured-article-headline">{headline.headline}</h3>
               </div>
             ))}
@@ -131,7 +131,7 @@ function HomePage() {
           {featuredEditorial && (
             <div className="editorial" onClick={() => handleEditorialClick(featuredEditorial?.id)}>
               <div className="editorial-left">
-                <img src={placeholderImg} alt="Editorial" className="editorial-image bordered-image" />
+                <img src={featuredEditorial.image_url || placeholderImg} alt="Editorial" className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> EDITORIAL</h2>
                   <h3 className="editorial-headline">{featuredEditorial?.headline}</h3>
@@ -142,7 +142,7 @@ function HomePage() {
           {featuredFeature && (
             <div className="editorial" onClick={() => handleFeatureClick(featuredFeature?.id)}>
               <div className="editorial-left">
-                <img src={placeholderImg} alt="Feature" className="editorial-image bordered-image" />
+                <img src={featuredFeature.image_url || placeholderImg} alt="Feature" className="editorial-image bordered-image" />
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> FEATURE</h2>
                   <h3 className="editorial-headline">{featuredFeature?.headline}</h3>
@@ -181,4 +181,5 @@ function HomePage() {
 }
 
 export default HomePage;
+
 
