@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // Import useParams
+import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const PdfViewer = () => {
   const { identifier } = useParams(); // Use the route parameter
   const [pdfUrl, setPdfUrl] = useState("");
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   useEffect(() => {
     // Fetch the PDF URL from the backend API
@@ -13,35 +14,30 @@ const PdfViewer = () => {
         try {
           const json = JSON.parse(data); // Attempt to parse as JSON
           if (json.pdf_file_url) {
-            setPdfUrl(json.pdf_file_url);
+            setPdfUrl(`http://127.0.0.1:8000${json.pdf_file_url}`); // Use the correct base URL
           } else {
             alert("No PDF available for this issue.");
           }
         } catch (error) {
           console.error("Error parsing JSON:", error);
-          console.error("Full response:", data); // Log the full response
           alert("Failed to fetch PDF URL. Please check the server response.");
         }
       })
       .catch((error) => console.error("Error fetching PDF URL:", error));
   }, [identifier]);
 
-  const openPdf = () => {
+  useEffect(() => {
+    // Automatically open the PDF when the URL is set
     if (pdfUrl) {
       window.open(pdfUrl, "_blank"); // Open PDF in a new tab
-    } else {
-      alert("PDF not found.");
+      navigate("/print-issue"); // Navigate back to PrintIssue component
     }
-  };
+  }, [pdfUrl, navigate]);
 
   return (
     <div>
       <h1>Printed Issue</h1>
-      {pdfUrl ? (
-        <button onClick={openPdf}>Open PDF</button>
-      ) : (
-        <p>Loading PDF...</p>
-      )}
+      {!pdfUrl && <p>Loading PDF...</p>}
     </div>
   );
 };

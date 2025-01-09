@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import './PrintIssue.css';
 import placeholderImg from '../assets/placeholder-issue.jpg'; 
+import printIssueimg from '../assets/print-issue2.png';
 import logo from '../assets/DIGITAL_print.png';
 
 function PrintIssue() {
@@ -61,7 +62,7 @@ function PrintIssue() {
         {pastIssues.map((issue, index) => (
           <div key={index} className='past-issue'>
             <div className="past-issue-photo">
-              <img src={placeholderImg} alt='img' /> 
+              <img src={printIssueimg} alt='img' /> 
             </div> 
             <div className='right-past-issue'> 
               <h3>THE VALLEY</h3>

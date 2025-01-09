@@ -94,7 +94,7 @@ function NewsPage() {
             <div className="newest-article-container">
               {currentArticles.slice(0, 1).map((article) => (
                 <div key={article.id} className="news-article newest-article" onClick={() => handleArticleClick(article.id)}>
-                  <img src={article.img || placeholderImg} alt="Article" className="newest-image" />
+                  <img src={article.image_url || placeholderImg} alt="Article" className="newest-image" />
                   <div className="news-content newest-content">
                     <h2 className="news-headline newest-headline">{article.headline}</h2>
                     <div className="news-meta">
@@ -112,7 +112,7 @@ function NewsPage() {
             <div className="recent-articles-container">
               {currentArticles.slice(1, 3).map((article) => (
                 <div key={article.id} className="news-article recent-article" onClick={() => handleArticleClick(article.id)}>
-                  <img src={article.img || placeholderImg} alt="Article" className="news-image" />
+                  <img src={article.image_url || placeholderImg} alt="Article" className="news-image" />
                   <div className="news-content">
                     <h2 className="news-headline">{article.headline}</h2>
                     <div className="news-meta">
@@ -131,7 +131,7 @@ function NewsPage() {
         {/* Display other articles */}
         {currentArticles.slice(currentPage === 1 ? 3 : 0).map((article) => (
           <div key={article.id} className="news-article" onClick={() => handleArticleClick(article.id)}>
-            <img src={article.img || placeholderImg} alt="Article" className="news-image" />
+            <img src={article.image_url || placeholderImg} alt="Article" className="news-image" />
             <div className="news-content">
               <h2 className="news-headline">{article.headline}</h2>
               <div className="news-meta">
