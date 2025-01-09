@@ -100,7 +100,7 @@ def article_detail(request, identifier):
             "content": article.content,
             "category": article.category.name,
             "slug": article.slug,  # Include the slug in the response
-            "image_url": article.image.url if article.image else None,  # Include the image URL
+            "image_url": article.image.url,
         }
     )
 
@@ -154,8 +154,6 @@ def printed_issues_list(request):
 
 
 # Printed Issue Detail
-
-@never_cache
 def printed_issue_detail(request, identifier):
     # Check if the identifier is numeric (ID) or a slug
     if identifier.isdigit():
@@ -179,14 +177,26 @@ def homepage_storie_list(request):
     # Serialize the data (with proper checks for related fields)
     data = [{
         'id': story.id,
-        'top_story': story.top_story.headline if story.top_story else "No top story",  # Handle None value
-        'featured_editorial': story.featured_editorial.headline if story.featured_editorial else "No editorial",  # Handle None value
-        'featured_feature': story.featured_feature.headline if story.featured_feature else "No feature",  # Handle None value
-        'featured_articles': [article.headline for article in story.featured_articles.all()],  # Serialize many-to-many field
+        'top_story': {
+            'headline': story.top_story.headline if story.top_story else "No top story",  # Handle None value
+            'id': story.top_story.id if story.top_story else None  # Add ID of top story
+        },
+        'featured_editorial': {
+            'headline': story.featured_editorial.headline if story.featured_editorial else "No editorial",  # Handle None value
+            'id': story.featured_editorial.id if story.featured_editorial else None  # Add ID of featured editorial
+        },
+        'featured_feature': {
+            'headline': story.featured_feature.headline if story.featured_feature else "No feature",  # Handle None value
+            'id': story.featured_feature.id if story.featured_feature else None  # Add ID of featured feature
+        },
+        'featured_articles': [article.id for article in story.featured_articles.all()],  # Only article IDs
         'updated_at': story.updated_at.strftime('%Y-%m-%d %H:%M:%S') if story.updated_at else "Not yet updated"
     } for story in stories]
 
     return JsonResponse({'homepage_stories': data})
+
+
+
 
 
 # ADMIN VIEWS
