@@ -80,6 +80,7 @@ def article_detail(request, identifier):
             "content": article.content,
             "category": article.category.name,
             "slug": article.slug,
+            "image_url": article.image,
         }
     )
 
@@ -99,6 +100,7 @@ def article_detail(request, identifier):
             "content": article.content,
             "category": article.category.name,
             "slug": article.slug,  # Include the slug in the response
+            "image_url": article.image.url if article.image else None,  # Include the image URL
         }
     )
 
