@@ -159,27 +159,30 @@ def homepage_storie_list(request):
         'id': story.id,
         'top_story': {
             'headline': story.top_story.headline if story.top_story else "No top story",  # Handle None value
-            'id': story.top_story.id if story.top_story else None  # Add ID of top story
+            'id': story.top_story.id if story.top_story else None,  # Add ID of top story
+            'image_url': story.top_story.image.url if story.top_story and story.top_story.image else None  # Add image URL
         },
         'featured_editorial': {
             'headline': story.featured_editorial.headline if story.featured_editorial else "No editorial",  # Handle None value
-            'id': story.featured_editorial.id if story.featured_editorial else None  # Add ID of featured editorial
+            'id': story.featured_editorial.id if story.featured_editorial else None,  # Add ID of featured editorial
+            'image_url': story.featured_editorial.image.url if story.featured_editorial and story.featured_editorial.image else None  # Add image URL
         },
         'featured_feature': {
             'headline': story.featured_feature.headline if story.featured_feature else "No feature",  # Handle None value
-            'id': story.featured_feature.id if story.featured_feature else None  # Add ID of featured feature
+            'id': story.featured_feature.id if story.featured_feature else None,  # Add ID of featured feature
+            'image_url': story.featured_feature.image.url if story.featured_feature and story.featured_feature.image else None  # Add image URL
         },
         'featured_articles': [
             {
                 'id': article.id,
-                'headline': article.headline
+                'headline': article.headline,
+                'image_url': article.image.url if article.image else None  # Include image URL for articles
             } for article in story.featured_articles.all()
-        ],  # Include both article IDs and headlines
+        ],  # Include article IDs, headlines, and image URLs
         'updated_at': story.updated_at.strftime('%Y-%m-%d %H:%M:%S') if story.updated_at else "Not yet updated"
     } for story in stories]
 
     return JsonResponse({'homepage_stories': data})
-
 
 # ADMIN VIEWS
 
