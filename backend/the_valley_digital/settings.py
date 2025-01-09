@@ -154,11 +154,6 @@ CORS_ALLOW_ALL_ORIGINS = True  # or specify allowed origins
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # Adjust if necessary
 
-# Media settings
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(
-    BASE_DIR, "media"
-)  # This creates a 'media' directory at the project root
 
 # Add REST framework configuration
 REST_FRAMEWORK = {
