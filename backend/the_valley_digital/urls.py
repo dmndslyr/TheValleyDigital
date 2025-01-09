@@ -55,7 +55,8 @@ urlpatterns = [
     path(
         "admin/articles/<int:id>/delete/", views.article_delete, name="article_delete"
     ),  # Admin-only article delete
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
 
+# Only serve media files in development mode
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

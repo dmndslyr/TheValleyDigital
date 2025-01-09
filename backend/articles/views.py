@@ -65,26 +65,6 @@ def sports_articles(request):
 
 
 # Article Detail
-# @csrf_exempt
-def article_detail(request, identifier):
-    # Check if the identifier is numeric (ID) or a slug
-    if str(identifier).isdigit():
-        article = get_object_or_404(Article, id=identifier)  # Search by ID
-    else:
-        article = get_object_or_404(Article, slug=identifier)  # Search by Slug
-
-    return JsonResponse(
-        {
-            "id": article.id,
-            "headline": article.headline,
-            "content": article.content,
-            "category": article.category.name,
-            "slug": article.slug,
-            "image_url": article.image,
-        }
-    )
-
-
 def article_detail(request, identifier):
     # Check if the identifier is numeric (ID) or a slug
     if identifier.isdigit():
@@ -100,7 +80,7 @@ def article_detail(request, identifier):
             "content": article.content,
             "category": article.category.name,
             "slug": article.slug,  # Include the slug in the response
-            "image_url": article.image.url,
+            "image_url": article.image.url if article.image else None,  # Include the image URL
         }
     )
 
@@ -189,11 +169,17 @@ def homepage_storie_list(request):
             'headline': story.featured_feature.headline if story.featured_feature else "No feature",  # Handle None value
             'id': story.featured_feature.id if story.featured_feature else None  # Add ID of featured feature
         },
-        'featured_articles': [article.id for article in story.featured_articles.all()],  # Only article IDs
+        'featured_articles': [
+            {
+                'id': article.id,
+                'headline': article.headline
+            } for article in story.featured_articles.all()
+        ],  # Include both article IDs and headlines
         'updated_at': story.updated_at.strftime('%Y-%m-%d %H:%M:%S') if story.updated_at else "Not yet updated"
     } for story in stories]
 
     return JsonResponse({'homepage_stories': data})
+
 
 
 
