@@ -11,17 +11,17 @@ const Footer = () => {
           <h4>SECTIONS</h4>
           <div className="section-links">
             <ul className="first-section-links">
-              <li><a href="#">News</a></li>
-              <li><a href="#">Editorial</a></li>
-              <li><a href="#">Feature</a></li>
+              <li><a href="/news">News</a></li>
+              <li><a href="/editorial">Editorial</a></li>
+              <li><a href="/feature">Feature</a></li>
             </ul>
             <ul className="second-section-links">
-              <li><a href="#">Sci-Tech</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">About Us</a></li>
+                <li><a href="/sci-tech">Sci-Tech</a></li>
+              <li><a href="/sports">Sports</a></li>
+              <li><a href="/opinion">Opinion</a></li>
             </ul>
           </div>
-          <h3>READ PRINT ISSUE ONLINE</h3>
+          <h3><a href='/print-issue'>READ PRINT ISSUE ONLINE</a></h3>
         </div>
 
         <div className="footer-contact">
