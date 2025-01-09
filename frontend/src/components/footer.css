@@ -65,6 +65,7 @@
   font-size: 1vw;
 }
 
+.footer-sections a:hover,
 .first-section-links li a:hover,
 .second-section-links li a:hover {
   color: #ffffff;
@@ -75,6 +76,11 @@
   color: #d6d6d6;
   margin-bottom: 1vw;
   font-size: 1vw;
+}
+
+.footer-sections a{
+  text-decoration: none;
+  color: #b4b4b4;
 }
 
 @media screen and (max-width: 750px) {
