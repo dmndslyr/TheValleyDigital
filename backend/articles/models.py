@@ -54,17 +54,10 @@ class Article(models.Model):
         if self.category.name != "Editorial" and not self.author:
             raise ValueError("Author is required for this section.")
         
-        # Ensure the publication_date is set to the first day of the given month
-        if self.publication_date:
-            # Set the date to the first day of the month
-            self.publication_date = self.publication_date.replace(day=1)
-        
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.headline
-
-
 
 class PrintedIssue(models.Model):
     is_published = models.BooleanField(default=False)
