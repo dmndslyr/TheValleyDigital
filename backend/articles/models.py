@@ -30,22 +30,21 @@ class Tag(models.Model):
         return self.name
 
 
+from django.db import models
+from django.utils import timezone
+from django.template.defaultfilters import slugify
+
 class Article(models.Model):
-    # Use a ForeignKey to link to the Category model
     category = models.ForeignKey(Categorie, on_delete=models.CASCADE)
     headline = models.CharField(max_length=200)
-    author = models.CharField(max_length=100, blank=True, null=True)  # Optional author
+    author = models.CharField(max_length=100, blank=True, null=True)
     content = models.TextField()
-    publication_date = models.DateTimeField(auto_now_add=True)
+    publication_date = models.DateField()  # Store only the month and year
     is_published = models.BooleanField(default=True)
-    image = models.ImageField(
-        upload_to="content_images/", blank=True, null=True
-    )  # Optional image
+    image = models.ImageField(upload_to="content_images/", blank=True, null=True)
     caption = models.TextField(blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True, related_name="articles")
-
-    # Slug field for URL-friendly version of the headline
-    slug = models.SlugField(max_length=200,unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=200, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -54,10 +53,17 @@ class Article(models.Model):
         # Check if the category is not Editorial, then ensure an author is provided
         if self.category.name != "Editorial" and not self.author:
             raise ValueError("Author is required for this section.")
+        
+        # Ensure the publication_date is set to the first day of the given month
+        if self.publication_date:
+            # Set the date to the first day of the month
+            self.publication_date = self.publication_date.replace(day=1)
+        
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.headline
+
 
 
 class PrintedIssue(models.Model):

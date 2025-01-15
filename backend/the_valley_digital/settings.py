@@ -176,6 +176,7 @@ JAZZMIN_SETTINGS = {
     "site_header": "The Valley Digital Admin", 
     "site_brand": "The Valley Digital",
     "site_logo": "images/the_valley_pubmats_e9Q_icon.ico",  # Corrected to use a static file path
+    "site_icon": "images/the_valley_pubmats_e9Q_icon.ico",
     "welcome_sign": "Welcome to The Valley Digital Admin Panel", 
     "show_sidebar": True,  # Show or hide the sidebar
     "navigation_expanded": True,  # Expand the sidebar navigation by default
