@@ -143,7 +143,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # Your static files directory
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -165,3 +169,15 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = "articles.User"
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "The Valley Digital | Admin", 
+    "site_header": "The Valley Digital Admin", 
+    "site_brand": "The Valley Digital",
+    "site_logo": "images/the_valley_pubmats_e9Q_icon.ico",  # Corrected to use a static file path
+    "welcome_sign": "Welcome to The Valley Digital Admin Panel", 
+    "show_sidebar": True,  # Show or hide the sidebar
+    "navigation_expanded": True,  # Expand the sidebar navigation by default
+}
+
