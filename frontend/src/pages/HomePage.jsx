@@ -122,7 +122,7 @@ function HomePage() {
           <div className="featured-left">
             {featuredArticles.map((headline, index) => (
               <div key={index} className="featured-article" onClick={() => handleFeatureClick(headline.id)}>
-                <h1><span>|</span> FEATURED</h1>
+                <h1><span>|</span> FEATURED ARTICLE</h1>
                 <img src={headline.image_url || placeholderImg} alt={headline} className="featured-article-image" />
                 <h3 className="featured-article-headline">{headline.headline}</h3>
               </div>
