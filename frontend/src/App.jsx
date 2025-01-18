@@ -51,6 +51,7 @@ const App = () => {
           <Route path="/article/:identifier" element={<Layout><ArticlePage /></Layout>} />
           <Route path="/print-issue" element={<Layout><PrintIssue /></Layout>} />
           <Route path="/print-issues/:identifier" element={<Layout><PdfViewer /></Layout>} />
+          <Route path="/advanced-search" element={<Layout><SearchInterface /></Layout>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

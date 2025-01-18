@@ -79,6 +79,11 @@ function HomePage() {
     fetchRecentArticles();
   }, []);
   
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000); // Move to next slide every 3 seconds
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, []);
+  
   if (loading) {
     return <div>Loading articles...</div>;
   }
@@ -89,8 +94,8 @@ function HomePage() {
   const featuredEditorial = sortedArticles[0]?.featured_editorial;
   const featuredFeature = sortedArticles[0]?.featured_feature;
   const featuredArticles = sortedArticles[0]?.featured_articles?.slice(0, 4) || [];
-  const sortedRecentArticles = recentArticles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date)).slice(0, 6);
-  
+  const sortedRecentArticles = recentArticles.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date)).slice(0, 5);
+
   return (
     <div className="home-page">
       {/* Slideshow */}
@@ -181,5 +186,3 @@ function HomePage() {
 }
 
 export default HomePage;
-
-

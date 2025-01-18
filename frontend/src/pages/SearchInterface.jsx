@@ -1,62 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SearchInterface.css';
-import placeholderImg from '../assets/placeholder.jpg';
+import placeholderImg from '../assets/placeholder.jpg'; // Placeholder image for articles
 
 const SearchInterface = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [articles, setArticles] = useState([]); // Store fetched articles
+  const [currentPage, setCurrentPage] = useState(1); // Pagination page state
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const [searchQuery, setSearchQuery] = useState(''); // Search query state
 
-  const articleData = {
-    currentArticles: [
-      { id: 1, img: placeholderImg, headline: 'Classes suspended on April 8 due to extreme heat', author: 'Juan Dela Cruz', date: '04/07/2024', time: '09:45 AM', section: 'news' },
-      { id: 2, img: placeholderImg, headline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', author: 'Juan Dela Cruz', date: '01/17/1970', time: '08:00 AM', section: 'opinion' },
-      { id: 3, img: placeholderImg, headline: 'New educational reforms are on the way', author: 'Maria Santos', date: '05/10/2024', time: '10:30 AM', section: 'editorial' },
-      { id: 4, img: placeholderImg, headline: 'Local farmers adopt new techniques', author: 'Carlos Reyes', date: '06/15/2024', time: '11:00 AM', section: 'feature' },
-      { id: 5, img: placeholderImg, headline: 'City park renovation plans revealed', author: 'Ana Lopez', date: '07/01/2024', time: '09:00 AM', section: 'news' },
-      { id: 6, img: placeholderImg, headline: 'Technology trends in 2024', author: 'John Doe', date: '08/11/2024', time: '08:45 AM', section: 'science' },
-      { id: 7, img: placeholderImg, headline: 'Art exhibition opens downtown', author: 'Jane Smith', date: '09/05/2024', time: '09:15 AM', section: 'feature' },
-      { id: 8, img: placeholderImg, headline: 'New transportation routes announced', author: 'Peter Parker', date: '10/20/2024', time: '07:50 AM', section: 'news' },
-      { id: 9, img: placeholderImg, headline: 'Community service opportunities', author: 'Clark Kent', date: '11/02/2024', time: '09:00 AM', section: 'editorial' },
-      { id: 10, img: placeholderImg, headline: 'Local sports teams prepare for championship', author: 'Diana Prince', date: '12/25/2024', time: '10:10 AM', section: 'sports' },
-      { id: 11, img: placeholderImg, headline: 'New Art Exhibition', author: 'Clark Kent', date: '01/02/2025', time: '09:00 AM', section: 'feature' },
-      { id: 12, img: placeholderImg, headline: 'Tech Innovations', author: 'Lois Lane', date: '03/10/2025', time: '11:15 AM', section: 'science' },
-      { id: 13, img: placeholderImg, headline: 'Classes suspended on April 8 due to extreme heat', author: 'Juan Dela Cruz', date: '04/07/2024', time: '09:45 AM', section: 'news' },
-      { id: 14, img: placeholderImg, headline: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', author: 'Juan Dela Cruz', date: '01/17/1970', time: '08:00 AM', section: 'opinion' },
-      { id: 15, img: placeholderImg, headline: 'New educational reforms are on the way', author: 'Maria Santos', date: '05/10/2024', time: '10:30 AM', section: 'editorial' },
-      { id: 16, img: placeholderImg, headline: 'Local farmers adopt new techniques', author: 'Carlos Reyes', date: '06/15/2024', time: '11:00 AM', section: 'feature' },
-      { id: 17, img: placeholderImg, headline: 'City park renovation plans revealed', author: 'Ana Lopez', date: '07/01/2024', time: '09:00 AM', section: 'news' },
-      { id: 18, img: placeholderImg, headline: 'Technology trends in 2024', author: 'John Doe', date: '08/11/2024', time: '08:45 AM', section: 'science' },
-      { id: 19, img: placeholderImg, headline: 'Art exhibition opens downtown', author: 'Jane Smith', date: '09/05/2024', time: '09:15 AM', section: 'feature' },
-      { id: 20, img: placeholderImg, headline: 'New transportation routes announced', author: 'Peter Parker', date: '10/20/2024', time: '07:50 AM', section: 'news' },
-      { id: 21, img: placeholderImg, headline: 'Community service opportunities', author: 'Clark Kent', date: '11/02/2024', time: '09:00 AM', section: 'editorial' },
-    ],
+  const articlesPerPage = 10;
+
+  // Function to fetch articles based on the search query
+  const fetchArticles = async (query) => {
+    setLoading(true);
+    setError(null);
+
+    const url = query
+      ? `http://127.0.0.1:8000/search/?query=${encodeURIComponent(query)}`
+      : 'http://127.0.0.1:8000/articles/'; // For no query, fetch all articles
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch articles');
+      }
+
+      const data = await response.json();
+      console.log('Fetched articles:', data); // Debugging the response
+
+      // Check if data contains articles and set them
+      if (data && data.articles) {
+        setArticles(data.articles);
+      } else {
+        setArticles([]); // Set empty array if no articles are found
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const sortedArticles = articleData.currentArticles.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
-  const articlesPerPage = 10;
-  const totalPages = Math.ceil(sortedArticles.length / articlesPerPage);
+  // Fetch articles when search query changes
+  useEffect(() => {
+    setCurrentPage(1); // Reset to the first page when the search query changes
+    fetchArticles(searchQuery);
+  }, [searchQuery]); // This effect will run every time `searchQuery` changes
+
+  // Pagination Logic
+  const totalPages = Math.ceil(articles.length / articlesPerPage);
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticles = sortedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
+  const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
 
-  const handleArticleClick = (id) => {
-    // Implement navigation functionality here if needed
-  };
-
+  // Pagination handlers
   const nextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 0); // Scroll to the top when switching pages
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      window.scrollTo(0, 0);
+      window.scrollTo(0, 0); // Scroll to the top when switching pages
     }
   };
 
+  // Render page numbers for pagination
   const renderPageNumbers = () => {
     const pageNumbers = [];
     if (totalPages <= 6) {
@@ -79,12 +92,13 @@ const SearchInterface = () => {
     return pageNumbers;
   };
 
-  const filteredArticles = currentArticles.filter((article) =>
-    article.headline.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
     <div className="all-article-page">
+      {/* Loading and error states */}
+      {loading && <div>Loading articles...</div>}
+      {error && <div>Error: {error}</div>}
+
+      {/* Search Bar */}
       <div className="search-container">
         <div className="search-bar">
           <div className="search-input-container">
@@ -92,78 +106,71 @@ const SearchInterface = () => {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)} // Update query when input changes
               placeholder="Search article..."
               className="search-input"
             />
           </div>
         </div>
-        <div className="sort-options">
-          <div className='filter-icon'>
-            <i className="fas fa-filter sort-rectangle icon"></i>
-          </div>
-          <div className="sort-rectangle category">All</div>
-          <div className="sort-rectangle date">&lt;10d</div>
-        </div>
       </div>
 
+      {/* Display Articles */}
       <div className="all-article-articles">
-        {filteredArticles.slice(0, 1).map((article) => (
-          <div key={article.id} className="all-article all-article-newest" onClick={() => handleArticleClick(article.id)}>
-            <div className="all-article-section">{article.section}</div>
-            <img src={article.img} alt="Article" className="all-article-newest-image" />
-            <div className="all-article-content all-article-newest-content">
-              <h2 className="all-article-headline all-article-newest-headline">{article.headline}</h2>
-              <div className="all-article-metadata all-article-newest-metadata">
-                <div className="all-article-author">
-                  <span className="all-article-author-name">{article.author}</span> | <span className="all-article-time">{article.time}</span>
+        {currentArticles.length > 0 ? (
+          currentArticles.map((article, index) => (
+            <div key={article.id || index} className="all-article"> {/* Use article.id, or fallback to index */}
+              <img
+                src={article.img || placeholderImg}
+                alt="Article"
+                className="all-article-image"
+              />
+              <div className="all-article-content">
+                <div className="all-article-section">{article.section}</div>
+                <h2 className="all-article-headline">{article.headline}</h2>
+                <div className="all-article-metadata">
+                  <div className="all-article-author">
+                    <span className="all-article-author-name">{article.author}</span> |{' '}
+                    <span className="all-article-time">{article.time}</span>
+                  </div>
+                  <div className="all-article-date">{article.publication_date}</div>
                 </div>
-                <div className="all-article-date">{article.date}</div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="all-article-articles">
-        {filteredArticles.map((article) => (
-          <div key={article.id} className="all-article" onClick={() => handleArticleClick(article.id)}>
-            <img src={article.img} alt="Article" className="all-article-image" />
-            <div className="all-article-content">
-             <div className="all-article-section">{article.section}</div>
-              <h2 className="all-article-headline">{article.headline}</h2>
-              <div className="all-article-metadata">
-                <div className="all-article-author">
-                  <span className="all-article-author-name">{article.author}</span> | <span className="all-article-time">{article.time}</span>
-                </div>
-                <div className="all-article-date">{article.date}</div>
-              </div>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <div>No articles found</div>
+        )}
       </div>
 
       {/* Pagination */}
-<div className="all-article-pagination">
-  <button className="all-article-arrow prev" onClick={prevPage} disabled={currentPage === 1}>
-    &lt;
-  </button>
-  {renderPageNumbers().map((number, index) => (
-    <button
-      key={index}
-      className={`page-number ${number === currentPage ? 'active' : ''}`}
-      onClick={() => setCurrentPage(number)}
-    >
-      {number}
-    </button>
-  ))}
-  <button className="all-article-arrow next" onClick={nextPage} disabled={currentPage === totalPages}>
-    &gt;
-  </button>
-</div>
-
+      <div className="all-article-pagination">
+        <button
+          className="all-article-arrow prev"
+          onClick={prevPage}
+          disabled={currentPage === 1}
+        >
+          &lt;
+        </button>
+        {renderPageNumbers().map((number, index) => (
+          <button
+            key={index}
+            className={`page-number ${number === currentPage ? 'active' : ''}`}
+            onClick={() => setCurrentPage(number)}
+          >
+            {number}
+          </button>
+        ))}
+        <button
+          className="all-article-arrow next"
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+        >
+          &gt;
+        </button>
+      </div>
     </div>
   );
 };
 
 export default SearchInterface;
+
