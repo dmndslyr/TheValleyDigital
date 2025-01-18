@@ -2,7 +2,6 @@ from django.http import JsonResponse
 from .models import Article, Tag, PrintedIssue, HomepageStorie
 from django.shortcuts import get_object_or_404
 
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import ArticleSerializer
@@ -13,7 +12,8 @@ from rest_framework.permissions import IsAdminUser
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 
-from django.db.models import Q
+from django.db.models import Q, Case, When, IntegerField
+
 
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
@@ -101,48 +101,60 @@ def article_detail(request, identifier):
         }
     )
 
-
 def article_search(request):
     query = request.GET.get("query", "")  # Get the search query from the GET request
     order = request.GET.get("order", "desc")  # Get sorting order from the query parameter (default is descending)
-
-    # Determine the sorting fields based on the order
-    if order == "asc":
-        sort_fields = ["publication_date", "-id"]  # Ascending by publication_date, descending by ID
-    else:
-        sort_fields = ["-publication_date", "-id"]  # Descending by publication_date, descending by ID
 
     # Start with all articles
     articles = Article.objects.all()
 
     if query:
-        # Filter articles based on query matching headline, content, author, tags, or slug
-        articles = articles.filter(
-            Q(headline__icontains=query)  # Match headline
-            | Q(content__icontains=query)  # Match content
-            | Q(author__icontains=query)  # Match author
-            | Q(tags__name__icontains=query)  # Match tags (ManyToMany relationship)
-            | Q(slug__icontains=query)  # Match slugs
-        ).distinct()
+        # Add relevance scoring based on query matching
+        articles = articles.annotate(
+            relevance=Case(
+                When(headline__icontains=query, then=4),  # Match headline (highest priority)
+                When(author__icontains=query, then=3),    # Match author
+                When(tags__name__icontains=query, then=2), # Match tags
+                When(content__icontains=query, then=1),   # Match content
+                default=0,
+                output_field=IntegerField(),
+            )
+        ).filter(
+            Q(headline__icontains=query) |
+            Q(content__icontains=query) |
+            Q(author__icontains=query) |
+            Q(tags__name__icontains=query)
+        )
+
+    # Determine sorting fields
+    if order == "asc":
+        sort_fields = ["relevance", "publication_date", "-id"]  # Ascending by relevance, publication_date, and ID
+    elif order == "desc":
+        sort_fields = ["-relevance", "-publication_date", "-id"]  # Descending by relevance, publication_date, and ID
+    else:  # Default to relevance sorting
+        sort_fields = ["-relevance", "-publication_date", "-id"]
 
     # Fetch and sort articles
-    articles = articles.order_by(*sort_fields)
+    articles = articles.order_by(*sort_fields).prefetch_related("tags")
 
-    # Prepare the data to be returned as JSON
-    articles_data = list(
-        articles.values(
-            "id",
-            "headline",
-            "author",
-            "publication_date",
-            "content",
-            "tags__name",
-            "slug",
-        )
-    )
+    # Remove duplicates manually in Python
+    unique_articles = []
+    seen_ids = set()
+    for article in articles:
+        if article.id not in seen_ids:
+            unique_articles.append({
+                "id": article.id,
+                "headline": article.headline,
+                "author": article.author,
+                "publication_date": article.publication_date,
+                "content": article.content,
+                "slug": article.slug,
+                "tags": list(article.tags.values_list("name", flat=True).distinct())
+            })
+            seen_ids.add(article.id)
 
     # Return the response in JSON format
-    return JsonResponse({"articles": articles_data})
+    return JsonResponse({"articles": unique_articles})
 
 def printed_issues_list(request):
     # Get sorting order from the query parameter (default is descending)
