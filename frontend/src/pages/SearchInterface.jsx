@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './SearchInterface.css';
-import placeholderImg from '../assets/placeholder.jpg'; // Placeholder image for articles
+import placeholderImg from '../assets/placeholder.jpg'; 
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocation to access URL params
 
 const SearchInterface = () => {
-  const [articles, setArticles] = useState([]); // Store fetched articles
-  const [currentPage, setCurrentPage] = useState(1); // Pagination page state
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState(null); // Error state
-  const [searchQuery, setSearchQuery] = useState(''); // Search query state
+  const [articles, setArticles] = useState([]); 
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
+  const [searchQuery, setSearchQuery] = useState(''); // Local search query state
 
   const articlesPerPage = 10;
+  const location = useLocation(); // Get location (URL) object
+  const navigate = useNavigate(); // To programmatically change the URL
 
   // Function to fetch articles based on the search query
   const fetchArticles = async (query) => {
@@ -18,7 +21,7 @@ const SearchInterface = () => {
 
     const url = query
       ? `http://127.0.0.1:8000/search/?query=${encodeURIComponent(query)}`
-      : 'http://127.0.0.1:8000/articles/'; // For no query, fetch all articles
+      : 'http://127.0.0.1:8000/articles/';
 
     try {
       const response = await fetch(url);
@@ -27,13 +30,12 @@ const SearchInterface = () => {
       }
 
       const data = await response.json();
-      console.log('Fetched articles:', data); // Debugging the response
+      console.log('Fetched articles:', data); 
 
-      // Check if data contains articles and set them
       if (data && data.articles) {
         setArticles(data.articles);
       } else {
-        setArticles([]); // Set empty array if no articles are found
+        setArticles([]); 
       }
     } catch (error) {
       setError(error.message);
@@ -42,11 +44,25 @@ const SearchInterface = () => {
     }
   };
 
-  // Fetch articles when search query changes
+  // Fetch articles when the location changes (i.e., query changes in the URL)
   useEffect(() => {
-    setCurrentPage(1); // Reset to the first page when the search query changes
-    fetchArticles(searchQuery);
-  }, [searchQuery]); // This effect will run every time `searchQuery` changes
+    const query = new URLSearchParams(location.search).get('query'); // Get query from URL
+    if (query !== null && query !== searchQuery) {
+      setSearchQuery(query); // Set searchQuery state to match the query in the URL
+      setCurrentPage(1); // Reset to first page when query changes
+      fetchArticles(query); // Fetch articles based on query
+    }
+  }, [location.search]); // Re-run when the URL search string changes
+
+  // Handle search bar input
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value); // Update local state when typing in the search bar
+  };
+
+  // Handle search on "Enter"
+  const handleSearchEnter = () => {
+    navigate(`/advanced-search?query=${searchQuery}`); // Update URL when user presses Enter
+  };
 
   // Pagination Logic
   const totalPages = Math.ceil(articles.length / articlesPerPage);
@@ -54,22 +70,20 @@ const SearchInterface = () => {
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
   const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
 
-  // Pagination handlers
   const nextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
-      window.scrollTo(0, 0); // Scroll to the top when switching pages
+      window.scrollTo(0, 0); 
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      window.scrollTo(0, 0); // Scroll to the top when switching pages
+      window.scrollTo(0, 0); 
     }
   };
 
-  // Render page numbers for pagination
   const renderPageNumbers = () => {
     const pageNumbers = [];
     if (totalPages <= 6) {
@@ -94,42 +108,23 @@ const SearchInterface = () => {
 
   return (
     <div className="all-article-page">
-      {/* Loading and error states */}
       {loading && <div>Loading articles...</div>}
       {error && <div>Error: {error}</div>}
-
-      {/* Search Bar */}
-      <div className="search-container">
-        <div className="search-bar">
-          <div className="search-input-container">
-            <i className="fas fa-search search-icons"></i>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} // Update query when input changes
-              placeholder="Search article..."
-              className="search-input"
-            />
-          </div>
-        </div>
-      </div>
+      
+      <h1 className='search-result-text'>Search Results for: {searchQuery}</h1>
 
       {/* Display Articles */}
       <div className="all-article-articles">
         {currentArticles.length > 0 ? (
           currentArticles.map((article, index) => (
-            <div key={article.id || index} className="all-article"> {/* Use article.id, or fallback to index */}
-              <img
-                src={article.img || placeholderImg}
-                alt="Article"
-                className="all-article-image"
-              />
+            <div key={article.id || index} className="all-article">
+              <img src={article.img || placeholderImg} alt="Article" className="all-article-image" />
               <div className="all-article-content">
-                <div className="all-article-section">{article.section}</div>
+                <div className="all-article-section">{article.category}</div>
                 <h2 className="all-article-headline">{article.headline}</h2>
                 <div className="all-article-metadata">
                   <div className="all-article-author">
-                    <span className="all-article-author-name">{article.author}</span> |{' '}
+                    <span className="all-article-author-name">{article.author}</span>
                     <span className="all-article-time">{article.time}</span>
                   </div>
                   <div className="all-article-date">{article.publication_date}</div>
@@ -138,7 +133,7 @@ const SearchInterface = () => {
             </div>
           ))
         ) : (
-          <div>No articles found</div>
+          <div className='no-results'>No articles found...</div>
         )}
       </div>
 
@@ -173,4 +168,5 @@ const SearchInterface = () => {
 };
 
 export default SearchInterface;
+
 

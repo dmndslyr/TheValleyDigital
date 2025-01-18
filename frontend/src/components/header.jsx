@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './header.css';
 import logo from '../assets/DIGITAL_light.png'; 
-import { useNavigate, useSearchParams } from 'react-router-dom'; // Import useNavigate and useSearchParams
+import { useNavigate, useSearchParams } from 'react-router-dom'; 
 
 function Header() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [clicked, setClicked] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('query') || '');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('query') || ''); // Fetch query from URL
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -15,6 +15,7 @@ function Header() {
 
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
+      // Update the URL with the search query
       navigate(`/advanced-search?query=${searchQuery}`);
     } else {
       setSearchQuery(e.target.value);
@@ -36,7 +37,7 @@ function Header() {
         </ul>
       </nav>
       <div className="search-box">
-        <i className="fas fa-search search-icon"></i> {/* Font Awesome search icon */}
+        <i className="fas fa-search search-icon"></i> 
         <input 
           type="text" 
           placeholder='Search The Valley' 
