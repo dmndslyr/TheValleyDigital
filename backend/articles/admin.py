@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django import forms
+from django.contrib.auth.admin import UserAdmin
 from .models import Article, Categorie, Tag, PrintedIssue, User, HomepageStorie
 
 
@@ -40,7 +41,7 @@ class ArticlesAdmin(admin.ModelAdmin):
 
 
 # Register other models
-admin.site.register(User, admin.ModelAdmin)
+admin.site.register(User, UserAdmin)
 admin.site.register(Categorie)
 admin.site.register(Tag)
 admin.site.register(PrintedIssue)
