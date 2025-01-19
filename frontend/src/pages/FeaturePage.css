@@ -95,15 +95,16 @@
 .newest-content {
   width: 100%;
   text-align: left; 
+  flex: 1; /*dinagdag 'to*/
 }
 
 .newest-content .feature-headline {
   font-size: 2vw; 
   font-weight: bolder;
   color: #0b1e33;
+  margin-top: 2vw; /*dinagdag 'to*/
   margin-bottom: 0px;
   padding-left: 0; 
-  overflow: scroll;
 }
 
 .newest-content .feature-meta {

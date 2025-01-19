@@ -94,15 +94,17 @@
 
 .newest-content {
   width: 100%;
-  text-align: left;
-  height: auto;
+  text-align: left; 
+  flex: 1; /*dinagdag 'to*/
 }
 
 .newest-content .news-headline {
   font-size: 2vw; 
   font-weight: bolder;
   color: #0b1e33;
-  overflow: scroll;
+  margin-top: 2vw; /*dinagdag 'to*/
+  margin-bottom: 0px;
+  padding-left: 0; 
 }
 
 .newest-content .news-meta {
