@@ -301,3 +301,57 @@
 .category-label{
   color: white;
 }
+
+@media screen and (max-width: 1000px){
+  .homepage-bottom{
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .left-story{
+    margin: 0 5vw;
+  }
+
+  .top-story-image {
+    width: 100%;
+    height: 45vw;
+    object-fit: cover;
+    border: 1px solid rgb(179, 179, 179);
+  }
+
+  .featured-article-image {
+    width: 90%;
+    height: 25vw;
+    object-fit: cover;
+    border: 1px solid rgb(179, 179, 179);
+  }
+
+  .right-story{
+    display: flex;
+    flex-direction: column; 
+  }
+
+  .facebook-embed{
+    display: none;
+  }
+  
+  .recent-article-image {
+    width: 100%;
+    height: 40vw;
+  }
+
+  .recent-right {
+    padding: 2vw 6vw;
+    margin: 5vw 0;
+    width: auto;
+  }
+  
+  .recent-label {
+    margin: 5vw 1vw;
+    font-size: 3vw;
+  }
+  
+  .recent-article-headline{
+    font-size: 2vw;
+  }
+}
