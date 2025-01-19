@@ -65,6 +65,8 @@
   font-size: 1vw;
 }
 
+.footer-contact a:hover,
+.footer-contact p:hover,
 .footer-sections a:hover,
 .first-section-links li a:hover,
 .second-section-links li a:hover {

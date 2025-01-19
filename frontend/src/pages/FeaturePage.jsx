@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './FeaturePage.css';
-import placeholderImg from "../assets/placeholder.jpg"; // If NewsPage is inside 'src/pages'
+import placeholderImg from "../assets/placeholder.jpg"; // If FeaturePage is inside 'src/pages'
 import axios from 'axios';
 
 function FeaturePage() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [order, setOrder] = useState('desc');  // State to manage the sorting order
   const articlesPerPage = 10;
 
-  useEffect(() => { const fetchArticles = async () => { 
-    try { 
-      const response = await axios.get('http://127.0.0.1:8000/articles/'); 
-      setArticles(response.data.filter(article => article.category === 3));
-      setLoading(false); 
-    } 
-    catch (error) { 
-      console.error('Error fetching articles:', error); 
-      setLoading(false); 
-    } 
-  }; 
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/articles/?order=${order}`);
+      setArticles(response.data.filter(article => article.category === 3));  // Filter for Feature category
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+      setLoading(false);
+    }
+  };
 
-  fetchArticles(); }, []);
-  
-  const sortedArticles = articles.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+  useEffect(() => {
+    fetchArticles();
+  }, [order]);  // Re-fetch articles whenever order changes
+
+  // Sort articles by date (most recent first or oldest first based on 'order')
+  const sortedArticles = articles.sort((a, b) => {
+    const dateA = new Date(a.date + ' ' + a.time);
+    const dateB = new Date(b.date + ' ' + b.time);
+    return order === 'desc' ? dateB - dateA : dateA - dateB;
+  });
 
   const totalPages = Math.ceil(sortedArticles.length / articlesPerPage);
   const indexOfLastArticle = currentPage * articlesPerPage;
@@ -32,10 +39,10 @@ function FeaturePage() {
   const currentArticles = sortedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
 
   const navigate = useNavigate();
-  const handleArticleClick = (id) => 
-    { navigate(`/article/${id}`); 
+  const handleArticleClick = (id) => {
+    navigate(`/article/${id}`);
   };
-  // Handle next page
+
   const nextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -43,7 +50,6 @@ function FeaturePage() {
     }
   };
 
-  // Handle previous page
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -51,7 +57,6 @@ function FeaturePage() {
     }
   };
 
-  // Render page numbers with ellipses
   const renderPageNumbers = () => {
     const pageNumbers = [];
     if (totalPages <= 6) {
@@ -84,6 +89,13 @@ function FeaturePage() {
         <h1>FEATURE</h1>
         <div className='header-slice'></div>
         <div className='header-slice'></div>
+      </div>
+
+      <div className="feature-category">
+        {/* Button to toggle between latest and oldest */}
+        <button className="sort-toggle" onClick={() => setOrder(order === 'desc' ? 'asc' : 'desc')}>
+          {order === 'desc' ? 'SORT BY: OLDEST' : 'SORT BY: LATES'}
+        </button>
       </div>
 
       <div className="feature-articles">
