@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     "3.27.199.83",
     "127.0.0.1",
     "localhost",
+    "192.168.1.102"
 ]  # Add your domain or IP address here
 
 # Application definition

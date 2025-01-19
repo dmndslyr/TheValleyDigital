@@ -266,6 +266,14 @@ def homepage_storie_list(request):
                     if story.top_story and story.top_story.image
                     else None
                 ),  # Add absolute image URL
+                "author": (
+                    story.top_story.author if story.top_story else "No author"
+                ),
+                "publication_date": (
+                    story.top_story.publication_date.strftime("%m-%d-%Y")
+                    if story.top_story and story.top_story.publication_date
+                    else "Not yet published"
+                ),
             },
             "featured_editorial": {
                 "headline": (
@@ -280,7 +288,15 @@ def homepage_storie_list(request):
                     request.build_absolute_uri(story.featured_editorial.image.url)
                     if story.featured_editorial and story.featured_editorial.image
                     else None
-                ),  # Add absolute image URL
+                ), 
+                "author": (
+                    story.featured_editorial.author if story.featured_editorial else "No author"
+                ),
+                "publication_date": (
+                    story.featured_editorial.publication_date.strftime("%m-%d-%Y")
+                    if story.featured_editorial and story.featured_editorial.publication_date
+                    else "Not yet published"
+                ), # Add absolute image URL
             },
             "featured_feature": {
                 "headline": (
@@ -295,7 +311,15 @@ def homepage_storie_list(request):
                     request.build_absolute_uri(story.featured_feature.image.url)
                     if story.featured_feature and story.featured_feature.image
                     else None
-                ),  # Add absolute image URL
+                ),  
+                "author": (
+                    story.featured_feature.author if story.featured_feature else "No author"
+                ),
+                "publication_date": (
+                    story.featured_feature.publication_date.strftime("%m-%d-%Y")
+                    if story.featured_feature and story.featured_feature.publication_date
+                    else "Not yet published"
+                ), # Add absolute image URL
             },
             "featured_articles": [
                 {
@@ -306,6 +330,12 @@ def homepage_storie_list(request):
                         if article.image
                         else None
                     ),  # Include absolute image URL for articles
+                    "author": (
+                    article.author if article.author else "No author"
+                    ),
+                    "publication_date": (
+                        article.publication_date.strftime("%m-%d-%Y")
+                    ), # Add absolute image URL
                 }
                 for article in story.featured_articles.all()
             ],  # Include article IDs, headlines, and absolute image URLs
