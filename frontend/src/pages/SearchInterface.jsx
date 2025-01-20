@@ -9,6 +9,7 @@ const SearchInterface = () => {
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null); 
   const [searchQuery, setSearchQuery] = useState(''); // Local search query state
+  const [selectedArticleId, setSelectedArticleId] = useState(null); // Track selected article
 
   const articlesPerPage = 10;
   const location = useLocation(); // Get location (URL) object
@@ -54,21 +55,22 @@ const SearchInterface = () => {
     }
   }, [location.search]); // Re-run when the URL search string changes
 
-  // Handle search bar input
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value); // Update local state when typing in the search bar
-  };
-
-  // Handle search on "Enter"
-  const handleSearchEnter = () => {
-    navigate(`/advanced-search?query=${searchQuery}`); // Update URL when user presses Enter
-  };
+  // Trigger navigation when article is selected
+  useEffect(() => {
+    if (selectedArticleId !== null) {
+      navigate(`/article/${selectedArticleId}`);
+    }
+  }, [selectedArticleId, navigate]);
 
   // Pagination Logic
   const totalPages = Math.ceil(articles.length / articlesPerPage);
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
   const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
+
+  const handleArticleClick = (id) => {
+    setSelectedArticleId(id); // Set selected article id
+  };
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -121,7 +123,7 @@ const SearchInterface = () => {
               <img src={article.img || placeholderImg} alt="Article" className="all-article-image" />
               <div className="all-article-content">
                 <div className="all-article-section">{article.category}</div>
-                <h2 className="all-article-headline">{article.headline}</h2>
+                <h2 className="all-article-headline" onClick={() => handleArticleClick(article.id)}>{article.headline}</h2>
                 <div className="all-article-metadata">
                   <div className="all-article-author">
                     <span className="all-article-author-name">{article.author}</span>

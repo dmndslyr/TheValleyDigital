@@ -1,32 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './NewsPage.css';
 import placeholderImg from "../assets/placeholder.jpg";
 import axios from 'axios';
 
-
 function NewsPage() {
-
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [order, setOrder] = useState('desc');  // State to manage sorting order (latest or oldest)
   const articlesPerPage = 10;
 
-  useEffect(() => { const fetchArticles = async () => { 
-    try { 
-      const response = await axios.get('http://127.0.0.1:8000/articles/'); 
-      setArticles(response.data.filter(article => article.category === 1));
-      setLoading(false); 
-    } 
-    catch (error) { 
-      console.error('Error fetching articles:', error); 
-      setLoading(false); 
-    } 
-  }; 
+  // Fetch articles from the API with the selected order
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/articles/?order=${order}`);
+      setArticles(response.data.filter(article => article.category === 1));  // Filter for News category
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+      setLoading(false);
+    }
+  };
 
-  fetchArticles(); }, []);
-  
-  const sortedArticles = articles.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+  useEffect(() => {
+    fetchArticles();
+  }, [order]);  // Re-fetch articles when the order changes
+
+  // Sort articles by date based on the 'order' state
+  const sortedArticles = articles.sort((a, b) => {
+    const dateA = new Date(a.date + ' ' + a.time);
+    const dateB = new Date(b.date + ' ' + b.time);
+    return order === 'desc' ? dateB - dateA : dateA - dateB;
+  });
 
   const totalPages = Math.ceil(sortedArticles.length / articlesPerPage);
   const indexOfLastArticle = currentPage * articlesPerPage;
@@ -34,9 +40,10 @@ function NewsPage() {
   const currentArticles = sortedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
 
   const navigate = useNavigate();
-  const handleArticleClick = (id) => 
-    { navigate(`/article/${id}`); 
+  const handleArticleClick = (id) => {
+    navigate(`/article/${id}`);
   };
+
   // Handle next page
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -57,12 +64,10 @@ function NewsPage() {
   const renderPageNumbers = () => {
     const pageNumbers = [];
     if (totalPages <= 6) {
-      // If total pages are 6 or less, display all page numbers
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(i);
       }
     } else {
-      // If more than 6 pages, show the first, current, last, and ellipses
       pageNumbers.push(1); // First page
       if (currentPage > 5) {
         pageNumbers.push('...');
@@ -78,12 +83,23 @@ function NewsPage() {
     return pageNumbers;
   };
 
+  if (loading) {
+    return <div>Loading articles...</div>;
+  }
+
   return (
     <div className="news-page">
       <div className="news-title-header">
         <h1>NEWS</h1>
         <div className='header-slice'></div>
         <div className='header-slice'></div>
+      </div>
+
+      <div className="news-category">
+        {/* Button to toggle between latest and oldest */}
+        <button className="sort-toggle" onClick={() => setOrder(order === 'desc' ? 'asc' : 'desc')}>
+          {order === 'desc' ? 'SORT BY: OLDEST' : 'SORT BY: LATEST'}
+        </button>
       </div>
 
       <div className="news-articles">
@@ -98,10 +114,10 @@ function NewsPage() {
                   <div className="news-content newest-content">
                     <h2 className="news-headline newest-headline">{article.headline}</h2>
                     <div className="news-meta">
-                    <div className="news-author"> 
-                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span> 
+                      <div className="news-author">
+                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span>
                       </div>
-                      <div className="news-date">{article.date}</div> 
+                      <div className="news-date">{article.date}</div>
                     </div>
                   </div>
                 </div>
@@ -116,10 +132,10 @@ function NewsPage() {
                   <div className="news-content">
                     <h2 className="news-headline">{article.headline}</h2>
                     <div className="news-meta">
-                      <div className="news-author"> 
-                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span> 
+                      <div className="news-author">
+                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span>
                       </div>
-                      <div className="news-date">{article.date}</div> 
+                      <div className="news-date">{article.date}</div>
                     </div>
                   </div>
                 </div>
@@ -135,10 +151,10 @@ function NewsPage() {
             <div className="news-content">
               <h2 className="news-headline">{article.headline}</h2>
               <div className="news-meta">
-                <div className="news-author"> 
-                  <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span> 
+                <div className="news-author">
+                  <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span>
                 </div>
-                <div className="news-date">{article.date}</div> 
+                <div className="news-date">{article.date}</div>
               </div>
             </div>
           </div>

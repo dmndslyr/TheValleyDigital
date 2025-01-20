@@ -34,6 +34,27 @@
   clip-path: polygon(2% 0, 100% 0, 98% 100%, 0 100%);
 }
 
+.feature-category{
+  display: flex;
+  justify-content: center;
+  margin-top: 2vw;
+}
+
+.sort-toggle{
+  border: none;
+  background-color: #f5a201;
+  color: white;
+  padding: 0.5vw;
+  font-size: 1vw;
+  cursor: pointer;
+}
+
+.sort-toggle:hover{
+  color: #f5a201;
+  background-color: #013c58;
+  transform: scale(1.2);
+}
+
 /* Articles container */
 .feature-articles {
   display: flex;
@@ -74,15 +95,16 @@
 .newest-content {
   width: 100%;
   text-align: left; 
+  flex: 1; /*dinagdag 'to*/
 }
 
 .newest-content .feature-headline {
   font-size: 2vw; 
   font-weight: bolder;
   color: #0b1e33;
+  margin-top: 2vw; /*dinagdag 'to*/
   margin-bottom: 0px;
   padding-left: 0; 
-  overflow: scroll;
 }
 
 .newest-content .feature-meta {

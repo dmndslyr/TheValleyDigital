@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './SciTechPage.css';
 import placeholderImg from "../assets/placeholder.jpg"; // If SciTechPage is inside 'src/pages'
 import axios from 'axios';
@@ -9,23 +9,30 @@ function SciTechPage() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [order, setOrder] = useState('desc');  // State to manage sorting order (latest or oldest)
   const articlesPerPage = 10;
 
-  useEffect(() => { const fetchArticles = async () => { 
-    try { 
-      const response = await axios.get('http://127.0.0.1:8000/articles/'); 
-      setArticles(response.data.filter(article => article.category === 4));
-      setLoading(false); 
-    } 
-    catch (error) { 
-      console.error('Error fetching articles:', error); 
-      setLoading(false); 
-    } 
-  }; 
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/articles/?order=${order}`);
+      setArticles(response.data.filter(article => article.category === 4)); // Filter for SciTech category
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+      setLoading(false);
+    }
+  };
 
-  fetchArticles(); }, []);
-  
-  const sortedArticles = articles.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+  useEffect(() => {
+    fetchArticles();
+  }, [order]);  // Re-fetch articles when the order changes
+
+  // Sort articles by date based on the 'order' state
+  const sortedArticles = articles.sort((a, b) => {
+    const dateA = new Date(a.date + ' ' + a.time);
+    const dateB = new Date(b.date + ' ' + b.time);
+    return order === 'desc' ? dateB - dateA : dateA - dateB;
+  });
 
   const totalPages = Math.ceil(sortedArticles.length / articlesPerPage);
   const indexOfLastArticle = currentPage * articlesPerPage;
@@ -33,8 +40,8 @@ function SciTechPage() {
   const currentArticles = sortedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
 
   const navigate = useNavigate();
-  const handleArticleClick = (id) => 
-    { navigate(`/article/${id}`); 
+  const handleArticleClick = (id) => {
+    navigate(`/article/${id}`);
   };
 
   // Handle next page
@@ -61,7 +68,7 @@ function SciTechPage() {
         pageNumbers.push(i);
       }
     } else {
-      pageNumbers.push(1);
+      pageNumbers.push(1); // First page
       if (currentPage > 5) {
         pageNumbers.push('...');
       }
@@ -71,10 +78,14 @@ function SciTechPage() {
       if (currentPage < totalPages - 1) {
         pageNumbers.push('...');
       }
-      pageNumbers.push(totalPages);
+      pageNumbers.push(totalPages); // Last page
     }
     return pageNumbers;
   };
+
+  if (loading) {
+    return <div>Loading articles...</div>;
+  }
 
   return (
     <div className="scitech-page">
@@ -82,6 +93,13 @@ function SciTechPage() {
         <h1>SCI-TECH</h1>
         <div className='header-slice'></div>
         <div className='header-slice'></div>
+      </div>
+
+      <div className="scitech-category">
+        {/* Button to toggle between latest and oldest */}
+        <button className="sort-toggle" onClick={() => setOrder(order === 'desc' ? 'asc' : 'desc')}>
+          {order === 'desc' ? 'SORT BY: OLDEST' : 'SORT BY: LATEST'}
+        </button>
       </div>
 
       <div className="scitech-articles">
@@ -96,10 +114,10 @@ function SciTechPage() {
                   <div className="scitech-content newest-content">
                     <h2 className="scitech-headline newest-headline">{article.headline}</h2>
                     <div className="scitech-meta">
-                      <div className="scitech-author"> 
-                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span> 
+                      <div className="scitech-author">
+                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span>
                       </div>
-                      <div className="scitech-date">{article.date}</div> 
+                      <div className="scitech-date">{article.date}</div>
                     </div>
                   </div>
                 </div>
@@ -114,10 +132,10 @@ function SciTechPage() {
                   <div className="scitech-content">
                     <h2 className="scitech-headline">{article.headline}</h2>
                     <div className="scitech-meta">
-                      <div className="scitech-author"> 
-                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span> 
+                      <div className="scitech-author">
+                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span>
                       </div>
-                      <div className="scitech-date">{article.date}</div> 
+                      <div className="scitech-date">{article.date}</div>
                     </div>
                   </div>
                 </div>
@@ -129,15 +147,15 @@ function SciTechPage() {
         {/* Display other articles */}
         {currentArticles.slice(currentPage === 1 ? 3 : 0).map((article) => (
           <div key={article.id} className="scitech-article" onClick={() => handleArticleClick(article.id)}>
-                        <img src={article.image_url || placeholderImg} alt="Article" className="scitech-image" />
+            <img src={article.image_url || placeholderImg} alt="Article" className="scitech-image" />
             <div className="scitech-content">
               <h2 className="scitech-headline">{article.headline}</h2>
               <div className="scitech-meta">
-                      <div className="scitech-author"> 
-                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span> 
-                      </div>
-                      <div className="scitech-date">{article.date}</div> 
-                    </div>
+                <div className="scitech-author">
+                  <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span>
+                </div>
+                <div className="scitech-date">{article.date}</div>
+              </div>
             </div>
           </div>
         ))}
@@ -168,5 +186,5 @@ function SciTechPage() {
   );
 }
 
-
 export default SciTechPage;
+

@@ -1,31 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './SportsPage.css';
 import placeholderImg from "../assets/placeholder.jpg"; // If SportsPage is inside 'src/pages'
 import axios from 'axios';
 
 function SportsPage() {
-
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [order, setOrder] = useState('desc');  // State to manage sorting order (latest or oldest)
   const articlesPerPage = 10;
 
-  useEffect(() => { const fetchArticles = async () => { 
-    try { 
-      const response = await axios.get('http://127.0.0.1:8000/articles/'); 
-      setArticles(response.data.filter(article => article.category === 5));
-      setLoading(false); 
-    } 
-    catch (error) { 
-      console.error('Error fetching articles:', error); 
-      setLoading(false); 
-    } 
-  }; 
+  const fetchArticles = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/articles/?order=${order}`);
+      setArticles(response.data.filter(article => article.category === 5)); // Filter for Sports category
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+      setLoading(false);
+    }
+  };
 
-  fetchArticles(); }, []);
-  
-  const sortedArticles = articles.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+  useEffect(() => {
+    fetchArticles();
+  }, [order]);  // Re-fetch articles when the order changes
+
+  // Sort articles by date based on the 'order' state
+  const sortedArticles = articles.sort((a, b) => {
+    const dateA = new Date(a.date + ' ' + a.time);
+    const dateB = new Date(b.date + ' ' + b.time);
+    return order === 'desc' ? dateB - dateA : dateA - dateB;
+  });
 
   const totalPages = Math.ceil(sortedArticles.length / articlesPerPage);
   const indexOfLastArticle = currentPage * articlesPerPage;
@@ -33,8 +39,8 @@ function SportsPage() {
   const currentArticles = sortedArticles.slice(indexOfFirstArticle, indexOfLastArticle);
 
   const navigate = useNavigate();
-  const handleArticleClick = (id) => 
-    { navigate(`/article/${id}`); 
+  const handleArticleClick = (id) => {
+    navigate(`/article/${id}`);
   };
 
   // Handle next page
@@ -61,7 +67,7 @@ function SportsPage() {
         pageNumbers.push(i);
       }
     } else {
-      pageNumbers.push(1);
+      pageNumbers.push(1); // First page
       if (currentPage > 5) {
         pageNumbers.push('...');
       }
@@ -71,10 +77,14 @@ function SportsPage() {
       if (currentPage < totalPages - 1) {
         pageNumbers.push('...');
       }
-      pageNumbers.push(totalPages);
+      pageNumbers.push(totalPages); // Last page
     }
     return pageNumbers;
   };
+
+  if (loading) {
+    return <div>Loading articles...</div>;
+  }
 
   return (
     <div className="sports-page">
@@ -82,6 +92,13 @@ function SportsPage() {
         <h1>SPORTS</h1>
         <div className='header-slice'></div>
         <div className='header-slice'></div>
+      </div>
+
+      <div className="sports-category">
+        {/* Button to toggle between latest and oldest */}
+        <button className="sort-toggle" onClick={() => setOrder(order === 'desc' ? 'asc' : 'desc')}>
+          {order === 'desc' ? 'SORT BY: OLDEST' : 'SORT BY: LATEST'}
+        </button>
       </div>
 
       <div className="sports-articles">
@@ -96,11 +113,11 @@ function SportsPage() {
                   <div className="sports-content newest-content">
                     <h2 className="sports-headline newest-headline">{article.headline}</h2>
                     <div className="sports-meta">
-                <div className="sports-author"> 
-                  <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span> 
-                </div>
-                <div className="sports-date">{article.date}</div> 
-              </div>
+                      <div className="sports-author">
+                        <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span>
+                      </div>
+                      <div className="sports-date">{article.date}</div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -114,11 +131,11 @@ function SportsPage() {
                   <div className="sports-content">
                     <h2 className="sports-headline">{article.headline}</h2>
                     <div className="sports-meta">
-                <div className="sports-author"> 
-                  <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span> 
-                </div>
-                <div className="sports-date">{article.date}</div> 
-              </div>
+                      <div className="sports-author">
+                        <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span>
+                      </div>
+                      <div className="sports-date">{article.date}</div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -129,14 +146,14 @@ function SportsPage() {
         {/* Display other articles */}
         {currentArticles.slice(currentPage === 1 ? 3 : 0).map((article) => (
           <div key={article.id} className="sports-article" onClick={() => handleArticleClick(article.id)}>
-                        <img src={article.image_url || placeholderImg} alt="Article" className="sports-image" />
+            <img src={article.image_url || placeholderImg} alt="Article" className="sports-image" />
             <div className="sports-content">
               <h2 className="sports-headline">{article.headline}</h2>
               <div className="sports-meta">
-                <div className="sports-author"> 
-                  <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span> 
+                <div className="sports-author">
+                  <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span>
                 </div>
-                <div className="sports-date">{article.date}</div> 
+                <div className="sports-date">{article.date}</div>
               </div>
             </div>
           </div>
@@ -169,3 +186,4 @@ function SportsPage() {
 }
 
 export default SportsPage;
+

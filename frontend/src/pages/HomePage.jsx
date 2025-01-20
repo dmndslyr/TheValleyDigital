@@ -121,6 +121,7 @@ function HomePage() {
               <>
                 <img className="top-story-image" src={topStory.image_url || placeholderImg} alt="Top Story" />
                 <h2 className="top-story-headline">{topStory?.headline}</h2>
+                <h3 className="top-story-details">{topStory?.author}</h3>
               </>
             )}
           </div>
@@ -130,6 +131,7 @@ function HomePage() {
                 <h1><span>|</span> FEATURED ARTICLE</h1>
                 <img src={headline.image_url || placeholderImg} alt={headline} className="featured-article-image" />
                 <h3 className="featured-article-headline">{headline.headline}</h3>
+                <h4 className="featured-article-details">{headline.author}</h4>
               </div>
             ))}
           </div>
@@ -140,6 +142,7 @@ function HomePage() {
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> EDITORIAL</h2>
                   <h3 className="editorial-headline">{featuredEditorial?.headline}</h3>
+                  <h4 className="editorial-details">{featuredEditorial?.author}</h4>
                 </div>
               </div>
             </div>
@@ -151,6 +154,7 @@ function HomePage() {
                 <div className='editorial-detail'>
                   <h2 className="editorial-feature"><span>|</span> FEATURE</h2>
                   <h3 className="editorial-headline">{featuredFeature?.headline}</h3>
+                  <h4 className="editorial-details">{featuredEditorial?.author}</h4>
                 </div>
               </div>
             </div>
