@@ -321,11 +321,12 @@
     }
   
     /* Resize image for smaller screens */
-    .newest-image {
-        max-height: 25vw; 
-        margin-right: 3vw;
-        object-fit: cover; 
-    }
+    .newest-article .newest-image {
+      max-height: 40vw;
+      width: 100%; 
+      margin-right: 0vw;
+      object-fit: cover; 
+  }
   
     /* Resize text for smaller screens */
     .newest-content .scitech-headline {

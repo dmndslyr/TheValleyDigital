@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import Article, Tag, PrintedIssue, HomepageStorie
+from .models import Article, Tag, PrintedIssue, HomepageStorie, Categorie
 from django.shortcuts import get_object_or_404
 
 from rest_framework.response import Response
@@ -51,27 +51,40 @@ def article_list(request):
 
 def category_articles(request, category_name):
     # Get sorting order from the query parameter (default is descending)
-    order = request.GET.get(
-        "order", "desc"
-    )  # 'asc' for ascending, 'desc' for descending
+    order = request.GET.get("order", "desc")  # 'asc' for ascending, 'desc' for descending
 
+    # Determine the sorting fields based on the order
     if order == "asc":
         sort_fields = ["publication_date", "-id"]  # Ascending by date, descending by ID
     else:
-        sort_fields = [
-            "-publication_date",
-            "-id",
-        ]  # Descending by date, descending by ID
+        sort_fields = ["-publication_date", "-id"]  # Descending by date, descending by ID
+
+    # Get the category object to ensure it exists
+    category = get_object_or_404(Categorie, name=category_name)
 
     # Filter and sort articles by category and specified fields
-    articles = (
-        Article.objects.filter(category__name=category_name)
-        .order_by(*sort_fields)
-        .values()
-    )
+    articles = Article.objects.filter(category=category).order_by(*sort_fields)
+
+    # Construct the JSON response explicitly
+    article_list = [
+        {
+            "id": article.id,
+            "headline": article.headline,
+            "author": article.author,
+            "content": article.content,
+            "category": article.category.name,
+            "slug": article.slug,
+            "image_url": article.image.url if article.image else None,
+            "publication_date": article.publication_date.strftime("%m-%d-%y") if article.publication_date else None,
+            "is_published": article.is_published,
+            "caption": article.caption,
+            "tags": [tag.name for tag in article.tags.all()],
+        }
+        for article in articles
+    ]
 
     # Return the articles as JSON
-    return JsonResponse(list(articles), safe=False)
+    return JsonResponse(article_list, safe=False)
 
 
 def news_articles(request):
@@ -79,23 +92,23 @@ def news_articles(request):
 
 
 def feature_articles(request):
-    return category_articles(request, "Feature")
+    return category_articles(request, "FEATURE")
 
 
 def editorial_articles(request):
-    return category_articles(request, "Editorial")
+    return category_articles(request, "EDITORIAL")
 
 
 def opinion_articles(request):
-    return category_articles(request, "Opinion")
+    return category_articles(request, "OPINION")
 
 
 def science_and_technology_articles(request):
-    return category_articles(request, "Science and Technology")
+    return category_articles(request, "SCI-TECH")
 
 
 def sports_articles(request):
-    return category_articles(request, "Sports")
+    return category_articles(request, "SPORTS")
 
 
 # Article Detail
@@ -117,6 +130,7 @@ def article_detail(request, identifier):
             "image_url": (
                 article.image.url if article.image else None
             ),  # Include the image URL
+            "publication_date": article.publication_date.strftime("%m-%d-%y") if article.publication_date else None,
         }
     )
 

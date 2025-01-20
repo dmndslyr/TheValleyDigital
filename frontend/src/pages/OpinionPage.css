@@ -321,9 +321,10 @@
     }
   
     /* Resize image for smaller screens */
-    .newest-image {
-        max-height: 25vw; 
-        margin-right: 3vw;
+    .newest-article .newest-image {
+        max-height: 40vw;
+        width: 100%; 
+        margin-right: 0vw;
         object-fit: cover; 
     }
   
