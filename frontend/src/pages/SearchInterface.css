@@ -6,6 +6,15 @@
   margin: 0 auto 30px; 
 }
 
+.search-result-text{
+  font-size: 2vw;
+  color: #00537a;
+  margin: 2vw 0;
+}
+
+.no-results{
+  font-size: 1.5vw;
+}
 
 /* Articles container */
 .all-article-articles {

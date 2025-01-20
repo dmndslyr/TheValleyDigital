@@ -2,7 +2,6 @@ from django.http import JsonResponse
 from .models import Article, Tag, PrintedIssue, HomepageStorie
 from django.shortcuts import get_object_or_404
 
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import ArticleSerializer
@@ -13,7 +12,8 @@ from rest_framework.permissions import IsAdminUser
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 
-from django.db.models import Q
+from django.db.models import Q, Case, When, IntegerField
+
 
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
@@ -28,13 +28,18 @@ def home(request):
 @api_view(["GET"])
 def article_list(request):
     # Get sorting order from the query parameter (default is descending)
-    order = request.GET.get("order", "desc")  # 'asc' for ascending, 'desc' for descending
+    order = request.GET.get(
+        "order", "desc"
+    )  # 'asc' for ascending, 'desc' for descending
 
     # Determine the sorting fields based on the order
     if order == "asc":
         sort_fields = ["publication_date", "-id"]  # Ascending by date, descending by ID
     else:
-        sort_fields = ["-publication_date", "-id"]  # Descending by date, descending by ID
+        sort_fields = [
+            "-publication_date",
+            "-id",
+        ]  # Descending by date, descending by ID
 
     # Fetch and sort articles
     articles = Article.objects.all().order_by(*sort_fields)
@@ -46,15 +51,24 @@ def article_list(request):
 
 def category_articles(request, category_name):
     # Get sorting order from the query parameter (default is descending)
-    order = request.GET.get("order", "desc")  # 'asc' for ascending, 'desc' for descending
+    order = request.GET.get(
+        "order", "desc"
+    )  # 'asc' for ascending, 'desc' for descending
 
     if order == "asc":
         sort_fields = ["publication_date", "-id"]  # Ascending by date, descending by ID
     else:
-        sort_fields = ["-publication_date", "-id"]  # Descending by date, descending by ID
+        sort_fields = [
+            "-publication_date",
+            "-id",
+        ]  # Descending by date, descending by ID
 
     # Filter and sort articles by category and specified fields
-    articles = Article.objects.filter(category__name=category_name).order_by(*sort_fields).values()
+    articles = (
+        Article.objects.filter(category__name=category_name)
+        .order_by(*sort_fields)
+        .values()
+    )
 
     # Return the articles as JSON
     return JsonResponse(list(articles), safe=False)
@@ -63,17 +77,22 @@ def category_articles(request, category_name):
 def news_articles(request):
     return category_articles(request, "NEWS")
 
+
 def feature_articles(request):
     return category_articles(request, "Feature")
+
 
 def editorial_articles(request):
     return category_articles(request, "Editorial")
 
+
 def opinion_articles(request):
     return category_articles(request, "Opinion")
 
+
 def science_and_technology_articles(request):
     return category_articles(request, "Science and Technology")
+
 
 def sports_articles(request):
     return category_articles(request, "Sports")
@@ -104,55 +123,94 @@ def article_detail(request, identifier):
 
 def article_search(request):
     query = request.GET.get("query", "")  # Get the search query from the GET request
-    order = request.GET.get("order", "desc")  # Get sorting order from the query parameter (default is descending)
-
-    # Determine the sorting fields based on the order
-    if order == "asc":
-        sort_fields = ["publication_date", "-id"]  # Ascending by publication_date, descending by ID
-    else:
-        sort_fields = ["-publication_date", "-id"]  # Descending by publication_date, descending by ID
+    order = request.GET.get(
+        "order", "desc"
+    )  # Get sorting order from the query parameter (default is descending)
 
     # Start with all articles
     articles = Article.objects.all()
 
     if query:
-        # Filter articles based on query matching headline, content, author, tags, or slug
-        articles = articles.filter(
-            Q(headline__icontains=query)  # Match headline
-            | Q(content__icontains=query)  # Match content
-            | Q(author__icontains=query)  # Match author
-            | Q(tags__name__icontains=query)  # Match tags (ManyToMany relationship)
-            | Q(slug__icontains=query)  # Match slugs
-        ).distinct()
+        # Add relevance scoring based on query matching
+        articles = articles.annotate(
+            relevance=Case(
+                When(
+                    headline__icontains=query, then=4
+                ),  # Match headline (highest priority)
+                When(author__icontains=query, then=3),  # Match author
+                When(tags__name__icontains=query, then=2),  # Match tags
+                When(content__icontains=query, then=1),  # Match content
+                default=0,
+                output_field=IntegerField(),
+            )
+        ).filter(
+            Q(headline__icontains=query)
+            | Q(content__icontains=query)
+            | Q(author__icontains=query)
+            | Q(tags__name__icontains=query)
+        )
+
+    # Determine sorting fields
+    if order == "asc":
+        sort_fields = [
+            "relevance",
+            "publication_date",
+            "-id",
+        ]  # Ascending by relevance, publication_date, and ID
+    elif order == "desc":
+        sort_fields = [
+            "-relevance",
+            "-publication_date",
+            "-id",
+        ]  # Descending by relevance, publication_date, and ID
+    else:  # Default to relevance sorting
+        sort_fields = ["-relevance", "-publication_date", "-id"]
 
     # Fetch and sort articles
-    articles = articles.order_by(*sort_fields)
+    articles = articles.order_by(*sort_fields).prefetch_related("tags")
 
-    # Prepare the data to be returned as JSON
-    articles_data = list(
-        articles.values(
-            "id",
-            "headline",
-            "author",
-            "publication_date",
-            "content",
-            "tags__name",
-            "slug",
-        )
-    )
+    # Remove duplicates manually in Python
+    unique_articles = []
+    seen_ids = set()
+    for article in articles:
+        if article.id not in seen_ids:
+            unique_articles.append(
+                {
+                    "id": article.id,
+                    "category": article.category.name,
+                    "headline": article.headline,
+                    "author": article.author,
+                    "publication_date": article.publication_date,
+                    "content": article.content,
+                    "slug": article.slug,
+                    "tags": list(
+                        article.tags.values_list("name", flat=True).distinct()
+                    ),
+                }
+            )
+            seen_ids.add(article.id)
 
     # Return the response in JSON format
-    return JsonResponse({"articles": articles_data})
+    return JsonResponse({"articles": unique_articles})
+
 
 def printed_issues_list(request):
     # Get sorting order from the query parameter (default is descending)
-    order = request.GET.get("order", "desc")  # 'asc' for ascending, 'desc' for descending
+    order = request.GET.get(
+        "order", "desc"
+    )  # 'asc' for ascending, 'desc' for descending
 
     # Determine the sorting fields based on the order
     if order == "asc":
-        sort_fields = ["month_range", "-id"]  # Ascending by `month_range`, descending by `id`
+        sort_fields = [
+            "month_range",
+            "-id",
+        ]  # Ascending by `month_range`, descending by `id`
     else:
-        sort_fields = ["-month_range", "-id"]  # Descending by `month_range`, descending by `id`
+        sort_fields = [
+            "-month_range",
+            "-id",
+        ]  # Descending by `month_range`, descending by `id`
 
     # Fetch and sort printed issues
     issues = PrintedIssue.objects.all().order_by(*sort_fields)
@@ -186,6 +244,7 @@ def printed_issue_detail(request, identifier):
             "pdf_file_url": issue.pdf_file.url if issue.pdf_file else None,
         }
     )
+
 
 def homepage_storie_list(request):
     # Get all the homepage stories

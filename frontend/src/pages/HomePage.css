@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: row;
   margin: 0 5vw;
-  gap: 1vw;
+  gap: 2vw;
 }
 
 /* Slideshow */
@@ -220,7 +220,7 @@
 
 .recent-article-image {
   width: 100%;
-  height: 10vw;
+  height: 15vw;
   object-fit: cover;
   align-self: center;
 }
