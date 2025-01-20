@@ -7,7 +7,24 @@ from .models import Article, Categorie, Tag, PrintedIssue, User, HomepageStorie
 # Custom form for Article admin
 class ArticleAdminForm(forms.ModelForm):
     publication_month_year = forms.DateField(
-        widget=forms.SelectDateWidget(years=range(2016, 2031)),
+        widget=forms.SelectDateWidget(
+            years=range(2016, 2031),
+            months={
+                1: "January",
+                2: "February",
+                3: "March",
+                4: "April",
+                5: "May",
+                6: "June",
+                7: "July",
+                8: "August",
+                9: "September",
+                10: "October",
+                11: "November",
+                12: "December",
+                
+            },
+        ),
         required=True,
         label="Publication Date (Month and Year)",
     )
