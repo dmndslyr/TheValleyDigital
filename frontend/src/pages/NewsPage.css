@@ -122,6 +122,7 @@
 .newest-content .news-time,
 .newest-content .news-date {
   font-size: 1.2vw;
+  color: #013c58;
 }
 
 /* Articles container */
@@ -191,7 +192,7 @@
   display: inline-block;
   margin-right: .5vw;
   font-size: 0.9rem;
-  color: #0b1e33;
+  color: #013c58;
 }
 
 /* General news image styling */
@@ -233,7 +234,7 @@
 .news-time,
 .news-date {
   display: inline-block;
-  color: #0b1e33;
+  color: #013c58;
   margin: 5px 0;
   font-size: 1vw; 
   margin-right: .5vw; 

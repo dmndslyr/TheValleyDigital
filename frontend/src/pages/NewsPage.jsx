@@ -115,7 +115,7 @@ function NewsPage() {
                     <h2 className="news-headline newest-headline">{article.headline}</h2>
                     <div className="news-meta">
                       <div className="news-author">
-                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span>
+                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.publication_date}</span>
                       </div>
                       <div className="news-date">{article.date}</div>
                     </div>
@@ -133,7 +133,7 @@ function NewsPage() {
                     <h2 className="news-headline">{article.headline}</h2>
                     <div className="news-meta">
                       <div className="news-author">
-                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span>
+                        <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.publication_date}</span>
                       </div>
                       <div className="news-date">{article.date}</div>
                     </div>
@@ -152,7 +152,7 @@ function NewsPage() {
               <h2 className="news-headline">{article.headline}</h2>
               <div className="news-meta">
                 <div className="news-author">
-                  <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.time}</span>
+                  <span className="news-author-name">{article.author}</span> | <span className="news-time">{article.publication_date}</span>
                 </div>
                 <div className="news-date">{article.date}</div>
               </div>

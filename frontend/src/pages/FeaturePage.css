@@ -346,7 +346,8 @@
 
   .newest-content .feature-time,
   .newest-content .feature-date {
-      font-size: 3vw; 
+      font-size: 3vw;
+      color: #013c58;
   }
 
   /* Make the article's padding smaller */
@@ -368,7 +369,8 @@
   .recent-article .feature-author,
   .recent-article .feature-date,
   .recent-article .feature-time {
-      font-size: 2.1vw; 
+      font-size: 2.1vw;
+      color: #013c58;
   }
 
   /* Pagination button adjustments */
@@ -406,5 +408,6 @@
   .feature-time,
   .feature-date {
       font-size: 2.4vw; 
+      color: #013c58;
   }
 }

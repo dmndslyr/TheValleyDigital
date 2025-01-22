@@ -130,6 +130,7 @@ def article_detail(request, identifier):
             "image_url": (
                 article.image.url if article.image else None
             ),  # Include the image URL
+            "caption": article.caption,
             "publication_date": article.publication_date.strftime("%m-%d-%y") if article.publication_date else None,
         }
     )

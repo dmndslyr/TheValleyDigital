@@ -109,7 +109,7 @@ function EditorialsPage() {
                     <h2 className="editorials-headline newest-headline">{article.headline}</h2>
                     <div className="editorials-meta">
                       <div className="editorials-author">
-                        <span className="editorials-author-name">{article.author}</span> | <span className="editorials-time">{article.time}</span>
+                        <span className="editorials-author-name">{article.author}</span> | <span className="editorials-time">{article.publication_date}</span>
                       </div>
                       <div className="editorials-date">{article.date}</div>
                     </div>
@@ -126,7 +126,7 @@ function EditorialsPage() {
                     <h2 className="editorials-headline">{article.headline}</h2>
                     <div className="editorials-meta">
                       <div className="editorials-author">
-                        <span className="editorials-author-name">{article.author}</span> | <span className="editorials-time">{article.time}</span>
+                        <span className="editorials-author-name">{article.author}</span> | <span className="editorials-time">{article.publication_date}</span>
                       </div>
                       <div className="editorials-date">{article.date}</div>
                     </div>
@@ -144,7 +144,7 @@ function EditorialsPage() {
               <h2 className="editorials-headline">{article.headline}</h2>
               <div className="editorials-meta">
                 <div className="editorials-author">
-                  <span className="editorials-author-name">{article.author}</span> | <span className="all-article-time">{article.time}</span>
+                  <span className="editorials-author-name">{article.author}</span> | <span className="all-article-time">{article.publication_date}</span>
                 </div>
                 <div className="editorials-date">{article.date}</div>
               </div>

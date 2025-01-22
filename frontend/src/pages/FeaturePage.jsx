@@ -109,7 +109,7 @@ function FeaturePage() {
                     <h2 className="feature-headline newest-headline">{article.headline}</h2>
                     <div className="feature-meta">
                       <div className="feature-author">
-                        <span className="feature-name">{article.author}</span> | <span className="feature-time">{article.time}</span>
+                        <span className="feature-name">{article.author}</span> | <span className="feature-time">{article.publication_date}</span>
                       </div>
                       <div className="feature-date">{article.date}</div>
                     </div>
@@ -126,7 +126,7 @@ function FeaturePage() {
                     <h2 className="feature-headline">{article.headline}</h2>
                     <div className="feature-meta">
                       <div className="feature-author">
-                        <span className="feature-name">{article.author}</span> | <span className="feature-time">{article.time}</span>
+                        <span className="feature-name">{article.author}</span> | <span className="feature-time">{article.publication_date}</span>
                       </div>
                       <div className="feature-date">{article.date}</div>
                     </div>
@@ -144,7 +144,7 @@ function FeaturePage() {
               <h2 className="feature-headline">{article.headline}</h2>
               <div className="feature-meta">
                 <div className="feature-author">
-                  <span className="feature-name">{article.author}</span> | <span className="feature-time">{article.time}</span>
+                  <span className="feature-name">{article.author}</span> | <span className="feature-time">{article.publication_date}</span>
                 </div>
                 <div className="feature-date">{article.date}</div>
               </div>

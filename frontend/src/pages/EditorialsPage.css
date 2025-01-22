@@ -120,9 +120,10 @@
   }
   
   .newest-content .editorials-time,
-  .newest-content .editorials-date {
+  .all-article-time {
     margin-right: .5vw; 
     font-size: 1.2vw;
+    color: #013c58;
   }
   
   /* Articles container */
