@@ -119,6 +119,9 @@ def article_detail(request, identifier):
     else:
         article = get_object_or_404(Article, slug=identifier)  # Search by Slug
 
+    # Retrieve tag names as a list
+    tags = list(article.tags.values_list('name', flat=True))
+
     return JsonResponse(
         {
             "id": article.id,
@@ -132,6 +135,7 @@ def article_detail(request, identifier):
             ),  # Include the image URL
             "caption": article.caption,
             "publication_date": article.publication_date.strftime("%m-%d-%y") if article.publication_date else None,
+            "tags": tags,  # Add tags to the response
         }
     )
 
