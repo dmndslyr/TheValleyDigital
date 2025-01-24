@@ -95,10 +95,9 @@ function ArticlePage() {
         ))}
       </div>
 
-      {/* Facebook Comments Plugin */}
       <div className="comments-section">
         <h3>Comments</h3>
-        <FacebookComments url={window.location.href} />
+        <FacebookComments url={`http://127.0.0.1:8000/article/${slug}/`} />
       </div>
     </div>
   );
