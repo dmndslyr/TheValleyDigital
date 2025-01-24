@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './SciTechPage.css';
+import './ScitechPage.css';
 import placeholderImg from "../assets/placeholder.jpg"; // If SciTechPage is inside 'src/pages'
 import axios from 'axios';
 
