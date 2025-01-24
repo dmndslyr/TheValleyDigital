@@ -30,7 +30,8 @@ ALLOWED_HOSTS = [
     "3.27.199.83",
     "127.0.0.1",
     "localhost",
-    "192.168.1.102"
+    "192.168.1.102",
+    "https://thevalleydigital.netlify.app/",
 ]  # Add your domain or IP address here
 
 # Application definition
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = ["http://localhost:5173/"]
+CORS_ALLOW_ALL_ORIGINS = ["http://localhost:5173/","https://thevalleydigital.netlify.app/"]
 
 REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permission.AllowAny"]}
 
