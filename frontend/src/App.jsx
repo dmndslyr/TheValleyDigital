@@ -13,7 +13,7 @@ import PrintIssue from './pages/PrintIssue';
 import NewsPage from './pages/NewsPage';
 import EditorialsPage from './pages/EditorialsPage';
 import FeaturePage from './pages/FeaturePage';
-import SciTechPage from './pages/SciTechPage';
+import SciTechPage from './pages/ScitechPage';
 import SportsPage from './pages/SportsPage';
 import OpinionPage from './pages/OpinionPage';
 
