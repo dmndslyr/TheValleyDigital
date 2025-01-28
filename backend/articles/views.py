@@ -28,21 +28,16 @@ def home(request):
 @api_view(["GET"])
 def article_list(request):
     # Get sorting order from the query parameter (default is descending)
-    order = request.GET.get(
-        "order", "desc"
-    )  # 'asc' for ascending, 'desc' for descending
+    order = request.GET.get("order", "desc")  # 'asc' for ascending, 'desc' for descending
 
     # Determine the sorting fields based on the order
     if order == "asc":
         sort_fields = ["publication_date", "-id"]  # Ascending by date, descending by ID
     else:
-        sort_fields = [
-            "-publication_date",
-            "-id",
-        ]  # Descending by date, descending by ID
+        sort_fields = ["-publication_date", "-id"]  # Descending by date, descending by ID
 
-    # Fetch and sort articles
-    articles = Article.objects.all().order_by(*sort_fields)
+    # Fetch and sort only published articles
+    articles = Article.objects.filter(is_published=True).order_by(*sort_fields)
 
     # Serialize the data
     serializer = ArticleSerializer(articles, many=True, context={"request": request})
@@ -62,8 +57,8 @@ def category_articles(request, category_name):
     # Get the category object to ensure it exists
     category = get_object_or_404(Categorie, name=category_name)
 
-    # Filter and sort articles by category and specified fields
-    articles = Article.objects.filter(category=category).order_by(*sort_fields)
+    # Filter and sort published articles by category
+    articles = Article.objects.filter(category=category, is_published=True).order_by(*sort_fields)
 
     # Construct the JSON response explicitly
     article_list = [
@@ -111,7 +106,6 @@ def sports_articles(request):
     return category_articles(request, "SPORTS")
 
 
-# Article Detail
 def article_detail(request, identifier):
     # Check if the identifier is numeric (ID) or a slug
     if identifier.isdigit():
@@ -119,25 +113,31 @@ def article_detail(request, identifier):
     else:
         article = get_object_or_404(Article, slug=identifier)  # Search by Slug
 
+    # If the article is unpublished, set the headline accordingly
+    if not article.is_published:
+        return JsonResponse(
+            status=403  # Forbidden status for clarity
+        )
+
     # Retrieve tag names as a list
     tags = list(article.tags.values_list('name', flat=True))
 
     return JsonResponse(
         {
             "id": article.id,
+            "is_published": article.is_published,
             "headline": article.headline,
             "author": article.author,
             "content": article.content,
             "category": article.category.name,
-            "slug": article.slug,  # Include the slug in the response
-            "image_url": (
-                article.image.url if article.image else None
-            ),  # Include the image URL
+            "slug": article.slug,
+            "image_url": article.image.url if article.image else None,
             "caption": article.caption,
             "publication_date": article.publication_date.strftime("%m-%d-%y") if article.publication_date else None,
-            "tags": tags,  # Add tags to the response
+            "tags": tags,
         }
     )
+
 
 
 def article_search(request):
