@@ -34,35 +34,21 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
 ]
 
-<<<<<<< HEAD
 CORS_ALLOW_ALL_ORIGINS = [
     "http://localhost:5173/",
     "https://thevalleydigital.netlify.app/",
 ]
 
-REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permission.AllowAny"]}
-=======
-CORS_ALLOW_ALL_ORIGINS = ["http://localhost:5173/", "https://thevalleydigital.netlify.app/"]
->>>>>>> 30f0854a12f6d88c6d80748705d16eb04d1b2737
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this path is correct
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Ensure this path is correct
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
 ]
 
 
-<<<<<<< HEAD
-    urlpatterns = [
-        # Add your URL patterns here
-    ]
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-=======
->>>>>>> 30f0854a12f6d88c6d80748705d16eb04d1b2737
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -121,22 +107,6 @@ TIME_ZONE = "Asia/Manila"
 USE_I18N = True
 USE_TZ = True
 
-<<<<<<< HEAD
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Your static files directory
-]
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
-=======
->>>>>>> 30f0854a12f6d88c6d80748705d16eb04d1b2737
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "articles.User"
