@@ -515,3 +515,9 @@ SystemExit: 1
 [2025-01-29 14:13:17 +0000] [85877] [ERROR] Worker (pid:85884) was sent SIGKILL! Perhaps out of memory?
 [2025-01-29 14:13:17 +0000] [87781] [INFO] Booting worker with pid: 87781
 [2025-01-29 14:13:17 +0000] [87782] [INFO] Booting worker with pid: 87782
+[2025-01-29 14:57:38 +0000] [88412] [INFO] Starting gunicorn 23.0.0
+[2025-01-29 14:57:38 +0000] [88412] [INFO] Listening at: http://0.0.0.0:8000 (88412)
+[2025-01-29 14:57:38 +0000] [88412] [INFO] Using worker: sync
+[2025-01-29 14:57:38 +0000] [88413] [INFO] Booting worker with pid: 88413
+[2025-01-29 14:57:38 +0000] [88414] [INFO] Booting worker with pid: 88414
+[2025-01-29 14:57:38 +0000] [88415] [INFO] Booting worker with pid: 88415
