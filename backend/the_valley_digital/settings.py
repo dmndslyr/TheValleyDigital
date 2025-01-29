@@ -34,10 +34,11 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Ensure this path is correct
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this path is correct
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Your static files directory
+    os.path.join(BASE_DIR, 'static'),
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
