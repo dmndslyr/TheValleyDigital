@@ -114,7 +114,7 @@ function SportsPage() {
                     <h2 className="sports-headline newest-headline">{article.headline}</h2>
                     <div className="sports-meta">
                       <div className="sports-author">
-                        <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span>
+                        <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.publication_date}</span>
                       </div>
                       <div className="sports-date">{article.date}</div>
                     </div>
@@ -132,7 +132,7 @@ function SportsPage() {
                     <h2 className="sports-headline">{article.headline}</h2>
                     <div className="sports-meta">
                       <div className="sports-author">
-                        <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span>
+                        <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.publication_date}</span>
                       </div>
                       <div className="sports-date">{article.date}</div>
                     </div>
@@ -151,7 +151,7 @@ function SportsPage() {
               <h2 className="sports-headline">{article.headline}</h2>
               <div className="sports-meta">
                 <div className="sports-author">
-                  <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.time}</span>
+                  <span className="sports-author-name">{article.author}</span> | <span className="sports-time">{article.publication_date}</span>
                 </div>
                 <div className="sports-date">{article.date}</div>
               </div>

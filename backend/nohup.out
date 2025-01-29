@@ -454,3 +454,64 @@ SystemExit: 1
 [2025-01-29 14:10:15 +0000] [87757] [INFO] Booting worker with pid: 87757
 [2025-01-29 14:10:15 +0000] [85877] [ERROR] Worker (pid:85890) was sent SIGKILL! Perhaps out of memory?
 [2025-01-29 14:10:15 +0000] [87758] [INFO] Booting worker with pid: 87758
+[2025-01-29 14:13:16 +0000] [85877] [CRITICAL] WORKER TIMEOUT (pid:85884)
+[2025-01-29 14:13:16 +0000] [85877] [CRITICAL] WORKER TIMEOUT (pid:87758)
+[2025-01-29 22:13:16 +0800] [85884] [ERROR] Error handling request (no URI read)
+Traceback (most recent call last):
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/workers/sync.py", line 133, in handle
+    req = next(parser)
+          ^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/parser.py", line 41, in __next__
+    self.mesg = self.mesg_class(self.cfg, self.unreader, self.source_addr, self.req_count)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 259, in __init__
+    super().__init__(cfg, unreader, peer_addr)
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 60, in __init__
+    unused = self.parse(self.unreader)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 271, in parse
+    self.get_data(unreader, buf, stop=True)
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 262, in get_data
+    data = unreader.read()
+           ^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/unreader.py", line 36, in read
+    d = self.chunk()
+        ^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/unreader.py", line 63, in chunk
+    return self.sock.recv(self.mxchunk)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 204, in handle_abort
+    sys.exit(1)
+SystemExit: 1
+[2025-01-29 22:13:16 +0800] [85884] [INFO] Worker exiting (pid: 85884)
+[2025-01-29 22:13:16 +0800] [87758] [ERROR] Error handling request (no URI read)
+Traceback (most recent call last):
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/workers/sync.py", line 133, in handle
+    req = next(parser)
+          ^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/parser.py", line 41, in __next__
+    self.mesg = self.mesg_class(self.cfg, self.unreader, self.source_addr, self.req_count)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 259, in __init__
+    super().__init__(cfg, unreader, peer_addr)
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 60, in __init__
+    unused = self.parse(self.unreader)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 271, in parse
+    self.get_data(unreader, buf, stop=True)
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/message.py", line 262, in get_data
+    data = unreader.read()
+           ^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/unreader.py", line 36, in read
+    d = self.chunk()
+        ^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/http/unreader.py", line 63, in chunk
+    return self.sock.recv(self.mxchunk)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/TheValleyDigital/backend/venv/lib/python3.12/site-packages/gunicorn/workers/base.py", line 204, in handle_abort
+    sys.exit(1)
+SystemExit: 1
+[2025-01-29 22:13:16 +0800] [87758] [INFO] Worker exiting (pid: 87758)
+[2025-01-29 14:13:17 +0000] [85877] [ERROR] Worker (pid:85884) was sent SIGKILL! Perhaps out of memory?
+[2025-01-29 14:13:17 +0000] [87781] [INFO] Booting worker with pid: 87781
+[2025-01-29 14:13:17 +0000] [87782] [INFO] Booting worker with pid: 87782

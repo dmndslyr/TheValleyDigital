@@ -4,7 +4,13 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-z9dkv=$z=vl80mm14s4j2193v(=feh!%xq!-f-yiig$#09^1ld"
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 ALLOWED_HOSTS = [
     "3.27.199.83",
@@ -28,12 +34,15 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = ["http://localhost:5173/", "https://thevalleydigital.netlify.app/"]
+CORS_ALLOW_ALL_ORIGINS = [
+    "http://localhost:5173/",
+    "https://thevalleydigital.netlify.app/",
+]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# Static files (CSS, JavaScript, Images)
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 

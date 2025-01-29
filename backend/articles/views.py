@@ -28,13 +28,18 @@ def home(request):
 @api_view(["GET"])
 def article_list(request):
     # Get sorting order from the query parameter (default is descending)
-    order = request.GET.get("order", "desc")  # 'asc' for ascending, 'desc' for descending
+    order = request.GET.get(
+        "order", "desc"
+    )  # 'asc' for ascending, 'desc' for descending
 
     # Determine the sorting fields based on the order
     if order == "asc":
         sort_fields = ["publication_date", "-id"]  # Ascending by date, descending by ID
     else:
-        sort_fields = ["-publication_date", "-id"]  # Descending by date, descending by ID
+        sort_fields = [
+            "-publication_date",
+            "-id",
+        ]  # Descending by date, descending by ID
 
     # Fetch and sort only published articles
     articles = Article.objects.filter(is_published=True).order_by(*sort_fields)
@@ -46,19 +51,26 @@ def article_list(request):
 
 def category_articles(request, category_name):
     # Get sorting order from the query parameter (default is descending)
-    order = request.GET.get("order", "desc")  # 'asc' for ascending, 'desc' for descending
+    order = request.GET.get(
+        "order", "desc"
+    )  # 'asc' for ascending, 'desc' for descending
 
     # Determine the sorting fields based on the order
     if order == "asc":
         sort_fields = ["publication_date", "-id"]  # Ascending by date, descending by ID
     else:
-        sort_fields = ["-publication_date", "-id"]  # Descending by date, descending by ID
+        sort_fields = [
+            "-publication_date",
+            "-id",
+        ]  # Descending by date, descending by ID
 
     # Get the category object to ensure it exists
     category = get_object_or_404(Categorie, name=category_name)
 
     # Filter and sort published articles by category
-    articles = Article.objects.filter(category=category, is_published=True).order_by(*sort_fields)
+    articles = Article.objects.filter(category=category, is_published=True).order_by(
+        *sort_fields
+    )
 
     # Construct the JSON response explicitly
     article_list = [
@@ -70,7 +82,11 @@ def category_articles(request, category_name):
             "category": article.category.name,
             "slug": article.slug,
             "image_url": article.image.url if article.image else None,
-            "publication_date": article.publication_date.strftime("%m-%d-%y") if article.publication_date else None,
+            "publication_date": (
+                article.publication_date.strftime("%m-%d-%y")
+                if article.publication_date
+                else None
+            ),
             "is_published": article.is_published,
             "caption": article.caption,
             "tags": [tag.name for tag in article.tags.all()],
@@ -115,12 +131,10 @@ def article_detail(request, identifier):
 
     # If the article is unpublished, set the headline accordingly
     if not article.is_published:
-        return JsonResponse(
-            status=403  # Forbidden status for clarity
-        )
+        return JsonResponse(status=403)  # Forbidden status for clarity
 
     # Retrieve tag names as a list
-    tags = list(article.tags.values_list('name', flat=True))
+    tags = list(article.tags.values_list("name", flat=True))
 
     return JsonResponse(
         {
@@ -133,11 +147,14 @@ def article_detail(request, identifier):
             "slug": article.slug,
             "image_url": article.image.url if article.image else None,
             "caption": article.caption,
-            "publication_date": article.publication_date.strftime("%m-%d-%y") if article.publication_date else None,
+            "publication_date": (
+                article.publication_date.strftime("%m-%d-%y")
+                if article.publication_date
+                else None
+            ),
             "tags": tags,
         }
     )
-
 
 
 def article_search(request):
@@ -146,8 +163,8 @@ def article_search(request):
         "order", "desc"
     )  # Get sorting order from the query parameter (default is descending)
 
-    # Start with all articles
-    articles = Article.objects.all()
+    # Start with all published articles only
+    articles = Article.objects.filter(is_published=True)
 
     if query:
         # Add relevance scoring based on query matching
@@ -285,9 +302,7 @@ def homepage_storie_list(request):
                     if story.top_story and story.top_story.image
                     else None
                 ),  # Add absolute image URL
-                "author": (
-                    story.top_story.author if story.top_story else "No author"
-                ),
+                "author": (story.top_story.author if story.top_story else "No author"),
                 "publication_date": (
                     story.top_story.publication_date.strftime("%m-%d-%Y")
                     if story.top_story and story.top_story.publication_date
@@ -307,15 +322,18 @@ def homepage_storie_list(request):
                     request.build_absolute_uri(story.featured_editorial.image.url)
                     if story.featured_editorial and story.featured_editorial.image
                     else None
-                ), 
+                ),
                 "author": (
-                    story.featured_editorial.author if story.featured_editorial else "No author"
+                    story.featured_editorial.author
+                    if story.featured_editorial
+                    else "No author"
                 ),
                 "publication_date": (
                     story.featured_editorial.publication_date.strftime("%m-%d-%Y")
-                    if story.featured_editorial and story.featured_editorial.publication_date
+                    if story.featured_editorial
+                    and story.featured_editorial.publication_date
                     else "Not yet published"
-                ), # Add absolute image URL
+                ),  # Add absolute image URL
             },
             "featured_feature": {
                 "headline": (
@@ -330,15 +348,18 @@ def homepage_storie_list(request):
                     request.build_absolute_uri(story.featured_feature.image.url)
                     if story.featured_feature and story.featured_feature.image
                     else None
-                ),  
+                ),
                 "author": (
-                    story.featured_feature.author if story.featured_feature else "No author"
+                    story.featured_feature.author
+                    if story.featured_feature
+                    else "No author"
                 ),
                 "publication_date": (
                     story.featured_feature.publication_date.strftime("%m-%d-%Y")
-                    if story.featured_feature and story.featured_feature.publication_date
+                    if story.featured_feature
+                    and story.featured_feature.publication_date
                     else "Not yet published"
-                ), # Add absolute image URL
+                ),  # Add absolute image URL
             },
             "featured_articles": [
                 {
@@ -349,12 +370,10 @@ def homepage_storie_list(request):
                         if article.image
                         else None
                     ),  # Include absolute image URL for articles
-                    "author": (
-                    article.author if article.author else "No author"
-                    ),
+                    "author": (article.author if article.author else "No author"),
                     "publication_date": (
                         article.publication_date.strftime("%m-%d-%Y")
-                    ), # Add absolute image URL
+                    ),  # Add absolute image URL
                 }
                 for article in story.featured_articles.all()
             ],  # Include article IDs, headlines, and absolute image URLs

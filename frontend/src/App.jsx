@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoadingSpinner from './components/LoadingSpinner';
 import NotFoundPage from './pages/404';
+import PageForbidden from './pages/403';
 import Layout from './components/Layout'; // Import the Layout component
 
 import PrintedIssuePage from "./components/PdfViewer";
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/print-issue" element={<Layout><PrintIssue /></Layout>} />
           <Route path="/print-issues/:identifier" element={<Layout><PdfViewer /></Layout>} />
           <Route path="/advanced-search" element={<Layout><SearchInterface /></Layout>} />
+          <Route path="/403" element={<PageForbidden />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

@@ -115,7 +115,7 @@ function OpinionPage() {
                     <h2 className="opinion-headline newest-headline">{article.headline}</h2>
                     <div className="opinion-meta">
                       <div className="opinion-author">
-                        <span className="opinion-author-name">{article.author}</span> | <span className="opinion-time">{article.time}</span>
+                        <span className="opinion-author-name">{article.author}</span> | <span className="opinion-time">{article.publication_date}</span>
                       </div>
                       <div className="opinion-date">{article.date}</div>
                     </div>
@@ -133,7 +133,7 @@ function OpinionPage() {
                     <h2 className="opinion-headline">{article.headline}</h2>
                     <div className="opinion-meta">
                       <div className="opinion-author">
-                        <span className="opinion-author-name">{article.author}</span> | <span className="opinion-time">{article.time}</span>
+                        <span className="opinion-author-name">{article.author}</span> | <span className="opinion-time">{article.publication_date}</span>
                       </div>
                       <div className="opinion-date">{article.date}</div>
                     </div>
@@ -152,7 +152,7 @@ function OpinionPage() {
               <h2 className="opinion-headline">{article.headline}</h2>
               <div className="opinion-meta">
                 <div className="opinion-author">
-                  <span className="opinion-author-name">{article.author}</span> | <span className="opinion-time">{article.time}</span>
+                  <span className="opinion-author-name">{article.author}</span> | <span className="opinion-time">{article.publication_date}</span>
                 </div>
                 <div className="opinion-date">{article.date}</div>
               </div>
