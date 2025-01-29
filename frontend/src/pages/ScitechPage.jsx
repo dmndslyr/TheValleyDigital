@@ -115,7 +115,7 @@ function SciTechPage() {
                     <h2 className="scitech-headline newest-headline">{article.headline}</h2>
                     <div className="scitech-meta">
                       <div className="scitech-author">
-                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span>
+                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.publication_date}</span>
                       </div>
                       <div className="scitech-date">{article.date}</div>
                     </div>
@@ -133,7 +133,7 @@ function SciTechPage() {
                     <h2 className="scitech-headline">{article.headline}</h2>
                     <div className="scitech-meta">
                       <div className="scitech-author">
-                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span>
+                        <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.publication_date}</span>
                       </div>
                       <div className="scitech-date">{article.date}</div>
                     </div>
@@ -152,7 +152,7 @@ function SciTechPage() {
               <h2 className="scitech-headline">{article.headline}</h2>
               <div className="scitech-meta">
                 <div className="scitech-author">
-                  <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.time}</span>
+                  <span className="scitech-author-name">{article.author}</span> | <span className="scitech-time">{article.publication_date}</span>
                 </div>
                 <div className="scitech-date">{article.date}</div>
               </div>

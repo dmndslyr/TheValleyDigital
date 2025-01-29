@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-z9dkv=$z=vl80mm14s4j2193v(=feh!%xq!-f-yiig$#09^1ld"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 ALLOWED_HOSTS = [
     "3.27.199.83",
@@ -54,7 +54,10 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = ["http://localhost:5173/","https://thevalleydigital.netlify.app/"]
+CORS_ALLOW_ALL_ORIGINS = [
+    "http://localhost:5173/",
+    "https://thevalleydigital.netlify.app/",
+]
 
 REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permission.AllowAny"]}
 
@@ -71,7 +74,7 @@ if DEBUG:  # Only in development mode
         # Add your URL patterns here
     ]
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -149,7 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # Your static files directory
 ]
@@ -178,13 +181,12 @@ AUTH_USER_MODEL = "articles.User"
 
 
 JAZZMIN_SETTINGS = {
-    "site_title": "The Valley Digital | Admin", 
-    "site_header": "The Valley Digital Admin", 
+    "site_title": "The Valley Digital | Admin",
+    "site_header": "The Valley Digital Admin",
     "site_brand": "The Valley Digital",
     "site_logo": "images/the_valley_pubmats_e9Q_icon.ico",  # Corrected to use a static file path
     "site_icon": "images/the_valley_pubmats_e9Q_icon.ico",
-    "welcome_sign": "Welcome to The Valley Digital Admin Panel", 
+    "welcome_sign": "Welcome to The Valley Digital Admin Panel",
     "show_sidebar": True,  # Show or hide the sidebar
     "navigation_expanded": True,  # Expand the sidebar navigation by default
 }
-

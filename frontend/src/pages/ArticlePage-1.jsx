@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ArticlePage.css';
+import PageForbidden from './403'; // Import 403 page
 import placeholderImg from '../assets/placeholder.jpg';
 
 function FacebookComments({ url }) {
@@ -29,19 +30,25 @@ function FacebookComments({ url }) {
 }
 
 function ArticlePage() {
-  const { identifier } = useParams(); // Use `identifier` to match the URL pattern
-  const navigate = useNavigate();
+  const { identifier } = useParams(); // Get article ID from URL
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isForbidden, setIsForbidden] = useState(false); // State for archived articles
 
   useEffect(() => {
     const fetchArticle = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/article/${identifier}/`);
-        setArticle(response.data);
-        setLoading(false);
+
+        if (response.data.isArchived) {
+          setIsForbidden(true); // If archived, set forbidden state
+        } else {
+          setArticle(response.data);
+        }
       } catch (error) {
         console.error('Error fetching article:', error);
+        setIsForbidden(true); // Assume forbidden if the request fails
+      } finally {
         setLoading(false);
       }
     };
@@ -53,8 +60,12 @@ function ArticlePage() {
     return <div>Loading article...</div>;
   }
 
+  if (isForbidden) {
+    return <PageForbidden />; // Show 403 page if the article is archived
+  }
+
   if (!article) {
-    navigate('/403');
+    return <div>Article not found</div>;
   }
 
   const {
@@ -66,7 +77,6 @@ function ArticlePage() {
     publication_date: date,
     is_published,
     category,
-    tags =[],
     slug
   } = article;
 
@@ -89,15 +99,6 @@ function ArticlePage() {
         <span className="article-author"><span className="author-name">{author}</span></span>
         <span className="article-date">{date}</span>
         {is_published && <span className="article-status">Published</span>}
-      </div>
-      
-      <div className='article-tags'>
-        <h1>Tags:</h1>
-        <div className="tags-container">
-          {tags.map((tag, index) => (
-            <a key={index} href={`/advanced-search?query=${tag}`} className="tag">{tag}, </a>
-          ))}
-        </div>
       </div>
 
       <div className="article-body">

@@ -57,6 +57,25 @@
     line-height: 1.6;
     text-align: justify;
   }
+
+  .article-tags{
+    font-style: italic;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    align-items: center;
+    margin: 1vw 0;
+  }
+
+  .article-tags h1{
+    font-size: 1.2vw;
+    color: #777;
+  }
+
+  .tag{
+    text-decoration: none;
+    font-size: 1vw;
+  }
   
   @media screen and (max-width: 750px) {
     .article-page {

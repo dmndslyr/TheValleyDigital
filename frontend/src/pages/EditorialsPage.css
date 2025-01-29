@@ -193,7 +193,7 @@
     display: inline-block;
     margin-right: .5vw;
     font-size: 0.9rem;
-    color: #0b1e33;
+    color: #013c58;
   }
   
   /* General news image styling */
@@ -235,7 +235,7 @@
   .editorials-time,
   .editorials-date {
     display: inline-block;
-    color: #0b1e33;
+    color: #013c58;
     margin: 5px 0;
     font-size: 1vw; 
     margin-right: .5vw; 
