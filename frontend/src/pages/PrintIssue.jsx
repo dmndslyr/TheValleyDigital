@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 import './PrintIssue.css';
 import placeholderImg from '../assets/placeholder-issue.jpg'; 
 import printIssueimg from '../assets/print-issue2.png';
@@ -8,7 +7,6 @@ import logo from '../assets/DIGITAL_print.png';
 function PrintIssue() {
   const [latestIssue, setLatestIssue] = useState(null);
   const [pastIssues, setPastIssues] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate hook
 
   useEffect(() => {
     fetch('http://127.0.0.1:8000/print-issues/')
@@ -23,9 +21,23 @@ function PrintIssue() {
       .catch(error => console.error('Error fetching printed issues:', error));
   }, []);
 
+  // Adjust the navigation function to fetch the PDF file URL and redirect
   const navigateToIssue = (identifier) => {
     console.log("Navigating to issue with identifier:", identifier); // Log the identifier
-    navigate(`/print-issues/${identifier}`); // Navigate to the PdfViewer component
+    // Fetch the details of the issue to get the PDF URL
+    fetch(`http://127.0.0.1:8000/print-issues/${identifier}/`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("Fetched issue data:", data); // Log the fetched issue data
+        const pdfFileUrl = data.pdf_file_url; // Extract the PDF URL
+        if (pdfFileUrl) {
+          // Redirect to the PDF URL
+          window.location.href = pdfFileUrl;
+        } else {
+          console.error("PDF file URL not found");
+        }
+      })
+      .catch(error => console.error('Error fetching issue details:', error));
   };
 
   return (
@@ -46,14 +58,6 @@ function PrintIssue() {
             <img src={logo} alt='logo'></img>
             <h3>VOLUME {latestIssue.volume}, NO.{latestIssue.issue_no}</h3>
             <p>16 pages | {latestIssue.month_range}</p>
-            {/* Add awards if available */}
-            {/* <div className='awards'>
-              {latestIssue.awards && latestIssue.awards.map((award, index) => (
-                <div key={index} className='award-item'>
-                  {award}
-                </div>
-              ))}
-            </div> */}
           </div>
         </div>
       )}
@@ -78,4 +82,3 @@ function PrintIssue() {
 }
 
 export default PrintIssue;
-

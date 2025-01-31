@@ -16,7 +16,8 @@ const PageForbidden = () => {
       <div className="forbidden-content">
       <i className="fa-solid fa-face-frown forbidden-icon"></i>
         <h1>403 - Forbidden</h1>
-        <p>This Article doesn't exist.</p>
+        <p>You are not allowed to view this article.</p>
+        <p>If you believe this is a mistake, please contact the administrator.</p>
         <button onClick={handleSubmit}>Go Back</button>
       </div>
     </div>

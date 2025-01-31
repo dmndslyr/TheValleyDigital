@@ -53,7 +53,7 @@ function HomePage() {
   useEffect(() => {
     const fetchHomepageStories = async () => {
       try {
-        const response = await axios.get('http://3.27.199.83/homepage-stories/');
+        const response = await axios.get('http://localhost:8000/homepage-stories/');
         setArticles(response.data.homepage_stories);
         setLoading(false);
       } catch (error) {
@@ -64,7 +64,7 @@ function HomePage() {
 
     const fetchRecentArticles = async () => {
       try {
-        const response = await axios.get('http://3.27.199.83/articles/');
+        const response = await axios.get('http://localhost:8000/articles/');
         setRecentArticles(response.data);
         setLoading(false);
       } catch (error) {

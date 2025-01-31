@@ -4,6 +4,7 @@ import axios from 'axios';
 import './ArticlePage.css';
 import placeholderImg from '../assets/placeholder.jpg';
 
+
 function FacebookComments({ url }) {
   useEffect(() => {
     if (window.FB) {
@@ -70,7 +71,7 @@ function ArticlePage() {
     slug
   } = article;
 
-  const img = image_url ? `http://127.0.0.1:8000${image_url}` : placeholderImg;
+  const img = image_url ? image_url : placeholderImg;
 
   return (
     <div className="article-page">

@@ -16,7 +16,7 @@ const NotFoundPage = () => {
       <div className="notfound-content">
       <i className="fa-solid fa-face-frown notfound-icon"></i>
         <h1>404 - Page Not Found</h1>
-        <p>Looks like you've wandered into the void! The page you are looking for doesn't exist, just like your analytics and comments.</p>
+        <p>Looks like you've wandered into the void! The page you are looking for doesn't exist.</p>
         <button onClick={handleSubmit}>Go Back</button>
       </div>
     </div>
