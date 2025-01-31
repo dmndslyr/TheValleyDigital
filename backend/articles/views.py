@@ -81,7 +81,11 @@ def category_articles(request, category_name):
             "content": article.content,
             "category": article.category.name,
             "slug": article.slug,
-            "image_url": article.image.url if article.image else None,
+            "image_url": (
+                    request.build_absolute_uri(article.image.url)
+                    if article.image
+                    else None
+                ),  # Add absolute image URL
             "publication_date": (
                 article.publication_date.strftime("%m-%d-%y")
                 if article.publication_date
@@ -145,7 +149,11 @@ def article_detail(request, identifier):
             "content": article.content,
             "category": article.category.name,
             "slug": article.slug,
-            "image_url": article.image.url if article.image else None,
+            "image_url": (
+                    request.build_absolute_uri(article.image.url)
+                    if article.image
+                    else None
+                ),  # Add absolute image URL
             "caption": article.caption,
             "publication_date": (
                 article.publication_date.strftime("%m-%d-%y")
@@ -259,7 +267,11 @@ def printed_issues_list(request):
             "issue_no": issue.issue_no,
             "month_range": issue.month_range,
             "is_published": issue.is_published,
-            "pdf_file_url": issue.pdf_file.url if issue.pdf_file else None,
+            "pdf_file_url": (
+                    request.build_absolute_uri(issue.pdf_file.url)
+                    if issue.pdf_file
+                    else None
+                ),  # Add absolute image URL
             "slug": issue.slug,
         }
         for issue in issues
@@ -277,7 +289,11 @@ def printed_issue_detail(request, identifier):
 
     return JsonResponse(
         {
-            "pdf_file_url": issue.pdf_file.url if issue.pdf_file else None,
+            "pdf_file_url": (
+                    request.build_absolute_uri(issue.pdf_file.url)
+                    if issue.pdf_file
+                    else None
+                ),  # Add absolute image URL
         }
     )
 

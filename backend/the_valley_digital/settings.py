@@ -34,10 +34,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = [
-    "http://localhost:5173/",
-    "https://thevalleydigital.netlify.app/",
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
