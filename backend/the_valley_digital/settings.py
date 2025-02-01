@@ -16,7 +16,7 @@ ALLOWED_HOSTS = [
     "54.153.133.144",
     "127.0.0.1",
     "localhost",
-    "thevalleydigital.netlify.app/",
+    "thevalleydigital.netlify.app",
 ]
 
 INSTALLED_APPS = [
@@ -31,6 +31,10 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://thevalleydigital.netlify.app",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
