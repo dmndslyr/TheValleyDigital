@@ -9,7 +9,7 @@ function PrintIssue() {
   const [pastIssues, setPastIssues] = useState([]);
 
   useEffect(() => {
-    fetch('http://54.153.133.144:8000//print-issues/')
+    fetch('http://54.153.133.144:8000/print-issues/')
       .then(response => response.json())
       .then(data => {
         console.log("Backend response:", data); // Log the response data
