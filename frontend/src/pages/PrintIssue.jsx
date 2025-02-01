@@ -9,7 +9,7 @@ function PrintIssue() {
   const [pastIssues, setPastIssues] = useState([]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/print-issues/')
+    fetch('http://54.153.133.144:8000//print-issues/')
       .then(response => response.json())
       .then(data => {
         console.log("Backend response:", data); // Log the response data
@@ -25,7 +25,7 @@ function PrintIssue() {
   const navigateToIssue = (identifier) => {
     console.log("Navigating to issue with identifier:", identifier); // Log the identifier
     // Fetch the details of the issue to get the PDF URL
-    fetch(`http://127.0.0.1:8000/print-issues/${identifier}/`)
+    fetch(`http://54.153.133.144:8000/print-issues/${identifier}/`)
       .then(response => response.json())
       .then(data => {
         console.log("Fetched issue data:", data); // Log the fetched issue data

@@ -38,7 +38,7 @@ function ArticlePage() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/article/${identifier}/`);
+        const response = await axios.get(`http://54.153.133.144:8000/article/${identifier}/`);
         setArticle(response.data);
         setLoading(false);
       } catch (error) {
@@ -109,7 +109,7 @@ function ArticlePage() {
 
       <div className="comments-section">
         <h3>Comments</h3>
-        <FacebookComments url={`http://127.0.0.1:8000/article/${slug}/`} />
+        <FacebookComments url={`http://54.153.133.144:8000/article/${slug}/`} />
       </div>
     </div>
   );

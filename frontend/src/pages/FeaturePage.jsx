@@ -13,7 +13,7 @@ function FeaturePage() {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/articles/?order=${order}`);
+      const response = await axios.get(`http://54.153.133.144:8000/articles/?order=${order}`);
       setArticles(response.data.filter(article => article.category === 3));  // Filter for Feature category
       setLoading(false);
     } catch (error) {

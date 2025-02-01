@@ -38,10 +38,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 # Additional directories to look for static files (for apps like Jazzmin, etc.)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # add your custom static files folder here
