@@ -150,7 +150,7 @@ def article_detail(request, identifier):
             "category": article.category.name,
             "slug": article.slug,
             "image_url": (
-                    f"http://54.153.133.144{article.image.url}"
+                    f"https://api.thevalley.digital{article.image.url}"
                     if article.image
                     else None
                 ),  # Add absolute image URL
