@@ -19,8 +19,8 @@ class ArticleSerializer(serializers.ModelSerializer):
         ]
 
     def get_image_url(self, obj):
-        # Retrieve the request object from the context to build the absolute URI for the image
+        # Retrieve the request object from the context to build the URI for the image
         request = self.context.get("request")
         if obj.image:
-            return request.build_absolute_uri(obj.image.url)  # Return the absolute URL of the image
+            return  f"https://api.thevalley.digital{obj.image.url}"  # Return the URL of the image
         return None

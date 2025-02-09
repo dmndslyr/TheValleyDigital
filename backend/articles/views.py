@@ -41,12 +41,39 @@ def article_list(request):
             "-id",
         ]  # Descending by date, descending by ID
 
-    # Fetch and sort only published articles
-    articles = Article.objects.filter(is_published=True).order_by(*sort_fields)
+    # Filter and sort published articles by category
+    articles = Article.objects.filter(category=category, is_published=True).order_by(
+        *sort_fields
+    )
 
-    # Serialize the data
-    serializer = ArticleSerializer(articles, many=True, context={"request": request})
-    return Response(serializer.data)
+    # Construct the JSON response explicitly
+    article_list = [
+        {
+            "id": article.id,
+            "headline": article.headline,
+            "author": article.author,
+            "content": article.content,
+            "category": article.category.name,
+            "slug": article.slug,
+            "image_url": (
+                    f"https://api.thevalley.digital{article.image.url}"
+                    if article.image
+                    else None
+                ),  # Add absolute image URL
+            "publication_date": (
+                article.publication_date.strftime("%m-%d-%y")
+                if article.publication_date
+                else None
+            ),
+            "is_published": article.is_published,
+            "caption": article.caption,
+            "tags": [tag.name for tag in article.tags.all()],
+        }
+        for article in articles
+    ]
+
+    # Return the articles as JSON
+    return JsonResponse(article_list, safe=False)
 
 
 def category_articles(request, category_name):
@@ -295,7 +322,7 @@ def printed_issue_detail(request, identifier):
     return JsonResponse(
         {
             "pdf_file_url": (
-                    request.build_absolute_uri(issue.pdf_file.url)
+                    f"https://api.thevalley.digital{issue.pdf_file.url}" 
                     if issue.pdf_file
                     else None
                 ),  # Add absolute image URL
@@ -319,7 +346,7 @@ def homepage_storie_list(request):
                     story.top_story.id if story.top_story else None
                 ),  # Add ID of top story
                 "image_url": (
-                    request.build_absolute_uri(story.top_story.image.url)
+                     f"https://api.thevalley.digital{story.top_story.image.url}"
                     if story.top_story and story.top_story.image
                     else None
                 ),  # Add absolute image URL
@@ -340,7 +367,7 @@ def homepage_storie_list(request):
                     story.featured_editorial.id if story.featured_editorial else None
                 ),  # Add ID of featured editorial
                 "image_url": (
-                    request.build_absolute_uri(story.featured_editorial.image.url)
+                     f"https://api.thevalley.digital{story.featured_editorial.image.url}"
                     if story.featured_editorial and story.featured_editorial.image
                     else None
                 ),
@@ -366,7 +393,7 @@ def homepage_storie_list(request):
                     story.featured_feature.id if story.featured_feature else None
                 ),  # Add ID of featured feature
                 "image_url": (
-                    request.build_absolute_uri(story.featured_feature.image.url)
+                     f"https://api.thevalley.digital{story.featured_feature.image.url}"
                     if story.featured_feature and story.featured_feature.image
                     else None
                 ),
@@ -387,7 +414,7 @@ def homepage_storie_list(request):
                     "id": article.id,
                     "headline": article.headline,
                     "image_url": (
-                        request.build_absolute_uri(article.image.url)
+                        f"https://api.thevalley.digital{article.image.url}"
                         if article.image
                         else None
                     ),  # Include absolute image URL for articles
