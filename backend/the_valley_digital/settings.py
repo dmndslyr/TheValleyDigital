@@ -43,6 +43,11 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.thevalley.digital',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://api.thevalley.digital",
+    "http://54.153.133.144"
+]
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 MEDIA_URL = "/media/"
