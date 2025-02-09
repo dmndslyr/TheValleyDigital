@@ -38,9 +38,9 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://thevalleydigital.netlify.app",
-    'thevalley.digital', 
-    'api.thevalley.digital', 
-    'www.thevalley.digital',
+    'https://thevalley.digital', 
+    'https://api.thevalley.digital', 
+    'https://www.thevalley.digital',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
