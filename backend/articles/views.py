@@ -82,7 +82,7 @@ def category_articles(request, category_name):
             "category": article.category.name,
             "slug": article.slug,
             "image_url": (
-                    request.build_absolute_uri(article.image.url)
+                    f"http://54.153.133.144{article.image.url}"
                     if article.image
                     else None
                 ),  # Add absolute image URL
@@ -150,7 +150,7 @@ def article_detail(request, identifier):
             "category": article.category.name,
             "slug": article.slug,
             "image_url": (
-                    request.build_absolute_uri(article.image.url)
+                    f"http://54.153.133.144{article.image.url}"
                     if article.image
                     else None
                 ),  # Add absolute image URL
@@ -227,6 +227,11 @@ def article_search(request):
                     "publication_date": article.publication_date,
                     "content": article.content,
                     "slug": article.slug,
+                    "image_url": (
+                    f"http://54.153.133.144{article.image.url}"
+                    if article.image
+                    else None
+                    ),  # Add absolute image URL
                     "tags": list(
                         article.tags.values_list("name", flat=True).distinct()
                     ),
@@ -268,7 +273,7 @@ def printed_issues_list(request):
             "month_range": issue.month_range,
             "is_published": issue.is_published,
             "pdf_file_url": (
-                    request.build_absolute_uri(issue.pdf_file.url)
+                    f"http://54.153.133.144{issue.pdf_file.url}" 
                     if issue.pdf_file
                     else None
                 ),  # Add absolute image URL
