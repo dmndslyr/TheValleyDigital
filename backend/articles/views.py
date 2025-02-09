@@ -82,7 +82,7 @@ def category_articles(request, category_name):
             "category": article.category.name,
             "slug": article.slug,
             "image_url": (
-                    f"http://54.153.133.144{article.image.url}"
+                    f"https://api.thevalley.digital{article.image.url}"
                     if article.image
                     else None
                 ),  # Add absolute image URL
@@ -228,7 +228,7 @@ def article_search(request):
                     "content": article.content,
                     "slug": article.slug,
                     "image_url": (
-                    f"http://54.153.133.144{article.image.url}"
+                    f"https://api.thevalley.digital{article.image.url}"
                     if article.image
                     else None
                     ),  # Add absolute image URL
@@ -273,7 +273,7 @@ def printed_issues_list(request):
             "month_range": issue.month_range,
             "is_published": issue.is_published,
             "pdf_file_url": (
-                    f"http://54.153.133.144{issue.pdf_file.url}" 
+                    f"https://api.thevalley.digital{issue.pdf_file.url}" 
                     if issue.pdf_file
                     else None
                 ),  # Add absolute image URL
