@@ -17,6 +17,9 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "thevalleydigital.netlify.app",
+    'thevalley.digital', 
+    'api.thevalley.digital', 
+    'www.thevalley.digital',
 ]
 
 INSTALLED_APPS = [
@@ -35,6 +38,9 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://thevalleydigital.netlify.app",
+    'thevalley.digital', 
+    'api.thevalley.digital', 
+    'www.thevalley.digital',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
