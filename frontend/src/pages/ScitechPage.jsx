@@ -15,7 +15,7 @@ function SciTechPage() {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(`https://api.thevalley.digital/articles/?order=${order}`);
-      setArticles(response.data.filter(article => article.category === 4)); // Filter for SciTech category
+      setArticles(response.data.filter(article => article.category === "SCI-TECH")); // Filter for SciTech category
       setLoading(false);
     } catch (error) {
       console.error('Error fetching articles:', error);

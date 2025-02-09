@@ -45,7 +45,6 @@ def article_list(request):
     articles = Article.objects.filter(is_published=True).order_by(
         *sort_fields
     )
-
     # Construct the JSON response explicitly
     article_list = [
         {

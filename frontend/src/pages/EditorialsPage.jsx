@@ -14,7 +14,7 @@ function EditorialsPage() {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(`https://api.thevalley.digital/articles/?order=${order}`);
-      setArticles(response.data.filter(article => article.category === 2));  // Filter for Editorial category
+      setArticles(response.data.filter(article => article.category === "EDITORIAL"));  // Filter for Editorial category
       setLoading(false);
     } catch (error) {
       console.error('Error fetching articles:', error);

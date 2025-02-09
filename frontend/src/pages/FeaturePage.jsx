@@ -14,7 +14,7 @@ function FeaturePage() {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(`https://api.thevalley.digital/articles/?order=${order}`);
-      setArticles(response.data.filter(article => article.category === 3));  // Filter for Feature category
+      setArticles(response.data.filter(article => article.category === "FEATURE"));  // Filter for Feature category
       setLoading(false);
     } catch (error) {
       console.error('Error fetching articles:', error);

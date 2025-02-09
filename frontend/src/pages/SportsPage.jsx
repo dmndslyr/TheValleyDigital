@@ -14,7 +14,7 @@ function SportsPage() {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(`https://api.thevalley.digital/articles/?order=${order}`);
-      setArticles(response.data.filter(article => article.category === 5)); // Filter for Sports category
+      setArticles(response.data.filter(article => article.category === "SPORTS")); // Filter for Sports category
       setLoading(false);
     } catch (error) {
       console.error('Error fetching articles:', error);

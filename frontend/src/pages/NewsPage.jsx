@@ -15,7 +15,7 @@ function NewsPage() {
   const fetchArticles = async () => {
     try {
       const response = await axios.get(`https://api.thevalley.digital/articles/?order=${order}`);
-      setArticles(response.data.filter(article => article.category === 1));  // Filter for News category
+      setArticles(response.data.filter(article => article.category === "NEWS"));  // Filter for News category
       setLoading(false);
     } catch (error) {
       console.error('Error fetching articles:', error);
