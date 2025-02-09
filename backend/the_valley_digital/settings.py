@@ -20,6 +20,7 @@ ALLOWED_HOSTS = [
     'thevalley.digital', 
     'api.thevalley.digital', 
     'www.thevalley.digital',
+    'admin.thevalley.digital',
 ]
 
 INSTALLED_APPS = [
@@ -41,11 +42,13 @@ CORS_ALLOWED_ORIGINS = [
     'https://thevalley.digital', 
     'https://api.thevalley.digital', 
     'https://www.thevalley.digital',
+    'https://admin.thevalley.digital',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://api.thevalley.digital",
-    "http://54.153.133.144"
+    "http://54.153.133.144",
+    'https://admin.thevalley.digital',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
