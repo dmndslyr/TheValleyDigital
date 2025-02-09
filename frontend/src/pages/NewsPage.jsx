@@ -14,7 +14,7 @@ function NewsPage() {
   // Fetch articles from the API with the selected order
   const fetchArticles = async () => {
     try {
-      const response = await axios.get(`http://54.153.133.144:8000/articles/?order=${order}`);
+      const response = await axios.get(`https://api.thevalley.digital/articles/?order=${order}`);
       setArticles(response.data.filter(article => article.category === 1));  // Filter for News category
       setLoading(false);
     } catch (error) {

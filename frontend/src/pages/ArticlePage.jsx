@@ -38,7 +38,7 @@ function ArticlePage() {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await axios.get(`http://54.153.133.144:8000/article/${identifier}/`);
+        const response = await axios.get(`https://api.thevalley.digital/article/${identifier}/`);
         setArticle(response.data);
         setLoading(false);
       } catch (error) {

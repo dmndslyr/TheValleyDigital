@@ -21,8 +21,8 @@ const SearchInterface = () => {
     setError(null);
 
     const url = query
-      ? `http://127.0.0.1:8000/search/?query=${encodeURIComponent(query)}`
-      : 'http://127.0.0.1:8000/articles/';
+      ? `https://api.thevalley.digital/search/?query=${encodeURIComponent(query)}`
+      : 'https://api.thevalley.digital/articles/';
 
     try {
       const response = await fetch(url);

@@ -14,7 +14,7 @@ function OpinionPage() {
 
   const fetchArticles = async () => {
     try {
-      const response = await axios.get(`http://54.153.133.144:8000/articles/?order=${order}`);
+      const response = await axios.get(`https://api.thevalley.digital/articles/?order=${order}`);
       setArticles(response.data.filter(article => article.category === 6));  // Filter for Opinion category
       setLoading(false);
     } catch (error) {

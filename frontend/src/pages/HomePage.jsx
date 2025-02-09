@@ -53,7 +53,7 @@ function HomePage() {
   useEffect(() => {
     const fetchHomepageStories = async () => {
       try {
-        const response = await axios.get('http://54.153.133.144:8000/homepage-stories/');
+        const response = await axios.get('https://api.thevalley.digital/homepage-stories/');
         setArticles(response.data.homepage_stories);
         setLoading(false);
       } catch (error) {
@@ -64,7 +64,7 @@ function HomePage() {
 
     const fetchRecentArticles = async () => {
       try {
-        const response = await axios.get('http://54.153.133.144:8000/articles/');
+        const response = await axios.get('https://api.thevalley.digital/articles/');
         setRecentArticles(response.data);
         setLoading(false);
       } catch (error) {
