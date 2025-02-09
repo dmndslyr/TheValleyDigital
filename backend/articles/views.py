@@ -42,7 +42,7 @@ def article_list(request):
         ]  # Descending by date, descending by ID
 
     # Filter and sort published articles by category
-    articles = Article.objects.filter(category=category, is_published=True).order_by(
+    articles = Article.objects.filter(is_published=True).order_by(
         *sort_fields
     )
 
