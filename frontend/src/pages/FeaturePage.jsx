@@ -93,8 +93,8 @@ function FeaturePage() {
 
       <div className="feature-category">
         {/* Button to toggle between latest and oldest */}
-        <button className="sort-toggle" onClick={() => setOrder(order === 'desc' ? 'asc' : 'desc')}>
-          {order === 'desc' ? 'SORT BY: OLDEST' : 'SORT BY: LATES'}
+        <button className="sort-toggle" onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}>
+          {order === 'asc' ? 'SORT BY: OLDEST' : 'SORT BY: LATEST'}
         </button>
       </div>
 
