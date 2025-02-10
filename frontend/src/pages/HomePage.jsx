@@ -195,7 +195,7 @@ function HomePage() {
                 <div key={index} className="recent-article" onClick={() => handleArticleClick(article.id)}>
                   <img src={article.image_url || placeholderImg} alt={article.headline} className="recent-article-image" />
                   <h2 className="category-label">
-                    <span>|</span> {categoryMap[article.category]}
+                    <span>|</span> {article.category}
                   </h2>
                   <h4 className="recent-article-headline">{article.headline}</h4>
                 </div>
